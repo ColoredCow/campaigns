@@ -14,7 +14,7 @@ class VerifyEmails extends Command
      *
      * @var string
      */
-    protected $signature = 'gf:verifyemails {--limit=5}';
+    protected $signature = 'campaigns:verifyemails {--limit=5}';
 
     /**
      * The console command description.

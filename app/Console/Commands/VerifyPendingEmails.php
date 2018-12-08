@@ -14,7 +14,7 @@ class VerifyPendingEmails extends Command
      *
      * @var string
      */
-    protected $signature = 'gf:verifypendingemails';
+    protected $signature = 'campaigns:verifypendingemails';
 
     /**
      * The console command description.

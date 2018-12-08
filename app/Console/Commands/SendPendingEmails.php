@@ -15,7 +15,7 @@ class SendPendingEmails extends Command
      *
      * @var string
      */
-    protected $signature = 'gf:sendpendingemails {--limit=100}';
+    protected $signature = 'campaigns:sendpendingemails {--limit=100}';
 
     /**
      * The console command description.

@@ -24,17 +24,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('gf:verifyemails --limit=6')
+        $schedule->command('campaigns:verifyemails --limit=6')
             ->everyMinute()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/email-verification.log'));
 
-        $schedule->command('gf:sendpendingemails --limit=30')
+        $schedule->command('campaigns:sendpendingemails --limit=30')
             ->everyMinute()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/sent-emails.log'));
 
-        $schedule->command('gf:verifypendingemails')
+        $schedule->command('campaigns:verifypendingemails')
             ->daily()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/verify-pending-emails.log'));
