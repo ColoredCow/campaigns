@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Mail;
+
+use App\Models\Campaign;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class SendCampaign extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    protected $campaign;
+
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct(Campaign $campaign)
+    {
+        $this->campaign = $campaign;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        // $this->from(config('gf.campaigns.from.email'), config('gf.campaigns.from.name'))
+        return $this->from('workshop@gurgaonfirst.org', 'Gurgaon First Workshop')
+            ->subject($this->campaign->email_subject)
+            ->view('emails.plain')
+            ->with([
+                'body' => $this->campaign->email_body,
+            ]);
+
+        if (!is_null($this->campaign->attachment)) {
+            // $this->attach(storage_path('app/' . $this->campaign->attachment));
+        }
+
+        return $this;
+    }
+}

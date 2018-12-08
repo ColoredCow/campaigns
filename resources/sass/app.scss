@@ -1,0 +1,69 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 51px 0 0;
+}
+
+.sidebar-sticky {
+    top: 0;
+    height: calc(100vh - 51px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.navbar {
+    z-index: 101;
+}
+
+main {
+    margin-top: 51px;
+}
+
+.btn {
+    @extend .shadow-sm;
+}
+
+.page-icon {
+    width: 30px;
+    height: 30px;
+}
+
+@each $name, $size in $icon-sizes {
+    .icon-#{$name} {
+        width: $size;
+        height: $size;
+    }
+}
+
+.inner-addon {
+    position: relative;
+}
+
+.inner-addon .icon {
+    position: absolute;
+    pointer-events: none;
+}
+
+.left-addon .icon  { left:  0px;}
+.right-addon .icon { right: 0px;}
+
+/* add padding  */
+.left-addon input {
+    padding-left:  35px;
+}
+.right-addon input {
+    padding-right: 35px;
+}
