@@ -33,7 +33,7 @@ class EmailVerifier
         $timeout = $max_conn_time / count($mxs);
 
         //try to check each host
-        while (list($host) = each($mxs)) {
+        foreach (array_keys($mxs) as $host) {
             #connect to SMTP server
             try {
                 if ($sock = @fsockopen($host, $port, $errno, $errstr, (float) $timeout)) {
