@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Helpers\EmailVerifier;
 use App\Models\Subscriber;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Skmetaly\EmailVerifier\Facades\EmailVerifier;
 
 class VerifyEmails extends Command
 {
@@ -43,7 +43,7 @@ class VerifyEmails extends Command
         $limit = $this->option('limit');
         $subscribers = Subscriber::whereNull('email_verification_at')->limit($limit)->get();
         foreach ($subscribers as $subscriber) {
-            $verified = EmailVerifier::verify($subscriber->email);
+            $verified = EmailVerifier::isValidEmail($subscriber->email);
             $subscriber->has_verified_email = $verified;
             $subscriber->email_verification_at = Carbon::now();
             $subscriber->save();
