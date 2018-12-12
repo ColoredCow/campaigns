@@ -30,8 +30,8 @@ class SendCampaign extends Mailable
      */
     public function build()
     {
-        // $this->from(config('gf.campaigns.from.email'), config('gf.campaigns.from.name'))
-        return $this->from('workshop@gurgaonfirst.org', 'Gurgaon First Workshop')
+
+        return $this->from(config('constants.campaigns.from.email'), config('constants.campaigns.from.name'))
             ->subject($this->campaign->email_subject)
             ->view('emails.plain')
             ->with([
