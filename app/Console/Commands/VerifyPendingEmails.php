@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Helpers\EmailVerifier;
 use App\Models\PendingEmail;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Skmetaly\EmailVerifier\Facades\EmailVerifier;
 
 class VerifyPendingEmails extends Command
 {

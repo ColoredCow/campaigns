@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\EmailVerifier;
 use App\Models\CampaignEmailsSent;
 use App\Models\FailedUpload;
 use App\Models\PendingEmail;
@@ -12,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
-use Skmetaly\EmailVerifier\Facades\EmailVerifier;
 
 class SubscriberController extends Controller
 {
