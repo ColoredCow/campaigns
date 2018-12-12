@@ -44,7 +44,7 @@ class VerifyPendingEmails extends Command
         foreach ($pendingEmails as $pendingEmail) {
             $subscriber = $pendingEmail->subscriber;
             if ($subscriber->has_verified_email) {
-                $verified = EmailVerifier::verify($subscriber->email);
+                $verified = EmailVerifier::isValidEmail($subscriber->email);
                 $subscriber->has_verified_email = $verified;
                 $subscriber->email_verification_at = Carbon::now();
                 $subscriber->save();

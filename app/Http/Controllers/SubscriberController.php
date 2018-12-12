@@ -88,7 +88,7 @@ class SubscriberController extends Controller
         $args = [
             'email' => $request->post('email'),
             'name' => $request->post('name'),
-            'has_verified_email' => EmailVerifier::verify($request->post('email')),
+            'has_verified_email' => EmailVerifier::isValidEmail($request->post('email')),
             'email_verification_at' => Carbon::now(),
         ];
 
@@ -134,7 +134,7 @@ class SubscriberController extends Controller
         $args = [
             'email' => $request->post('email'),
             'name' => $request->post('name'),
-            'has_verified_email' => EmailVerifier::verify($request->post('email')),
+            'has_verified_email' => EmailVerifier::isValidEmail($request->post('email')),
             'email_verification_at' => Carbon::now(),
         ];
         if ($request->post('phone')) {
