@@ -3,8 +3,8 @@
 return [
 	'campaigns' => [
 		'from' => [
-			'name' => 'Toolbox India',
-			'email' => 'campaigns@tbxi.org',
+			'name' => env('MAIL_FROM_NAME'),
+			'email' => env('MAIL_FROM_ADDRESS'),
 		],
 	],
 ];
