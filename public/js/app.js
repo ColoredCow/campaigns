@@ -13988,13 +13988,13 @@ tinymce.init({
 });
 
 $(document).ready(function () {
-    $(".add-attachment").click(function () {
-        var html = $(".clone").html();
-        $(".increment").after(html);
+    $('.add-attachment').click(function () {
+        var html = $('.clone').html();
+        $('.increment').after(html);
     });
 
-    $("body").on("click", ".btn-danger", function () {
-        $(this).parents(".control-group").remove();
+    $('body').on('click', '.remove-attachment', function () {
+        $(this).parents('.control-group').remove();
     });
 });
 
