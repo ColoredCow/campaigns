@@ -24,13 +24,29 @@
             <label for="email_body">Email Body</label>
             <textarea class="form-control" id="email_body" name="email_body" rows="8"></textarea>
         </div>
-        {{-- <div class="form-group col-md-3 px-0 mb-4">
+        <!-- div class="form-group col-md-3 px-0 mb-4">
             <label for="attachment">Add attachment <span class="text-grey-dark font-italic">(optional)</span></label>
             <input type="file" id="attachment" name="attachment">
-        </div> --}}
+        </div>  -->
+        <div class="col-lg-4 p-0 mb-3">
+            <div class="input-group control-group increment">
+              <input type="file" name="attachment[]" class="form-control">
+              <div class="input-group-btn d-flex"> 
+                <button class="btn add-attachment" type="button"><i data-feather="plus" class="icon-20 mr-1"></i></button>
+              </div>
+            </div>
+            <div class="clone d-none">
+              <div class="control-group input-group" style="margin-top:10px">
+                <input type="file" name="attachment[]" class="form-control">
+                <div class="input-group-btn"> 
+                  <button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                </div>
+              </div>
+            </div>
+        </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-md">Create campaign</button>
         </div>
-    </form>
+  </form>
 </div>
 @endsection

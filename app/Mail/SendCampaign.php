@@ -38,8 +38,10 @@ class SendCampaign extends Mailable
                 'body' => $this->campaign->email_body,
             ]);
 
-        if (!is_null($this->campaign->attachment)) {
-            // $this->attach(storage_path('app/' . $this->campaign->attachment));
+        if (!is_null($this->campaign->attachment) && is_array($this->campaign->attachment)) {
+            foreach ($this->campaign->attachment as $attachment) {
+              $this->attach(storage_path('app/' . $attachment));
+            }
         }
 
         return $this;

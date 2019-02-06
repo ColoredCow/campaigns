@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\CampaignAttachment;
 use Illuminate\Database\Eloquent\Model;
 
 class Campaign extends Model
@@ -11,5 +12,10 @@ class Campaign extends Model
     public function subscriptionList()
     {
         return $this->belongsTo(SubscriptionList::class, 'subscription_list_id');
+    }
+
+    public function attachment()
+    {
+        return $this->hasMany(CampaignAttachment::class);
     }
 }

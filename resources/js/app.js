@@ -55,6 +55,18 @@ tinymce.init({
     }
 });
 
+$(document).ready(function() {
+    $(".add-attachment").click(function(){ 
+        var html = $(".clone").html();
+        $(".increment").after(html);
+    });
+
+    $("body").on("click",".btn-danger",function(){ 
+        $(this).parents(".control-group").remove();
+    });
+});
+
+
 $('.resource-delete').on('click', function(){
     if(!confirm('Are you sure you want to delete?')) {
         return false;
@@ -62,3 +74,4 @@ $('.resource-delete').on('click', function(){
     let form = $(this).parent().find('form');
     form.submit();
 });
+
