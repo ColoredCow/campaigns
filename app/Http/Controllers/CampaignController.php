@@ -55,13 +55,11 @@ class CampaignController extends Controller
     public function store(CampaignRequest $request)
     {
         $validated = $request->validated();
-
         $args = [
             'subscription_list_id' => $validated['subscription_list_id'],
             'email_subject' => $validated['email_subject'],
             'email_body' => $validated['email_body'],
         ];
-
         $campaign = Campaign::create($args);
 
         if(isset($validated['attachment'])){
