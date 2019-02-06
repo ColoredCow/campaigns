@@ -64,7 +64,7 @@ class CampaignController extends Controller
 
         if(isset($validated['attachment'])){
             foreach ($validated['attachment'] as $key => $value) {
-                $fileName = $key .'-'.$value->getClientOriginalName();
+                $fileName = str_random(3) .'-'. $value->getClientOriginalName();
                 $args = $value->storeAs('campaigns', $fileName);
                 CampaignAttachment::create([
                     'campaign_id' => $campaign->id,
