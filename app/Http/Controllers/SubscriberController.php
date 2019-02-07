@@ -10,6 +10,7 @@ use App\Models\Subscriber;
 use App\Models\SubscriptionList;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
@@ -244,5 +245,17 @@ class SubscriberController extends Controller
         $subscriber->lists()->detach();
         $subscriber->delete();
         return back()->with('success', 'Subscriber deleted successfully!');
+    }
+
+    public function unsubscribe(string $cipher)
+    {
+        $subscriberId = Crypt::decrypt($cipher);
+        $subscriber = Subscriber::find($subscriberId);
+        if ($subscriber) {
+            $subscriber->update([
+                'is_subscribed' => false,
+            ]);
+            return "You have been unsubscribed. You will not receive any further updates from this Email Service.";
+        }
     }
 }

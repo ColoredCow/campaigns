@@ -46,7 +46,7 @@ class SendPendingEmails extends Command
         foreach ($pendingEmails as $pendingEmail) {
             $subscriber = $pendingEmail->subscriber;
             $campaign = $pendingEmail->campaign;
-            Mail::to($subscriber->email, $subscriber->name)->send(new SendCampaign($campaign));
+            Mail::send(new SendCampaign($campaign, $subscriber));
             CampaignEmailsSent::create([
                 'subscriber_id' => $subscriber->id,
             ]);

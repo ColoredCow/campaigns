@@ -76,7 +76,7 @@ class CampaignController extends Controller
 
         // move this to observer or event/listener. Ideally there should be a schedule option.
         foreach ($campaign->subscriptionList->subscribers as $subscriber) {
-            if ($subscriber->has_verified_email) {
+            if ($subscriber->has_verified_email && $subscriber->is_subscribed) {
                 PendingEmail::create([
                     'subscriber_id' => $subscriber->id,
                     'campaign_id' => $campaign->id,

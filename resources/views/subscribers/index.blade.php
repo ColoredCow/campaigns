@@ -63,7 +63,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Categories</th>
                     <th scope="col">Verification status</th>
-                    <th scope="col" colspan="2">File</th>
+                    <th scope="col" colspan="2">Subscription status</th>
                 </tr>
             </thead>
             <tbody>
@@ -89,7 +89,13 @@
                             <span class="text-danger"><i data-feather="x-circle" class="icon-15"></i> invalid</span>
                         @endif
                     </td>
-                    <td>{{$subscriber->file ?: '-'}}</td>
+                    <td>
+                        @if($subscriber->is_subscribed)
+                            <span class="text-success"><i data-feather="check-circle" class="icon-15"></i> subscribed</span>
+                        @else
+                            <span class="text-danger"><i data-feather="x-circle" class="icon-15"></i> unsubscribed</span>
+                        @endif
+                    </td>
                     <td style="min-width: 150px;" class="text-grey-dark text-right">
                         <a href="{{route('subscribers.edit', $subscriber)}}" class="text-grey-dark mr-2" title="edit"><i data-feather="edit" class="icon-20"></i></a>
                         <a href="#" class="text-grey-dark resource-delete" title="delete"><i data-feather="trash-2" class="icon-20"></i></a>

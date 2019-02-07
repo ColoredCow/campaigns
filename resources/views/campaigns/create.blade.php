@@ -3,9 +3,13 @@
 @section('content')
 <div class="container">
     @include('status')
+    <h2 class="mb-4"><i data-feather="mail" class="mr-2 page-icon"></i>Create Campaign</h2>
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading font-weight-bold"><i data-feather="alert-circle" class="icon-30 mr-2"></i>Important!</h4>
+        <p>Campaigns only go to the valid and subscribed users in the selected list.</p>
+    </div>
     <form action="{{route('campaigns.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
-        <h2 class="mb-4"><i data-feather="mail" class="mr-2 page-icon"></i>Create Campaign</h2>
         <div class="form-group col-md-4 px-0">
             <label for="list">Select List</label>
             <select class="form-control mb-1" id="subscription_list_id" name="subscription_list_id" required>
