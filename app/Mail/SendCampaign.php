@@ -36,11 +36,11 @@ class SendCampaign extends Mailable
             ->with([
                 'body' => $this->campaign->email_body,
             ]);
-        if ($this->campaign->attachment->count() > 0) {
-            foreach ($this->campaign->attachment as $attachment) {
+        if ($this->campaign->attachments->count() > 0) {
+            foreach ($this->campaign->attachments as $attachment) {
                $email->attach(storage_path('app/' . $attachment->attachment));
             }
-        }    
+        }
         return $email;
     }
 }

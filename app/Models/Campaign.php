@@ -14,8 +14,7 @@ class Campaign extends Model
         return $this->belongsTo(SubscriptionList::class, 'subscription_list_id');
     }
 
-    public function attachment()
-    {
-        return $this->hasMany(Attachment::class);
+    public function attachments() {
+        return $this->morphMany(Attachment::class, 'resource');
     }
 }
