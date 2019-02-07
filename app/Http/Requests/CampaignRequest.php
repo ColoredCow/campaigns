@@ -27,7 +27,7 @@ class CampaignRequest extends FormRequest
             'subscription_list_id' => 'required|integer',
             'email_subject' => 'required|string',
             'email_body' => 'required|string',
-            'attachment' => 'nullable|array',
+            'attachments' => 'nullable|array',
         ];
     }
 }

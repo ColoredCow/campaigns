@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CampaignRequest;
 use App\Models\Campaign;
-use App\Models\CampaignAttachment;
+use App\Models\Attachment;
 use App\Models\PendingEmail;
 use App\Models\Subscriber;
 use App\Models\SubscriptionList;
@@ -62,13 +62,14 @@ class CampaignController extends Controller
         ];
         $campaign = Campaign::create($args);
 
-        if(isset($validated['attachment'])){
-            foreach ($validated['attachment'] as $key => $value) {
-                $fileName = str_random(3) .'-'. $value->getClientOriginalName();
-                $args = $value->storeAs('campaigns', $fileName);
-                CampaignAttachment::create([
-                    'campaign_id' => $campaign->id,
-                    'attachment' => $args,
+        if(isset($validated['attachments'])){
+            foreach ($validated['attachments'] as $attachment) {
+                $fileName = time() .'-'. $attachment->getClientOriginalName();
+                $attachmentPath = $attachment->storeAs('campaigns', $fileName);
+                Attachment::create([
+                    'attachment' => $attachmentPath,
+                    'resource_type' => get_class($campaign),
+                    'resource_id' => $campaign->id,
                 ]);
             }
         }

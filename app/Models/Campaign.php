@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\CampaignAttachment;
+use App\Models\Attachment;
 use Illuminate\Database\Eloquent\Model;
 
 class Campaign extends Model
@@ -16,6 +16,6 @@ class Campaign extends Model
 
     public function attachment()
     {
-        return $this->hasMany(CampaignAttachment::class);
+        return $this->hasMany(Attachment::class);
     }
 }

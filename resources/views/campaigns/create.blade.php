@@ -28,11 +28,11 @@
             <label for="attachment">Add attachment <span class="text-grey-dark font-italic">(optional)</span></label>
             <button class="btn btn-grey-light text-dark d-inline-block mr-2 add-attachment btn-sm ml-2" type="button">Add more</button>
             <div class="input-group control-group increment mt-3">
-                <input type="file" name="attachment[]" class="form-control">
+                <input type="file" name="attachments[]" class="form-control">
             </div>
             <div class="clone d-none">
                 <div class="control-group input-group d-flex mt-3 align-items-center">
-                    <input type="file" name="attachment[]" class="form-control">
+                    <input type="file" name="attachments[]" class="form-control">
                     <div class="input-group-btn ml-2"> 
                         <button class="btn btn-grey-light text-dark d-inline-block mr-2 btn-sm remove-attachment" type="button">Remove</button>
                     </div>
