@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CampaignRequest;
 use App\Models\Campaign;
+use App\Models\Attachment;
 use App\Models\PendingEmail;
 use App\Models\Subscriber;
 use App\Models\SubscriptionList;
@@ -59,10 +60,19 @@ class CampaignController extends Controller
             'email_subject' => $validated['email_subject'],
             'email_body' => $validated['email_body'],
         ];
-        if (isset($validated['attachment'])) {
-            $args['attachment'] = $validated['attachment']->store('campaigns', 'public_uploads');
-        }
         $campaign = Campaign::create($args);
+
+        if(isset($validated['attachments'])){
+            foreach ($validated['attachments'] as $attachment) {
+                $fileName = time() .'-'. $attachment->getClientOriginalName();
+                $attachmentPath = $attachment->storeAs('campaigns', $fileName);
+                Attachment::create([
+                    'attachment' => $attachmentPath,
+                    'resource_type' => get_class($campaign),
+                    'resource_id' => $campaign->id,
+                ]);
+            }
+        }
 
         // move this to observer or event/listener. Ideally there should be a schedule option.
         foreach ($campaign->subscriptionList->subscribers as $subscriber) {

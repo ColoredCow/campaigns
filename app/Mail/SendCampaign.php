@@ -30,18 +30,17 @@ class SendCampaign extends Mailable
      */
     public function build()
     {
-
-        return $this->from(config('constants.campaigns.from.email'), config('constants.campaigns.from.name'))
+       $email = $this->from(config('constants.campaigns.from.email'), config('constants.campaigns.from.name'))
             ->subject($this->campaign->email_subject)
             ->view('emails.plain')
             ->with([
                 'body' => $this->campaign->email_body,
             ]);
-
-        if (!is_null($this->campaign->attachment)) {
-            // $this->attach(storage_path('app/' . $this->campaign->attachment));
+        if ($this->campaign->attachments->count() > 0) {
+            foreach ($this->campaign->attachments as $attachment) {
+               $email->attach(storage_path('app/' . $attachment->attachment));
+            }
         }
-
-        return $this;
+        return $email;
     }
 }
