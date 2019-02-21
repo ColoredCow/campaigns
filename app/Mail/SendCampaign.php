@@ -7,6 +7,7 @@ use App\Models\Subscriber;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Crypt;
 use App\Helpers\EmailTemplate;
 
 class SendCampaign extends Mailable
@@ -15,7 +16,6 @@ class SendCampaign extends Mailable
 
     protected $campaign;
     protected $subscriber;
-    public $mailBody;
 
     /**
      * Create a new message instance.
@@ -26,7 +26,7 @@ class SendCampaign extends Mailable
     {
         $this->campaign = $campaign;
         $this->subscriber = $subscriber;
-        $this->mailBody = EmailTemplate::parseEmailTemplateVariables($this->subscriber, $this->campaign->email_body);
+        $this->email_body = EmailTemplate::parseEmailTemplateVariables($this->subscriber, $this->campaign->email_body);
     }
 
     /**
@@ -39,10 +39,11 @@ class SendCampaign extends Mailable
         $email = $this->to($this->subscriber->email, $this->subscriber->name)
             ->from(config('constants.campaigns.from.email'), config('constants.campaigns.from.name'))
             ->subject($this->campaign->email_subject)
-            ->view('emails.plain');
-            // ->with([
-            //     'body' => $this->email_body,
-            // ]);
+            ->view('emails.plain')
+            ->with([
+                'body' => $this->email_body,
+                'encryptedSubscriberId' => Crypt::encrypt($this->subscriber->id),
+            ]);
         if ($this->campaign->attachments->count() > 0) {
             foreach ($this->campaign->attachments as $attachment) {
                $email->attach(storage_path('app/' . $attachment->attachment));

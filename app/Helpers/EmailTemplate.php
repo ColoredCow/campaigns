@@ -7,7 +7,7 @@ class EmailTemplate
 {
     public static function parseEmailTemplateVariables($user, $emailTemplate)
     {
-        $view = \View::make('emails.plain', ['mailBody' => $emailTemplate, 'encryptedSubscriberId' => Crypt::encrypt($user->id)])->render();
+        $view = $emailTemplate;
         foreach (config('constants.email_template_variables') as $variable) {
             switch ($variable) {
                 case 'USERNAME':
