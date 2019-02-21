@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Crypt;
+use App\Helpers\ParseEmailTemplate;
 
 class SendCampaign extends Mailable
 {
@@ -25,6 +26,7 @@ class SendCampaign extends Mailable
     {
         $this->campaign = $campaign;
         $this->subscriber = $subscriber;
+        $this->mailBody = ParseEmailTemplate::emailTemplateVariables($this->subscriber, $this->campaign->email_body);
     }
 
     /**
@@ -39,7 +41,7 @@ class SendCampaign extends Mailable
             ->subject($this->campaign->email_subject)
             ->view('emails.plain')
             ->with([
-                'body' => $this->campaign->email_body,
+                'body' => $this->mailBody,
                 'encryptedSubscriberId' => Crypt::encrypt($this->subscriber->id),
             ]);
         if ($this->campaign->attachments->count() > 0) {
