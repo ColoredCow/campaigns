@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Helpers;
-use Illuminate\Support\Facades\Crypt;
 
 class EmailTemplate
 {

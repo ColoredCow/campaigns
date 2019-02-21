@@ -26,7 +26,7 @@ class SendCampaign extends Mailable
     {
         $this->campaign = $campaign;
         $this->subscriber = $subscriber;
-        $this->email_body = EmailTemplate::parseEmailTemplateVariables($this->subscriber, $this->campaign->email_body);
+        $this->mailBody = EmailTemplate::parseEmailTemplateVariables($this->subscriber, $this->campaign->email_body);
     }
 
     /**
@@ -41,7 +41,7 @@ class SendCampaign extends Mailable
             ->subject($this->campaign->email_subject)
             ->view('emails.plain')
             ->with([
-                'body' => $this->email_body,
+                'body' => $this->mailBody,
                 'encryptedSubscriberId' => Crypt::encrypt($this->subscriber->id),
             ]);
         if ($this->campaign->attachments->count() > 0) {
