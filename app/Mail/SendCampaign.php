@@ -8,7 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Crypt;
-use App\Helpers\EmailTemplate;
+use App\Helpers\ParseEmailTemplate;
 
 class SendCampaign extends Mailable
 {
@@ -26,7 +26,7 @@ class SendCampaign extends Mailable
     {
         $this->campaign = $campaign;
         $this->subscriber = $subscriber;
-        $this->mailBody = EmailTemplate::parseEmailTemplateVariables($this->subscriber, $this->campaign->email_body);
+        $this->mailBody = ParseEmailTemplate::emailTemplateVariables($this->subscriber, $this->campaign->email_body);
     }
 
     /**

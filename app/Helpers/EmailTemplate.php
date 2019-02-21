@@ -2,9 +2,9 @@
 
 namespace App\Helpers;
 
-class EmailTemplate
+class ParseEmailTemplate
 {
-    public static function parseEmailTemplateVariables($user, $emailTemplate)
+    public static function emailTemplateVariables($user, $emailTemplate)
     {
         $view = $emailTemplate;
         foreach (config('constants.email_template_variables') as $variable) {
