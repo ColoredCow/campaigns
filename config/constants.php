@@ -7,4 +7,7 @@ return [
 			'email' => env('MAIL_FROM_ADDRESS'),
 		],
 	],
+	'email_template_variables' => [
+        'USERNAME',
+    ],
 ];
