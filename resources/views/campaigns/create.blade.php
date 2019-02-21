@@ -7,6 +7,10 @@
     <div class="alert alert-info" role="alert">
         <h4 class="alert-heading font-weight-bold"><i data-feather="alert-circle" class="icon-30 mr-2"></i>Important!</h4>
         <p>Campaigns only go to the valid and subscribed users in the selected list.</p>
+        <p>Please use following snippets to create dynamic mail template:</p>
+        <p>1) User Name: <b>|*USERNAME*|</b></p>
+        <p><i><u>For example</u></i></p>
+        <p>Dear |*USERNAME*| <br></p>
     </div>
     <form action="{{route('campaigns.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
