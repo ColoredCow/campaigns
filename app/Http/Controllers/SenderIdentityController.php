@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\SenderIdentity;
 use Illuminate\Http\Request;
+use App\Models\SenderIdentity;
+use App\Http\Requests\SenderIdentityRequest;
 
 class SenderIdentityController extends Controller
 {
@@ -14,7 +15,11 @@ class SenderIdentityController extends Controller
      */
     public function index()
     {
-        //
+        $senderIdentities = SenderIdentity::all();
+
+        return view('sender-identity.index', [
+            'senderIdentities' => $senderIdentities,
+        ]);
     }
 
     /**
@@ -24,18 +29,18 @@ class SenderIdentityController extends Controller
      */
     public function create()
     {
-        //
+        return view('sender-identity.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\SenderIdentityRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SenderIdentityRequest $request)
     {
-        //
+        $validated = $request->validated();
     }
 
     /**

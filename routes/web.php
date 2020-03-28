@@ -44,6 +44,16 @@ Route::middleware('auth')->group(function () {
             'update' => 'lists.update',
         ]);
 
+    Route::resource('sender-identity', 'SenderIdentityController')
+        ->except(['show', 'delete'])
+        ->names([
+            'index' => 'sender-identity',
+            'create' => 'sender-identity.create',
+            'store' => 'sender-identity.store',
+            'edit' => 'sender-identity.edit',
+            'update' => 'sender-identity.update',
+        ]);
+
     Route::get('subscribers/upload', 'SubscriberController@uploadView')->name('subscribers.upload-view');
     Route::post('subscribers/upload', 'SubscriberController@upload')->name('subscribers.upload');
 
