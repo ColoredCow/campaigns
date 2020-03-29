@@ -27,7 +27,8 @@
                 <tr>
                     <th scope="col">List</th>
                     <th scope="col">Subject</th>
-                    <th scope="col" colspan="2">Sent on</th>
+                    <th scope="col">Sent on</th>
+                    <th scope="col" colspan="2">Sender identity</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,9 @@
                     <td>{{$campaign->subscriptionList->name}}</td>
                     <td>{{$campaign->email_subject}}</td>
                     <td>{{$campaign->created_at->format('d/m/Y')}}</td>
+                    <td>
+                        {{$campaign->sender_identity_name}} <mark>{{$campaign->sender_identity_email}}<mark>
+                    </td>
                     <td style="min-width: 150px;" class="text-grey-dark text-right">
                         {{-- <a href="#" class="text-grey-dark mr-2" title="view"><i data-feather="eye" class="icon-20"></i></a> --}}
                         {{-- <a href="#" class="text-grey-dark" title="delete"><i data-feather="trash-2" class="icon-20"></i></a> --}}

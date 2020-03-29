@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CampaignRequest;
 use App\Models\Campaign;
 use App\Models\Attachment;
-use App\Models\PendingEmail;
 use App\Models\Subscriber;
-use App\Models\SubscriptionList;
+use App\Models\PendingEmail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
+use App\Models\SenderIdentity;
+use App\Models\SubscriptionList;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests\CampaignRequest;
 
 class CampaignController extends Controller
 {
@@ -41,8 +42,9 @@ class CampaignController extends Controller
     {
         return view('campaigns.create')->with([
             'allSubscribersCount' => Subscriber::count(),
-            'allListId' => SubscriptionList::where('name', 'like', 'all')->first()->id,
+            'allListId' => optional(SubscriptionList::where('name', 'like', 'all')->first())->id,
             'lists' => SubscriptionList::withCount('subscribers')->get(),
+            'senderIdentities' => SenderIdentity::all(),
         ]);
     }
 
@@ -59,12 +61,13 @@ class CampaignController extends Controller
             'subscription_list_id' => $validated['subscription_list_id'],
             'email_subject' => $validated['email_subject'],
             'email_body' => $validated['email_body'],
+            'sender_identity_id' => $validated['sender_identity_id'],
         ];
         $campaign = Campaign::create($args);
 
-        if(isset($validated['attachments'])){
+        if (isset($validated['attachments'])) {
             foreach ($validated['attachments'] as $attachment) {
-                $fileName = time() .'-'. $attachment->getClientOriginalName();
+                $fileName = time() . '-' . $attachment->getClientOriginalName();
                 $attachmentPath = $attachment->storeAs('campaigns', $fileName);
                 Attachment::create([
                     'attachment' => $attachmentPath,

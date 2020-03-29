@@ -24,6 +24,7 @@ class CampaignRequest extends FormRequest
     public function rules()
     {
         return [
+            'sender_identity_id' => 'required|integer|exists:sender_identities,id',
             'subscription_list_id' => 'required|integer',
             'email_subject' => 'required|string',
             'email_body' => 'required|string',
