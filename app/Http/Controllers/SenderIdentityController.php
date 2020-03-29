@@ -41,6 +41,10 @@ class SenderIdentityController extends Controller
     public function store(SenderIdentityRequest $request)
     {
         $validated = $request->validated();
+        
+        SenderIdentity::create($validated);
+
+        return redirect()->route('sender-identity')->with('status', 'New identity created.');
     }
 
     /**
@@ -62,7 +66,7 @@ class SenderIdentityController extends Controller
      */
     public function edit(SenderIdentity $senderIdentity)
     {
-        //
+        return view('sender-identity.edit', ['identity' => $senderIdentity]);
     }
 
     /**
@@ -72,9 +76,14 @@ class SenderIdentityController extends Controller
      * @param  \App\SenderIdentity  $senderIdentity
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SenderIdentity $senderIdentity)
+    public function update(SenderIdentityRequest $request, SenderIdentity $senderIdentity)
     {
-        //
+        $default = ['is_default' => false];
+        $validated = $request->validated();
+
+        $senderIdentity->update(array_merge($default, $validated));
+
+        return redirect()->route('sender-identity')->with('status', sprintf('Identity for %s updated.', $senderIdentity->name));
     }
 
     /**

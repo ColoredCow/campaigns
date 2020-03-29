@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\SenderIdentity;
 use Illuminate\Support\ServiceProvider;
+use App\Observers\SenderIdentityObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        SenderIdentity::observe(SenderIdentityObserver::class);
     }
 
     /**

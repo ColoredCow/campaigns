@@ -23,9 +23,17 @@ class SenderIdentityRequest extends FormRequest
      */
     public function rules()
     {
+        $method = $this->getMethod(); // 'PATCH' or 'POST'
+        $emailRules = ['required', 'email'];
+
+        if ($method == 'POST') {
+            $emailRules[] = 'unique:sender_identities';
+        }
+
         return [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => implode('|', $emailRules),
+            'is_default' => 'nullable',
         ];
     }
 }
