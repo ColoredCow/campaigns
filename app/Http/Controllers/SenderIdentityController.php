@@ -48,17 +48,6 @@ class SenderIdentityController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\SenderIdentity  $senderIdentity
-     * @return \Illuminate\Http\Response
-     */
-    public function show(SenderIdentity $senderIdentity)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\SenderIdentity  $senderIdentity
@@ -84,16 +73,5 @@ class SenderIdentityController extends Controller
         $senderIdentity->update(array_merge($default, $validated));
 
         return redirect()->route('sender-identity')->with('status', sprintf('Identity for %s updated.', $senderIdentity->name));
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\SenderIdentity  $senderIdentity
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(SenderIdentity $senderIdentity)
-    {
-        //
     }
 }
