@@ -30,7 +30,9 @@
         <div class="form-group col-md-4 px-0">
             <label for="list">Select List</label>
             <select class="form-control mb-1" id="subscription_list_id" name="subscription_list_id" required>
-                <option value="{{$allListId}}">All ({{$allSubscribersCount}})</option>
+                @if($allListId)
+                    <option value="{{$allListId}}">All ({{$allSubscribersCount}})</option>
+                @endif
                 @foreach ($lists as $list)
                     <option value="{{$list->id}}">{{$list->name}} <span>({{$list->subscribers_count}})</span></option>
                 @endforeach
