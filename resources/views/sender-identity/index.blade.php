@@ -13,7 +13,7 @@
         </form>
         <div class="d-flex flex-column flex-md-row">
             <a href="{{route('sender-identity.create')}}" class="btn btn-grey-dark text-light d-inline-block">
-                <i data-feather="plus" class="icon-20 mr-1"></i>Add Identity
+                <i data-feather="plus" class="icon-20 mr-1"></i>Create Sender Identity
             </a>
         </div>
     </div>
@@ -29,8 +29,7 @@
             <thead class="bg-primary text-white">
                 <tr>
                     <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col" colspan="2">Default</th>
+                    <th scope="col" colspan="2">Email</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,14 +37,10 @@
                 <tr>
                     <td>{{$identity->name}}</td>
                     <td>{{$identity->email}}</td>
-                    <td>
-                        @if($identity->is_default)
-                            <span class="badge badge-primary">Default</span>
-                        @else
-                            -
-                        @endif
-                    </td>
                     <td style="min-width: 150px;" class="text-grey-dark text-right">
+                        @if($identity->is_default)
+                            <span class="badge badge-primary mr-2">Default</span>
+                        @endif
                         <a href="{{route('sender-identity.edit', $identity)}}" class="text-grey-dark mr-2" title="edit"><i data-feather="edit" class="icon-20"></i></a>
                         <a href="#" class="text-grey-dark" title="delete"><i data-feather="trash-2" class="icon-20"></i></a>
                     </td>

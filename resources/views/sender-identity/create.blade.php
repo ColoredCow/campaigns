@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     @include('status')
-    <h2 class="mb-4"><i data-feather="at-sign" class="mr-2 page-icon"></i>Create Identity</h2>
+    <h2 class="mb-4"><i data-feather="at-sign" class="mr-2 page-icon"></i>Create Sender Identity</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form action="{{route('sender-identity.store')}}" method="POST">
+    <form action="{{route('sender-identity.store')}}" method="POST" class="w-50">
         @csrf
         <div class="form-group col-12 px-0">
             <label for="name">Name</label>
@@ -34,7 +34,7 @@
 		</div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-md">Create identity</button>
+            <button type="submit" class="btn btn-primary btn-md">Create sender identity</button>
         </div>
   </form>
 </div>
