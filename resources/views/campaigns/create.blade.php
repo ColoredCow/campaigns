@@ -14,10 +14,25 @@
     </div>
     <form action="{{route('campaigns.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
+
+        <div class="form-group col-md-4 px-0">
+            <label for="sender_identity">Sender Identity</label>
+            <select class="form-control mb-1" id="sender_identity" name="sender_identity_id" required>
+                <option value="">Select</option>
+                @foreach ($senderIdentities as $identity)
+                    <option value="{{$identity->id}}" {{ $identity->is_default ? 'selected' : '' }}>
+                        {{$identity->name}} <span>({{$identity->email}})</span>
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="form-group col-md-4 px-0">
             <label for="list">Select List</label>
             <select class="form-control mb-1" id="subscription_list_id" name="subscription_list_id" required>
-                <option value="{{$allListId}}">All ({{$allSubscribersCount}})</option>
+                @if($allListId)
+                    <option value="{{$allListId}}">All ({{$allSubscribersCount}})</option>
+                @endif
                 @foreach ($lists as $list)
                     <option value="{{$list->id}}">{{$list->name}} <span>({{$list->subscribers_count}})</span></option>
                 @endforeach

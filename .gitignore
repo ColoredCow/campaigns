@@ -18,3 +18,5 @@ package-lock.json
 composer.lock
 
 public/uploads/
+
+storage/debugbar/

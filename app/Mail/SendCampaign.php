@@ -6,9 +6,9 @@ use App\Models\Campaign;
 use App\Models\Subscriber;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Crypt;
 use App\Helpers\ParseEmailTemplate;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Queue\SerializesModels;
 
 class SendCampaign extends Mailable
 {
@@ -36,8 +36,9 @@ class SendCampaign extends Mailable
      */
     public function build()
     {
+        $from = $this->getFrom();
         $email = $this->to($this->subscriber->email, $this->subscriber->name)
-            ->from(config('constants.campaigns.from.email'), config('constants.campaigns.from.name'))
+            ->from($from['email'], $from['name'])
             ->subject($this->campaign->email_subject)
             ->view('emails.plain')
             ->with([
@@ -46,9 +47,24 @@ class SendCampaign extends Mailable
             ]);
         if ($this->campaign->attachments->count() > 0) {
             foreach ($this->campaign->attachments as $attachment) {
-               $email->attach(storage_path('app/' . $attachment->attachment));
+                $email->attach(storage_path('app/' . $attachment->attachment));
             }
         }
         return $this;
+    }
+
+    private function getFrom()
+    {
+        if (!$this->campaign->senderIdentity) {
+            return [
+                'name' => config('constants.campaigns.from.name'),
+                'email' => config('constants.campaigns.from.email'),
+            ];
+        }
+
+        return [
+            'name' => $this->campaign->sender_identity_name,
+            'email' => $this->campaign->sender_identity_email,
+        ];
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CampaignRequest extends FormRequest
+class SenderIdentityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,17 @@ class CampaignRequest extends FormRequest
      */
     public function rules()
     {
+        $method = $this->getMethod(); // 'PATCH' or 'POST'
+        $emailRules = ['required', 'email'];
+
+        if ($method == 'POST') {
+            $emailRules[] = 'unique:sender_identities';
+        }
+
         return [
-            'sender_identity_id' => 'required|integer|exists:sender_identities,id',
-            'subscription_list_id' => 'required|integer',
-            'email_subject' => 'required|string',
-            'email_body' => 'required|string',
-            'attachments' => 'nullable|array',
+            'name' => 'required',
+            'email' => implode('|', $emailRules),
+            'is_default' => 'nullable',
         ];
     }
 }

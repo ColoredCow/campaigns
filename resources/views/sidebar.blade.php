@@ -16,6 +16,11 @@
                     <i data-feather="list" class="mr-2"></i>Categories
                 </a>
             </li>
+            <li class="nav-item mb-3">
+                <a class="nav-link text-dark font-weight-bold" href="{{route('sender-identity')}}">
+                    <i data-feather="at-sign" class="mr-2"></i>Sender Identities
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
