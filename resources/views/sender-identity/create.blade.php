@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form action="{{route('sender-identity.store')}}" method="POST" class="w-50">
+    <form action="{{route('sender-identity.store')}}" method="POST" class="w-md-50">
         @csrf
         <div class="form-group col-12 px-0">
             <label for="name">Name</label>
