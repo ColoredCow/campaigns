@@ -13,12 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-
-Route::prefix('v1')->middleware('client', 'throttle:60,1')->group(function () {
+Route::prefix('v1')->middleware('client')->group(function () {
 	Route::post('/add-subscriber', 'SubscriberController@store');
 });
 
