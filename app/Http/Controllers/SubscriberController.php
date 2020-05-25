@@ -99,6 +99,18 @@ class SubscriberController extends Controller
 
         $subscriber = Subscriber::create($args);
 
+        if (isApi()) {
+            if(!$subscriber){
+                return 'Error while creating a Subscriber';
+            }
+            $data = [
+                'data' => [
+                    'subscriber_id' => $subscriber->id,
+                ],
+            ];
+            return json_encode($data);
+        }
+
         $allCategory = SubscriptionList::where('name', 'all')->get();
         $selectedLists = $request->post('subscription_lists');
         $selectedLists[] = $allCategory->first()->id;
