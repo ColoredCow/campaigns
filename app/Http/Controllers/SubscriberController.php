@@ -99,10 +99,12 @@ class SubscriberController extends Controller
 
         $subscriber = Subscriber::create($args);
 
+        $allCategory = SubscriptionList::where('name', 'all')->get();
+        $selectedLists = $request->post('subscription_lists');
+        $selectedLists[] = $allCategory->first()->id;
+        $subscriber->lists()->attach($selectedLists);
+
         if (isApi()) {
-            if(!$subscriber){
-                return 'Error while creating a Subscriber';
-            }
             $data = [
                 'data' => [
                     'subscriber_id' => $subscriber->id,
@@ -110,11 +112,6 @@ class SubscriberController extends Controller
             ];
             return json_encode($data);
         }
-
-        $allCategory = SubscriptionList::where('name', 'all')->get();
-        $selectedLists = $request->post('subscription_lists');
-        $selectedLists[] = $allCategory->first()->id;
-        $subscriber->lists()->attach($selectedLists);
 
         if (!$subscriber->has_verified_email) {
             return redirect()->route('subscribers.edit', $subscriber)->with('warning', 'Subscriber added but it does not have a valid email!');
