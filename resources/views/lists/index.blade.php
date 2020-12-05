@@ -16,8 +16,8 @@
             <input type="submit" class="d-none">
         </form>
         <div class="d-flex flex-column flex-md-row">
-            <a href="{{route('lists.create')}}" class="btn btn-grey-dark text-light d-inline-block">
-                <i data-feather="plus" class="icon-20 mr-1"></i>Add Category
+            <a href="{{route('lists.create')}}" class="btn btn-grey-light text-dark d-inline-block">
+                <i data-feather="plus" class="icon-20 mr-1"></i>Create Category
             </a>
         </div>
     </div>

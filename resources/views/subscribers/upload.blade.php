@@ -30,7 +30,7 @@
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-3">
-				<label for="category">Category</label>
+				<label for="category" class="mb-0">Category</label>
 				<input type="text" name="category" class="form-control {{$errors->has('category') ? 'is-invalid' : ''}}" required value="{{old('category')}}">
 				@if ($errors->has('category'))
 					<small class="text-danger">Category is required.</small>
@@ -39,7 +39,7 @@
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-3">
-				<label for="file">Excel file</label>
+				<label for="file" class="mb-0">Excel file</label>
 				<input type="file" name="file" required accept=".csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
 				@if ($errors->has('file'))
 					<small class="text-danger">{{$errors->first('file')}}</small>
@@ -48,7 +48,7 @@
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-3">
-				<button class="btn btn-primary">Upload file</button>
+				<button class="btn btn-primary">Upload</button>
 			</div>
 		</div>
 	</form>

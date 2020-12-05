@@ -12,7 +12,7 @@
             <input type="submit" class="d-none">
         </form>
         <div class="d-flex flex-column flex-md-row">
-            <a href="{{route('sender-identity.create')}}" class="btn btn-grey-dark text-light d-inline-block">
+            <a href="{{route('sender-identity.create')}}" class="btn btn-grey-light text-dark d-inline-block">
                 <i data-feather="plus" class="icon-20 mr-1"></i>Create Sender Identity
             </a>
         </div>
@@ -42,7 +42,7 @@
                             <span class="badge badge-primary mr-2">Default</span>
                         @endif
                         <a href="{{route('sender-identity.edit', $identity)}}" class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="icon-20"></i></a>
-                        <a href="#" class="text-grey-dark" title="Delete"><i data-feather="trash-2" class="icon-20"></i></a>
+                        <a href="#" class="text-danger" title="Delete"><i data-feather="trash-2" class="icon-20"></i></a>
                     </td>
                 </tr>
                 @endforeach

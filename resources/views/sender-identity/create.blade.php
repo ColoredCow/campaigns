@@ -18,11 +18,11 @@
     <form action="{{route('sender-identity.store')}}" method="POST" class="w-md-50">
         @csrf
         <div class="form-group col-12 px-0">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}" required>
+            <label for="name" class="mb-0">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}" required autofocus>
         </div>
         <div class="form-group col-12 px-0">
-            <label for="email">Email</label>
+            <label for="email" class="mb-0">Email</label>
             <input type="email" class="form-control" id="email" name="email" value="{{old('email')}}" required>
         </div>
 
@@ -34,7 +34,7 @@
 		</div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-md">Create sender identity</button>
+            <button type="submit" class="btn btn-primary btn-md">Create</button>
         </div>
   </form>
 </div>
