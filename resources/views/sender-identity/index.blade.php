@@ -41,8 +41,8 @@
                         @if($identity->is_default)
                             <span class="badge badge-primary mr-2">Default</span>
                         @endif
-                        <a href="{{route('sender-identity.edit', $identity)}}" class="text-grey-dark mr-2" title="edit"><i data-feather="edit" class="icon-20"></i></a>
-                        <a href="#" class="text-grey-dark" title="delete"><i data-feather="trash-2" class="icon-20"></i></a>
+                        <a href="{{route('sender-identity.edit', $identity)}}" class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="icon-20"></i></a>
+                        <a href="#" class="text-grey-dark" title="Delete"><i data-feather="trash-2" class="icon-20"></i></a>
                     </td>
                 </tr>
                 @endforeach

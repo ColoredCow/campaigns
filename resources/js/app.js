@@ -56,6 +56,8 @@ tinymce.init({
 });
 
 $(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+
     $('.add-attachment').click(function(){ 
         var html = $('.clone').html();
         $('.increment').after(html);

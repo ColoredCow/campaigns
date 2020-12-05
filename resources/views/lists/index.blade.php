@@ -37,8 +37,8 @@
                     <td>{{$list->subscribers_count}}</td>
                     <td>{{$list->refuted_subscribers_count}}</td>
                     <td style="min-width: 150px;" class="text-grey-dark text-right">
-                        <a href="{{route('lists.edit', $list)}}" class="text-grey-dark mr-2" title="edit"><i data-feather="edit" class="icon-20"></i></a>
-                        {{-- <a href="#" class="text-grey-dark" title="delete"><i data-feather="trash-2" class="icon-20"></i></a> --}}
+                        <a href="{{route('lists.edit', $list)}}" class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="icon-20"></i></a>
+                        {{-- <a href="#" class="text-grey-dark" title="Delete"><i data-feather="trash-2" class="icon-20"></i></a> --}}
                     </td>
                 </tr>
                 @endforeach

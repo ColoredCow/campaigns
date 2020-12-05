@@ -41,8 +41,8 @@
                         {{$campaign->sender_identity_name}} <mark>{{$campaign->sender_identity_email}}<mark>
                     </td>
                     <td style="min-width: 150px;" class="text-grey-dark text-right">
-                        {{-- <a href="#" class="text-grey-dark mr-2" title="view"><i data-feather="eye" class="icon-20"></i></a> --}}
-                        {{-- <a href="#" class="text-grey-dark" title="delete"><i data-feather="trash-2" class="icon-20"></i></a> --}}
+                        {{-- <a href="#" class="text-grey-dark mr-2" title="View"><i data-feather="eye" class="icon-20"></i></a> --}}
+                        {{-- <a href="#" class="text-danger" title="Delete"><i data-feather="trash-2" class="icon-20"></i></a> --}}
                     </td>
                 </tr>
                 @endforeach

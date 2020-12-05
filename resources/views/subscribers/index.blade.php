@@ -59,18 +59,47 @@
         <table class="table table-striped border">
             <thead class="bg-primary text-white">
                 <tr>
-                    <th scope="col">Email</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Categories</th>
-                    <th scope="col">Verification status</th>
-                    <th scope="col" colspan="2">Subscription status</th>
+                    <th scope="col">Details</th>
+                    <th scope="col" colspan="2">Categories</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($subscribers as $subscriber)
                 <tr>
-                    <td>{{$subscriber->email}}</td>
-                    <td>{{$subscriber->name ?: '-'}}</td>
+                    <td>
+                        <div>{{$subscriber->email}}</div>
+                        <div>
+                            <span class="text-grey-darker">{{$subscriber->name ?: '-'}}</span>
+                        </div>
+                        <div class="d-flex">
+                            <div class="mr-2">
+                                @if(is_null($subscriber->email_verification_at))
+                                    <span class="text-info" data-toggle="tooltip" data-placement="top" title="Email verification pending">
+                                        <i data-feather="alert-circle" class="icon-15"></i>
+                                    </span>
+                                @elseif($subscriber->has_verified_email)
+                                    <span class="text-success" data-toggle="tooltip" data-placement="top" title="Email is valid">
+                                        <i data-feather="check-circle" class="icon-15"></i>
+                                    </span>
+                                @else
+                                    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Email is invalid">
+                                        <i data-feather="x-circle" class="icon-15"></i>
+                                    </span>
+                                @endif
+                            </div>
+                            <div>
+                                @if($subscriber->is_subscribed)
+                                    <span class="text-success" data-toggle="tooltip" data-placement="top" title="Subscribed">
+                                        <i data-feather="check-circle" class="icon-15"></i>
+                                    </span>
+                                @else
+                                    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Unsubscribed">
+                                        <i data-feather="x-circle" class="icon-15"></i>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </td>
                     <td>
                         @php
                             $subscriberList = '';
@@ -80,25 +109,9 @@
                         @endphp
                         {{ substr($subscriberList, 0, -2) }}
                     </td>
-                    <td>
-                        @if(is_null($subscriber->email_verification_at))
-                            <span class="text-info"><i data-feather="alert-circle" class="icon-15"></i> pending</span>
-                        @elseif($subscriber->has_verified_email)
-                            <span class="text-success"><i data-feather="check-circle" class="icon-15"></i> valid</span>
-                        @else
-                            <span class="text-danger"><i data-feather="x-circle" class="icon-15"></i> invalid</span>
-                        @endif
-                    </td>
-                    <td>
-                        @if($subscriber->is_subscribed)
-                            <span class="text-success"><i data-feather="check-circle" class="icon-15"></i> subscribed</span>
-                        @else
-                            <span class="text-danger"><i data-feather="x-circle" class="icon-15"></i> unsubscribed</span>
-                        @endif
-                    </td>
                     <td style="min-width: 150px;" class="text-grey-dark text-right">
-                        <a href="{{route('subscribers.edit', $subscriber)}}" class="text-grey-dark mr-2" title="edit"><i data-feather="edit" class="icon-20"></i></a>
-                        <a href="#" class="text-grey-dark resource-delete" title="delete"><i data-feather="trash-2" class="icon-20"></i></a>
+                        <a href="{{route('subscribers.edit', $subscriber)}}" class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="icon-20"></i></a>
+                        <a href="#" class="text-danger resource-delete" title="Delete"><i data-feather="trash-2" class="icon-20"></i></a>
                         <form action="{{route('subscribers.destroy', $subscriber)}}" method="POST" class="d-none">
                             @csrf
                             @method('DELETE')
