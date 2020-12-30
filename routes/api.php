@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::prefix('v1')->middleware('client', 'throttle:60,1')->group(function () {
-	Route::post('/add-subscriber', 'SubscriberController@store');
+Route::prefix('v1')->middleware('client')->group(function () {
+	Route::post('/subscriber', 'SubscriberController@store');
 });
 
