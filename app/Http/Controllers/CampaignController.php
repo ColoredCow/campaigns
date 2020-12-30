@@ -25,7 +25,7 @@ class CampaignController extends Controller
         } else {
             $campaigns = Campaign::with('subscriptionList')->latest()->paginate($paginationSize);
         }
-        return view('campaigns.index')->with([
+        return view('campaign.index')->with([
             'campaigns' => $campaigns->appends(request()->except('page')),
             'filters' => [
                 's' => $search,
@@ -40,12 +40,17 @@ class CampaignController extends Controller
      */
     public function create()
     {
-        return view('campaigns.create')->with([
+        return view('campaign.create')->with([
             'allSubscribersCount' => Subscriber::count(),
             'allListId' => optional(SubscriptionList::where('name', 'like', 'all')->first())->id,
             'lists' => SubscriptionList::withCount('subscribers')->get(),
             'senderIdentities' => SenderIdentity::all(),
         ]);
+    }
+
+    public function show()
+    {
+        //
     }
 
     /**

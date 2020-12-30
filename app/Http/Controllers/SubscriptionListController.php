@@ -32,7 +32,7 @@ class SubscriptionListController extends Controller
             ])->latest()->paginate($paginationSize);
         }
 
-        return view('lists.index')->with([
+        return view('list.index')->with([
             'lists' => $lists->appends(request()->except('page')),
             'filters' => [
                 's' => $search,
@@ -47,7 +47,7 @@ class SubscriptionListController extends Controller
      */
     public function create()
     {
-        return view('lists.create')->with([
+        return view('list.create')->with([
             'lists' => SubscriptionList::all(),
         ]);
     }
@@ -63,7 +63,7 @@ class SubscriptionListController extends Controller
 
     public function edit(SubscriptionList $list)
     {
-        return view('lists.edit')->with([
+        return view('list.edit')->with([
             'list' => $list,
         ]);
     }

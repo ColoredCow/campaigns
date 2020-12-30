@@ -67,7 +67,7 @@ class SubscriberController extends Controller
 
         $subscribers = $subscribers->latest()->paginate($paginationSize);
 
-        return view('subscribers.index')->with([
+        return view('subscriber.index')->with([
             'subscribers' => $subscribers->appends(request()->except('page')),
             'lists' => SubscriptionList::all(),
             'filters' => [
@@ -80,7 +80,7 @@ class SubscriberController extends Controller
 
     public function create()
     {
-        return view('subscribers.create')->with([
+        return view('subscriber.create')->with([
             'lists' => SubscriptionList::where('name', '!=', 'all')->get(),
         ]);
     }
@@ -102,7 +102,7 @@ class SubscriberController extends Controller
 
     public function edit(Subscriber $subscriber)
     {
-        return view('subscribers.edit')->with([
+        return view('subscriber.edit')->with([
             'subscriber' => $subscriber,
             'lists' => SubscriptionList::where('name', '!=', 'all')->get(),
         ]);
@@ -125,7 +125,7 @@ class SubscriberController extends Controller
 
     public function uploadView()
     {
-        return view('subscribers.upload');
+        return view('subscriber.upload');
     }
 
     public function upload(Request $request)
