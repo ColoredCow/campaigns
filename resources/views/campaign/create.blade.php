@@ -5,7 +5,7 @@
     @include('status')
     <h2 class="mb-4"><i data-feather="mail" class="mr-2 page-icon"></i>Create Campaign</h2>
     <div class="alert alert-info" role="alert">
-        <h4 class="alert-heading font-weight-bold"><i data-feather="alert-circle" class="icon-30 mr-2"></i>Important!</h4>
+        <h4 class="alert-heading font-weight-bold"><i data-feather="alert-circle" class="w-30 h-30 mr-2"></i>Important!</h4>
         <p>Campaigns only go to the valid and subscribed users in the selected list.</p>
         <p>Please use following snippets to create dynamic email template:</p>
         <p>1) User Name:  <b>|*USERNAME*|</b></p>
@@ -55,7 +55,7 @@
             <div class="clone d-none">
                 <div class="d-flex align-items-center mt-3 control-group">
                     <span class="text-danger remove-attachment c-pointer text-underline">
-                        <i data-feather="x" class="icon-20 mr-2"></i>
+                        <i data-feather="x" class="w-20 h-20 mr-2"></i>
                     </span>
                     <input type="file" name="attachments[]">
                 </div>

@@ -10,14 +10,14 @@
     <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between mb-3">
         <form action="{{route('campaign.index')}}" method="GET" class="d-flex mr-md-3 mb-2 mb-md-0">
             <div class="inner-addon left-addon d-flex align-items-center">
-                <i data-feather="search" class="icon icon-20 ml-2 mr-2 text-grey-dark"></i>
+                <i data-feather="search" class="icon w-20 h-20 ml-2 mr-2 text-grey-dark"></i>
                 <input type="text" class="form-control" placeholder="search" name="s" value="{{$filters['s']}}" style="width: 250px;" placeholder="search">
             </div>
             <input type="submit" class="d-none">
         </form>
         <div class="d-flex flex-column flex-md-row">
             <a href="{{route('campaign.create')}}" class="btn btn-grey-light text-dark d-inline-block">
-                <i data-feather="plus" class="icon-20 mr-1"></i>Create Campaign
+                <i data-feather="plus" class="w-20 h-20 mr-1"></i>Create Campaign
             </a>
         </div>
     </div>
@@ -25,8 +25,7 @@
         <table class="table table-striped border">
             <thead class="bg-primary text-white">
                 <tr>
-                    <th scope="col">List</th>
-                    <th scope="col">Subject</th>
+                    <th scope="col">Details</th>
                     <th scope="col">Sent on</th>
                     <th scope="col" colspan="2">Sender identity</th>
                 </tr>
@@ -34,15 +33,20 @@
             <tbody>
                 @foreach ($campaigns as $campaign)
                 <tr>
-                    <td>{{$campaign->subscriptionList->name}}</td>
-                    <td>{{$campaign->email_subject}}</td>
-                    <td>{{$campaign->created_at->format('d/m/Y')}}</td>
                     <td>
-                        {{$campaign->sender_identity_name}} <mark>{{$campaign->sender_identity_email}}<mark>
+                        <div>{{$campaign->email_subject}}</div>
+                        <div class="text-secondary">{{$campaign->subscriptionList->name}}</div>
+                    </td>
+                    <td>
+                        <div>{{$campaign->created_at->format('M d, Y')}}</div>
+                        <div class="text-secondary">{{$campaign->created_at->format('h:i a')}}<div>
+                    </td>
+                    <td>
+                        <div>{{$campaign->sender_identity_name ?? '-'}}</div>
+                        <div class="text-secondary">{{$campaign->sender_identity_email}}<div>
                     </td>
                     <td style="min-width: 150px;" class="text-grey-dark text-right">
-                        {{-- <a href="#" class="text-grey-dark mr-2" title="View"><i data-feather="eye" class="icon-20"></i></a> --}}
-                        {{-- <a href="#" class="text-danger" title="Delete"><i data-feather="trash-2" class="icon-20"></i></a> --}}
+                        <a href="{{ route('campaign.show', $campaign) }}" class="text-grey-dark mr-2" title="View"><i data-feather="eye" class="w-20 h-20"></i></a>
                     </td>
                 </tr>
                 @endforeach

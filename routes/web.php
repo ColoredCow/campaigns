@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('campaign');
     });
     Route::post('/campaign-image-upload', 'CampaignController@inlineImageUpload');
-    Route::resource('campaign', 'CampaignController')->only(['index', 'create', 'store']);
+    Route::resource('campaign', 'CampaignController')->only(['index', 'create', 'store', 'show']);
     Route::resource('list', 'SubscriptionListController')->except(['show', 'delete']);
     Route::resource('sender-identity', 'SenderIdentityController')->except(['show', 'delete']);
     Route::get('subscriber/upload', 'SubscriberController@uploadView')->name('subscriber.upload-view');

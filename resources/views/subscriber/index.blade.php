@@ -11,17 +11,17 @@
         </div>
         <div class="d-flex">
             <a href="{{route('subscriber.create')}}" class="btn btn-grey-light text-dark d-inline-block mr-2">
-                <i data-feather="plus" class="icon-20 mr-1"></i>Add Subscriber
+                <i data-feather="plus" class="w-20 h-20 mr-1"></i>Add Subscriber
             </a>
             <a href="{{route('subscriber.upload-view')}}" class="btn btn-grey-lightest text-dark d-inline-block">
-                <i data-feather="upload" class="icon-20 mr-1"></i>Bulk upload
+                <i data-feather="upload" class="w-20 h-20 mr-1"></i>Bulk upload
             </a>
         </div>
     </div>
     <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between mb-3">
         <form action="{{route('subscriber.index')}}" method="GET" class="d-flex mr-md-3 mb-2 mb-md-0">
             <div class="inner-addon left-addon d-flex align-items-center">
-                <i data-feather="search" class="icon icon-20 ml-2 mr-2 text-grey-dark"></i>
+                <i data-feather="search" class="icon w-20 h-20 ml-2 mr-2 text-grey-dark"></i>
                 <input type="text" class="form-control" placeholder="search" name="s" value="{{$filters['s']}}" style="width: 250px;" placeholder="search">
             </div>
             <input type="submit" class="d-none">
@@ -75,26 +75,26 @@
                             <div class="mr-2">
                                 @if(is_null($subscriber->email_verification_at))
                                     <span class="text-info" data-toggle="tooltip" data-placement="top" title="Email verification pending">
-                                        <i data-feather="alert-circle" class="icon-15"></i>
+                                        <i data-feather="alert-circle" class="w-15 h-15"></i>
                                     </span>
                                 @elseif($subscriber->has_verified_email)
                                     <span class="text-success" data-toggle="tooltip" data-placement="top" title="Email is valid">
-                                        <i data-feather="check-circle" class="icon-15"></i>
+                                        <i data-feather="check-circle" class="w-15 h-15"></i>
                                     </span>
                                 @else
                                     <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Email is invalid">
-                                        <i data-feather="x-circle" class="icon-15"></i>
+                                        <i data-feather="x-circle" class="w-15 h-15"></i>
                                     </span>
                                 @endif
                             </div>
                             <div>
                                 @if($subscriber->is_subscribed)
                                     <span class="text-success" data-toggle="tooltip" data-placement="top" title="Subscribed">
-                                        <i data-feather="check-circle" class="icon-15"></i>
+                                        <i data-feather="check-circle" class="w-15 h-15"></i>
                                     </span>
                                 @else
                                     <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Unsubscribed">
-                                        <i data-feather="x-circle" class="icon-15"></i>
+                                        <i data-feather="x-circle" class="w-15 h-15"></i>
                                     </span>
                                 @endif
                             </div>
@@ -110,8 +110,8 @@
                         {{ substr($subscriberList, 0, -2) }}
                     </td>
                     <td style="min-width: 150px;" class="text-grey-dark text-right">
-                        <a href="{{route('subscriber.edit', $subscriber)}}" class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="icon-20"></i></a>
-                        <a href="#" class="text-danger resource-delete" title="Delete"><i data-feather="trash-2" class="icon-20"></i></a>
+                        <a href="{{route('subscriber.edit', $subscriber)}}" class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="w-20 h-20"></i></a>
+                        <a href="#" class="text-danger resource-delete" title="Delete"><i data-feather="trash-2" class="w-20 h-20"></i></a>
                         <form action="{{route('subscriber.destroy', $subscriber)}}" method="POST" class="d-none">
                             @csrf
                             @method('DELETE')

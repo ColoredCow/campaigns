@@ -9,12 +9,23 @@ use App\Models\PendingEmail;
 use Illuminate\Http\Request;
 use App\Models\SenderIdentity;
 use App\Models\SubscriptionList;
+use App\Services\CampaignService;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\CampaignRequest;
+use ColoredCow\LaravelMobileAPI\Traits\CanHaveAPIEndPoints;
 
 class CampaignController extends Controller
 {
+    use CanHaveAPIEndPoints;
+
+    protected $service;
+
+    public function __construct(CampaignService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
         $search = null;
@@ -48,9 +59,17 @@ class CampaignController extends Controller
         ]);
     }
 
-    public function show()
+    public function show(Campaign $campaign)
     {
-        //
+        $campaign = $this->service->show($campaign);
+        return $this->returnFormattedResponse(
+            function () use ($campaign) {
+                return $campaign;
+            },
+            function () use ($campaign) {
+                return view('campaign.show', $campaign);
+            }
+        );
     }
 
     /**
