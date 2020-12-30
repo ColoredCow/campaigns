@@ -9,6 +9,7 @@ use App\Models\FailedUpload;
 use App\Models\PendingEmail;
 use App\Models\Subscriber;
 use App\Models\SubscriptionList;
+use App\Services\SubscriberService;
 use ColoredCow\LaravelMobileAPI\Traits\CanHaveAPIEndPoints;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -19,6 +20,13 @@ use Maatwebsite\Excel\Facades\Excel;
 class SubscriberController extends Controller
 {
     use CanHaveAPIEndPoints;
+
+    protected $service;
+
+    public function __construct(SubscriberService $service)
+    {
+        $this->service = $service;
+    }
 
     /**
      * Display a listing of the resource.
@@ -80,26 +88,11 @@ class SubscriberController extends Controller
     public function store(SubscriberRequest $request)
     {
         $validated = $request->validated();
-
-        $subscriber = Subscriber::firstOrCreate([
-            'email' => $validated['email'],
-        ], [
-            'name' => $validated['name'],
-            'phone' => $validated['phone'] ?? '',
-            'has_verified_email' => true, // EmailVerifier::isValidEmail($request->post('email')),
-            'email_verification_at' => now(),
-        ]);
-
-        $allCategory = SubscriptionList::where('name', 'all')->first();
-        $subscriber->lists()->attach($allCategory->id);
-
-        if (isset($validated['subscription_lists'])) {
-            $subscriber->lists()->attach($validated['subscription_lists']);
-        }
+        $subscriber = $this->service->store($validated);
 
         return $this->returnFormattedResponse(
             function () use ($subscriber) {
-                return response()->json($subscriber);
+                return $subscriber;
             },
             function () use ($subscriber) {
                 return redirect()->route('subscribers.edit', $subscriber)->with('success', 'Subscriber added successfully!');
