@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\CampaignEmailsSent;
 use App\Models\PendingEmail;
 use App\Models\Subscriber;

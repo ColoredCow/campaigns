@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Subscriber;
 use App\Models\SubscriptionList;
 use Illuminate\Database\Seeder;
