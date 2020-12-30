@@ -26,7 +26,7 @@ class CampaignController extends Controller
             $campaigns = Campaign::with('subscriptionList')->latest()->paginate($paginationSize);
         }
         return view('campaigns.index')->with([
-            'campaigns' => $campaigns->appends(Input::except('page')),
+            'campaigns' => $campaigns->appends(request()->except('page')),
             'filters' => [
                 's' => $search,
             ],

@@ -33,7 +33,7 @@ class SubscriptionListController extends Controller
         }
 
         return view('lists.index')->with([
-            'lists' => $lists->appends(Input::except('page')),
+            'lists' => $lists->appends(request()->except('page')),
             'filters' => [
                 's' => $search,
             ],
