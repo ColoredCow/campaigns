@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container pb-4">
+<div class="container">
     <h2 class="mb-4"><i data-feather="mail" class="mr-2 page-icon"></i>View Campaign</h2>
     <div class="row">
         <div class="col-md-4">
