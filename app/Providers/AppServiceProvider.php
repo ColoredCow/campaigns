@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use App\Models\SenderIdentity;
-use Illuminate\Support\ServiceProvider;
 use App\Observers\SenderIdentityObserver;
+use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Passport::routes();
     }
 }

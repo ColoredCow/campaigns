@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\EmailVerifier;
+use App\Http\Requests\SubscriberRequest;
 use App\Models\CampaignEmailsSent;
 use App\Models\FailedUpload;
 use App\Models\PendingEmail;
 use App\Models\Subscriber;
 use App\Models\SubscriptionList;
-use Carbon\Carbon;
+use App\Services\SubscriberService;
+use ColoredCow\LaravelMobileAPI\Traits\CanHaveAPIEndPoints;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
@@ -17,6 +19,15 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class SubscriberController extends Controller
 {
+    use CanHaveAPIEndPoints;
+
+    protected $service;
+
+    public function __construct(SubscriberService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -74,40 +85,19 @@ class SubscriberController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(SubscriberRequest $request)
     {
-        $this->validate($request, [
-            'email' => [
-                'required',
-                'email',
-                'unique:subscribers,email',
-            ],
-            'name' => 'required|string',
-            'phone' => 'nullable|string',
-        ]);
+        $validated = $request->validated();
+        $subscriber = $this->service->store($validated);
 
-        $args = [
-            'email' => $request->post('email'),
-            'name' => $request->post('name'),
-            'has_verified_email' => EmailVerifier::isValidEmail($request->post('email')),
-            'email_verification_at' => Carbon::now(),
-        ];
-
-        if ($request->post('phone')) {
-            $args['phone'] = $request->post('phone');
-        }
-
-        $subscriber = Subscriber::create($args);
-
-        $allCategory = SubscriptionList::where('name', 'all')->get();
-        $selectedLists = $request->post('subscription_lists');
-        $selectedLists[] = $allCategory->first()->id;
-        $subscriber->lists()->attach($selectedLists);
-
-        if (!$subscriber->has_verified_email) {
-            return redirect()->route('subscribers.edit', $subscriber)->with('warning', 'Subscriber added but it does not have a valid email!');
-        }
-        return redirect()->route('subscribers.edit', $subscriber)->with('success', 'Subscriber added successfully!');
+        return $this->returnFormattedResponse(
+            function () use ($subscriber) {
+                return $subscriber;
+            },
+            function () use ($subscriber) {
+                return redirect()->route('subscribers.edit', $subscriber)->with('success', 'Subscriber added successfully!');
+            }
+        );
     }
 
     public function edit(Subscriber $subscriber)
@@ -136,7 +126,7 @@ class SubscriberController extends Controller
             'email' => $request->post('email'),
             'name' => $request->post('name'),
             'has_verified_email' => EmailVerifier::isValidEmail($request->post('email')),
-            'email_verification_at' => Carbon::now(),
+            'email_verification_at' => now(),
         ];
         if ($request->post('phone')) {
             $args['phone'] = $request->post('phone');
