@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Helpers\EmailVerifier;
 use App\Models\Subscriber;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class VerifyEmails extends Command
@@ -45,7 +44,7 @@ class VerifyEmails extends Command
         foreach ($subscribers as $subscriber) {
             $verified = EmailVerifier::isValidEmail($subscriber->email);
             $subscriber->has_verified_email = $verified;
-            $subscriber->email_verification_at = Carbon::now();
+            $subscriber->email_verification_at = now();
             $subscriber->save();
         }
     }

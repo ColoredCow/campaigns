@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Helpers\EmailVerifier;
 use App\Models\PendingEmail;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class VerifyPendingEmails extends Command
@@ -46,7 +45,7 @@ class VerifyPendingEmails extends Command
             if ($subscriber->has_verified_email) {
                 $verified = EmailVerifier::isValidEmail($subscriber->email);
                 $subscriber->has_verified_email = $verified;
-                $subscriber->email_verification_at = Carbon::now();
+                $subscriber->email_verification_at = now();
                 $subscriber->save();
             }
         }
