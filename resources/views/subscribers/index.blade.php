@@ -5,7 +5,7 @@
 <div class="container">
     @include('status')
     <div class="mb-3 d-flex flex-column flex-md-row align-items-md-center justify-content-md-between w-100">
-        <div class="d-flex mb-2 mb-md-0">
+        <div class="d-flex align-items-center mb-2 mb-md-0">
             <h2 class="mb-0 d-flex align-items-end"><i data-feather="users" class="mr-2 page-icon"></i>Subscribers</h2>
             <h3 class="text-secondary mb-0 ml-1">({{$subscribers->total()}})</h3>
         </div>
