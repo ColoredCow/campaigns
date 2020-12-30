@@ -14,8 +14,6 @@ yarn-error.log
 .phpunit.result.cache
 
 .DS_Store
-package-lock.json
-composer.lock
 
 public/uploads/
 
