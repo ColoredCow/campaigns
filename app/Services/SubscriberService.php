@@ -18,14 +18,28 @@ class SubscriberService
             'email_verification_at' => now(),
         ]);
 
-		// add "all" category
-        $allCategory = SubscriptionList::where('name', 'all')->first();
-        $subscriber->lists()->syncWithoutDetaching($allCategory->id);
-
-        if (isset($request['subscription_lists'])) {
-            $subscriber->lists()->syncWithoutDetaching($request['subscription_lists']);
-        }
+        $request['subscription_lists'] = $request['subscription_lists'] ?? [];
+        $allList = SubscriptionList::where('name', 'all')->first();
+        array_push($request['subscription_lists'], $allList->id); // add subscriber to "all" list
+        $subscriber->lists()->sync($request['subscription_lists']);
 
         return $subscriber;
 	}
+
+    public function update($subscriber, $request)
+    {
+        $subscriber->load('lists');
+        $subscriber->update([
+            'email' => $request['email'],
+            'name' => $request['name'],
+            'phone' => $request['phone'] ?? '',
+        ]);
+
+        $request['subscription_lists'] = $request['subscription_lists'] ?? [];
+        $allList = SubscriptionList::where('name', 'all')->first();
+        array_push($request['subscription_lists'], $allList->id); // add subscriber to "all" list
+        $subscriber->lists()->sync($request['subscription_lists']);
+
+        return $subscriber;
+    }
 }

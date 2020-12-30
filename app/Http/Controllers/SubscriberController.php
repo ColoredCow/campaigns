@@ -102,46 +102,25 @@ class SubscriberController extends Controller
 
     public function edit(Subscriber $subscriber)
     {
-        $subscriber->load('lists');
-
         return view('subscribers.edit')->with([
             'subscriber' => $subscriber,
             'lists' => SubscriptionList::where('name', '!=', 'all')->get(),
         ]);
     }
 
-    public function update(Subscriber $subscriber, Request $request)
+    public function update(Subscriber $subscriber, SubscriberRequest $request)
     {
-        $this->validate($request, [
-            'email' => [
-                'required',
-                'email',
-                Rule::unique('subscribers')->ignore($subscriber->id),
-            ],
-            'name' => 'required|string',
-            'phone' => 'nullable|string',
-        ]);
+        $validated = $request->validated();
+        $subscriber = $this->service->update($subscriber, $validated);
 
-        $args = [
-            'email' => $request->post('email'),
-            'name' => $request->post('name'),
-            'has_verified_email' => EmailVerifier::isValidEmail($request->post('email')),
-            'email_verification_at' => now(),
-        ];
-        if ($request->post('phone')) {
-            $args['phone'] = $request->post('phone');
-        }
-        $subscriber->update($args);
-
-        $allCategory = SubscriptionList::where('name', 'all')->get();
-        $selectedLists = $request->post('subscription_lists');
-        $selectedLists[] = $allCategory->first()->id;
-        $subscriber->lists()->sync($selectedLists);
-
-        if (!$subscriber->has_verified_email) {
-            return redirect()->route('subscribers.edit', $subscriber)->with('warning', 'Subscriber updated but it does not have a valid email!');
-        }
-        return back()->with('success', 'Subscriber updated successfully!');
+        return $this->returnFormattedResponse(
+            function () use ($subscriber) {
+                return $subscriber;
+            },
+            function () use ($subscriber) {
+                return redirect()->route('subscribers.edit', $subscriber)->with('success', 'Subscriber updated successfully!');
+            }
+        );
     }
 
     public function uploadView()
