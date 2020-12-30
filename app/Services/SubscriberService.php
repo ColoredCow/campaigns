@@ -7,13 +7,13 @@ use App\Models\SubscriptionList;
 
 class SubscriberService
 {
-	public function store($request)
+	public function store($request, $detachLists = true)
 	{
 		$subscriber = Subscriber::firstOrCreate([
             'email' => $request['email'],
         ], [
             'name' => $request['name'],
-            'phone' => $request['phone'] ?? '',
+            'phone' => $request['phone'] ?? null,
             'has_verified_email' => true, // EmailVerifier::isValidEmail($request->post('email')),
             'email_verification_at' => now(),
         ]);
@@ -21,12 +21,16 @@ class SubscriberService
         $request['subscription_lists'] = $request['subscription_lists'] ?? [];
         $allList = SubscriptionList::where('name', 'all')->first();
         array_push($request['subscription_lists'], $allList->id); // add subscriber to "all" list
-        $subscriber->lists()->sync($request['subscription_lists']);
+        if ($detachLists) {
+            $subscriber->lists()->sync($request['subscription_lists']);
+        } else {
+            $subscriber->lists()->syncWithoutDetaching($request['subscription_lists']);
+        }
 
         return $subscriber;
 	}
 
-    public function update($subscriber, $request)
+    public function update($subscriber, $request, $detachLists = true)
     {
         $subscriber->load('lists');
         $subscriber->update([
@@ -38,7 +42,11 @@ class SubscriberService
         $request['subscription_lists'] = $request['subscription_lists'] ?? [];
         $allList = SubscriptionList::where('name', 'all')->first();
         array_push($request['subscription_lists'], $allList->id); // add subscriber to "all" list
-        $subscriber->lists()->sync($request['subscription_lists']);
+        if ($detachLists) {
+            $subscriber->lists()->sync($request['subscription_lists']);
+        } else {
+            $subscriber->lists()->syncWithoutDetaching($request['subscription_lists']);
+        }
 
         return $subscriber;
     }

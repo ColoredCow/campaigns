@@ -12,9 +12,10 @@
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
+        "laravel/passport": "^10.1",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
-        "lcobucci/jwt": "3.3.3",
+        "maatwebsite/excel": "^3.1",
         "skmetaly/laravel-smtp-email-verifier": "dev-master"
     },
     "require-dev": {

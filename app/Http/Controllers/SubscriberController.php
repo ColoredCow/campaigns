@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\EmailVerifier;
 use App\Http\Requests\SubscriberRequest;
+use App\Imports\SubscribersImport;
 use App\Models\CampaignEmailsSent;
 use App\Models\FailedUpload;
 use App\Models\PendingEmail;
@@ -13,7 +14,6 @@ use App\Services\SubscriberService;
 use ColoredCow\LaravelMobileAPI\Traits\CanHaveAPIEndPoints;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -68,7 +68,7 @@ class SubscriberController extends Controller
         $subscribers = $subscribers->latest()->paginate($paginationSize);
 
         return view('subscribers.index')->with([
-            'subscribers' => $subscribers->appends(Input::except('page')),
+            'subscribers' => $subscribers->appends(request()->except('page')),
             'lists' => SubscriptionList::all(),
             'filters' => [
                 'list' => $list,
@@ -134,77 +134,10 @@ class SubscriberController extends Controller
             'category' => 'required|string',
             'file' => 'required|file',
         ]);
-        $path = $request->file('file')->getPathName();
-        $reader = Excel::load($path)->all();
 
-        $headers = array_map(function ($piece) {
-            return (string) $piece;
-        }, $reader->first()->keys()->toArray());
-        foreach (['name', 'email'] as $column) {
-            if (!in_array($column, $headers)) {
-                return back()->with('failed', 'Invalid file format!');
-            }
-        }
+        Excel::import(new SubscribersImport, $request->file('file'));
 
-        $excelData = $reader->toArray();
-
-        $lists = [
-            SubscriptionList::firstOrCreate(['name' => $request->post('category')]),
-            SubscriptionList::where('name', 'all')->first(),
-        ];
-
-        $fileName = $request->file('file')->getClientOriginalName();
-
-        $failedEntries = [];
-
-        foreach ($excelData as $data) {
-
-            $email = $data['email'];
-            $name = $data['name'];
-            $phone = $data['phone'] ?? null;
-
-            // this is not a valid entry if email cell is empty
-            // can't say what we need to dump to failed_uploads.
-            if (empty($email)) {
-                continue;
-            }
-
-            // if email is not a valid email
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $failedEntries[] = json_encode($data);
-                FailedUpload::create([
-                    'file' => $fileName,
-                    'data' => json_encode($data),
-                ]);
-                continue;
-            }
-
-            $subscriber = Subscriber::where('email', $email)->first();
-            if (!$subscriber) {
-                $subscriber = Subscriber::create([
-                    'email' => $email,
-                    'name' => $name,
-                    'phone' => $phone,
-                ]);
-            }
-            if (is_null($subscriber->name)) {
-                $subscriber->name = $name;
-            }
-            if (is_null($subscriber->phone)) {
-                $subscriber->phone = $phone;
-            }
-            $subscriber->save();
-
-            foreach ($lists as $list) {
-                if ($subscriber->lists()->where('id', $list->id)->doesntExist()) {
-                    $subscriber->lists()->attach($list->id);
-                }
-            }
-        }
-        if (sizeof($failedEntries)) {
-            return back()->with('incomplete-upload', json_encode($failedEntries));
-        }
-        return back()->with('success', 'File uploaded successfully! Email verification is in progress. Please check the status later.');
+        return back()->with('success', 'File uploaded successfully!');
     }
 
     public function destroy(Subscriber $subscriber)
