@@ -11,7 +11,7 @@
         "doctrine/dbal": "^2.8",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "5.7.*",
+        "laravel/framework": "5.8.*",
         "laravel/passport": "^v7.5.1",
         "laravel/tinker": "^1.0",
         "lcobucci/jwt": "3.3.3",
