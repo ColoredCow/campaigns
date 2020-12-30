@@ -44,13 +44,6 @@ main {
     height: 30px;
 }
 
-@each $name, $size in $icon-sizes {
-    .icon-#{$name} {
-        width: $size;
-        height: $size;
-    }
-}
-
 .inner-addon {
     position: relative;
 }

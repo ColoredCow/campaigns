@@ -5,7 +5,7 @@
 	@include('status')
 	@if (session('incomplete-upload'))
     	<div class="alert alert-warning">
-            <i data-feather="alert-triangle" class="icon-20 mr-2"></i>Upload successful. However, we could not upload a few entries. Please check and upload again:
+            <i data-feather="alert-triangle" class="w-20 h-20 mr-2"></i>Upload successful. However, we could not upload a few entries. Please check and upload again:
             <ul>
             @foreach (json_decode(session('incomplete-upload')) as $failedEntry)
 				<li>{{$failedEntry}}</li>
@@ -18,7 +18,7 @@
 	<form action="{{route('subscriber.upload')}}" method="POST" enctype="multipart/form-data">
 		@csrf
 		<div class="alert alert-info" role="alert">
-			<h4 class="alert-heading font-weight-bold"><i data-feather="alert-circle" class="icon-30 mr-2"></i>Important!</h4>
+			<h4 class="alert-heading font-weight-bold"><i data-feather="alert-circle" class="w-30 h-30 mr-2"></i>Important!</h4>
 			<p>Please make sure your file have the right format with the following columns:</p>
 			<ul>
 				<li>Email</li>
