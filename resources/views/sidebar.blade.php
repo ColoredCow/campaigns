@@ -2,22 +2,22 @@
     <div class="sidebar-sticky bg-grey-light pt-5 pl-4">
         <ul class="nav flex-column">
             <li class="nav-item mb-3">
-                <a class="nav-link text-dark font-weight-bold" href="{{route('campaigns')}}">
+                <a class="nav-link text-dark font-weight-bold" href="{{route('campaign.index')}}">
                     <i data-feather="mail" class="mr-2"></i>Campaigns
                 </a>
             </li>
             <li class="nav-item mb-3">
-                <a class="nav-link text-dark font-weight-bold" href="{{route('subscribers')}}">
+                <a class="nav-link text-dark font-weight-bold" href="{{route('subscriber.index')}}">
                     <i data-feather="users" class="mr-2"></i>Subscribers
                 </a>
             </li>
             <li class="nav-item mb-3">
-                <a class="nav-link text-dark font-weight-bold" href="{{route('lists')}}">
-                    <i data-feather="list" class="mr-2"></i>Categories
+                <a class="nav-link text-dark font-weight-bold" href="{{route('list.index')}}">
+                    <i data-feather="list" class="mr-2"></i>Lists
                 </a>
             </li>
             <li class="nav-item mb-3">
-                <a class="nav-link text-dark font-weight-bold" href="{{route('sender-identity')}}">
+                <a class="nav-link text-dark font-weight-bold" href="{{route('sender-identity.index')}}">
                     <i data-feather="at-sign" class="mr-2"></i>Sender Identities
                 </a>
             </li>

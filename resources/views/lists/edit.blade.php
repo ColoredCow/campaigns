@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     @include('status')
-    <form action="{{route('lists.update', $list)}}" method="POST">
+    <form action="{{route('list.update', $list)}}" method="POST">
         @csrf
         @method('PATCH')
-        <h2 class="mb-4"><i data-feather="list" class="mr-2 page-icon"></i>Edit Category</h2>
+        <h2 class="mb-4"><i data-feather="list" class="mr-2 page-icon"></i>Edit List</h2>
         <div class="form-row">
             <div class="form-group col-md-6 pr-0">
                 <label for="name" class="mb-0">Name</label>

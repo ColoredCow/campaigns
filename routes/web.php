@@ -21,50 +21,23 @@ Route::get('unsubscribe/{subscriber}', 'SubscriberController@unsubscribe')->name
 Route::middleware('auth')->group(function () {
 
     Route::get('home', function () {
-        return redirect()->route('campaigns');
+        return redirect()->route('campaign');
     });
 
     Route::post('/campaign-image-upload', 'CampaignController@inlineImageUpload');
 
-    Route::resource('campaigns', 'CampaignController')
-        ->only(['index', 'create', 'store'])
-        ->names([
-            'index' => 'campaigns',
-            'create' => 'campaigns.create',
-            'store' => 'campaigns.store',
-        ]);
+    Route::resource('campaign', 'CampaignController')
+        ->only(['index', 'create', 'store']);
 
-    Route::resource('lists', 'SubscriptionListController')
-        ->except(['show', 'delete'])
-        ->names([
-            'index' => 'lists',
-            'create' => 'lists.create',
-            'store' => 'lists.store',
-            'edit' => 'lists.edit',
-            'update' => 'lists.update',
-        ]);
+    Route::resource('list', 'SubscriptionListController')
+        ->except(['show', 'delete']);
 
     Route::resource('sender-identity', 'SenderIdentityController')
-        ->except(['show', 'delete'])
-        ->names([
-            'index' => 'sender-identity',
-            'create' => 'sender-identity.create',
-            'store' => 'sender-identity.store',
-            'edit' => 'sender-identity.edit',
-            'update' => 'sender-identity.update',
-        ]);
+        ->except(['show', 'delete']);
 
-    Route::get('subscribers/upload', 'SubscriberController@uploadView')->name('subscribers.upload-view');
-    Route::post('subscribers/upload', 'SubscriberController@upload')->name('subscribers.upload');
+    Route::get('subscriber/upload', 'SubscriberController@uploadView')->name('subscriber.upload-view');
+    Route::post('subscriber/upload', 'SubscriberController@upload')->name('subscriber.upload');
 
-    Route::resource('subscribers', 'SubscriberController')
-        ->except(['show'])
-        ->names([
-            'index' => 'subscribers',
-            'create' => 'subscribers.create',
-            'store' => 'subscribers.store',
-            'edit' => 'subscribers.edit',
-            'update' => 'subscribers.update',
-            'destroy' => 'subscribers.destroy'
-        ]);
+    Route::resource('subscriber', 'SubscriberController')
+        ->except(['show']);
 });

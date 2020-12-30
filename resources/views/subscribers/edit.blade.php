@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     @include('status')
-    <form action="{{route('subscribers.update', $subscriber)}}" method="POST">
+    <form action="{{route('subscriber.update', $subscriber)}}" method="POST">
         @csrf
         @method('PATCH')
         <h2 class="mb-4"><i data-feather="user" class="mr-2 page-icon"></i>Edit Subscriber</h2>
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="form-group col-md-6 px-0">
-            <label for="subscription_lists" class="mb-0">Select categories</label>
+            <label for="subscription_lists" class="mb-0">Select lists</label>
             <select class="form-control mb-1" id="subscription_lists" name="subscription_lists[]" multiple>
                 @foreach ($lists as $list)
                     <option value="{{$list->id}}" {{ $subscriber->lists->contains($list->id) ? 'selected':'' }}>{{$list->name}}</option>

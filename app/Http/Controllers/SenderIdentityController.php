@@ -44,7 +44,7 @@ class SenderIdentityController extends Controller
         
         SenderIdentity::create($validated);
 
-        return redirect()->route('sender-identity')->with('status', 'New identity created.');
+        return redirect()->route('sender-identity.index')->with('status', 'New identity created.');
     }
 
     /**
@@ -72,6 +72,6 @@ class SenderIdentityController extends Controller
 
         $senderIdentity->update(array_merge($default, $validated));
 
-        return redirect()->route('sender-identity')->with('status', sprintf('Identity for %s updated.', $senderIdentity->name));
+        return redirect()->route('sender-identity.index')->with('status', sprintf('Identity for %s updated.', $senderIdentity->name));
     }
 }

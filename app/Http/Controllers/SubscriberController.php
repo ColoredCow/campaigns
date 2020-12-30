@@ -95,7 +95,7 @@ class SubscriberController extends Controller
                 return $subscriber;
             },
             function () use ($subscriber) {
-                return redirect()->route('subscribers.edit', $subscriber)->with('success', 'Subscriber added successfully!');
+                return redirect()->route('subscriber.edit', $subscriber)->with('success', 'Subscriber added successfully!');
             }
         );
     }
@@ -118,7 +118,7 @@ class SubscriberController extends Controller
                 return $subscriber;
             },
             function () use ($subscriber) {
-                return redirect()->route('subscribers.edit', $subscriber)->with('success', 'Subscriber updated successfully!');
+                return redirect()->route('subscriber.edit', $subscriber)->with('success', 'Subscriber updated successfully!');
             }
         );
     }
@@ -131,7 +131,7 @@ class SubscriberController extends Controller
     public function upload(Request $request)
     {
         $this->validate($request, [
-            'category' => 'required|string',
+            'list' => 'required|string',
             'file' => 'required|file',
         ]);
 

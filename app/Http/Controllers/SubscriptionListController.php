@@ -58,7 +58,7 @@ class SubscriptionListController extends Controller
         $list = SubscriptionList::create([
             'name' => $validated['name'],
         ]);
-        return redirect()->route('lists.edit', $list)->with('success', 'Category created successfully!');
+        return redirect()->route('list.edit', $list)->with('success', 'List created successfully!');
     }
 
     public function edit(SubscriptionList $list)
@@ -74,7 +74,7 @@ class SubscriptionListController extends Controller
         $list->update([
             'name' => $validated['name'],
         ]);
-        return back()->with('success', 'Category updated successfully!');
+        return back()->with('success', 'List updated successfully!');
     }
 
     /**

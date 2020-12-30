@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <form action="{{route('subscribers.store')}}" method="POST">
+    <form action="{{route('subscriber.store')}}" method="POST">
         @csrf
         <h2 class="mb-4"><i data-feather="user" class="mr-2 page-icon"></i>New Subscriber</h2>
         <div class="form-row mx-0">
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="form-group col-md-6 px-0">
-            <label for="subscription_lists" class="mb-0">Select categories</label>
+            <label for="subscription_lists" class="mb-0">Select lists</label>
             <select class="form-control mb-1" id="subscription_lists" name="subscription_lists[]" multiple>
                 @foreach ($lists as $list)
                     <option value="{{$list->id}}" {{ (collect(old('subscription_lists'))->contains($list->id)) ? 'selected':'' }}>{{$list->name}}</option>

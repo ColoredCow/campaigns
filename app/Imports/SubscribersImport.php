@@ -31,7 +31,7 @@ class SubscribersImport implements ToCollection, WithHeadingRow
                 continue;
             }
 
-            $subscriptionList = SubscriptionList::firstOrCreate(['name' => request()->input('category')]);
+            $subscriptionList = SubscriptionList::firstOrCreate(['name' => request()->input('list')]);
             $row['subscription_lists'] = [$subscriptionList->id];
 
             $subscriber = $service->store($row->toArray(), false);

@@ -12,7 +12,7 @@
         <p><i><u>For example</u></i></p>
         <p>Dear |*USERNAME*| <br></p>
     </div>
-    <form action="{{route('campaigns.store')}}" method="POST" enctype="multipart/form-data" class="pb-5">
+    <form action="{{route('campaign.store')}}" method="POST" enctype="multipart/form-data" class="pb-5">
         @csrf
 
         <div class="form-group col-md-4 px-0">

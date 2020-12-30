@@ -8,7 +8,7 @@
         <h2 class="mb-0 d-flex align-items-end"><i data-feather="at-sign" class="mr-2 page-icon"></i>Sender Identities</h2>
     </div>
     <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between mb-3">
-        <form action="{{route('sender-identity')}}" method="GET" class="d-flex mr-md-3 mb-2 mb-md-0">
+        <form action="{{route('sender-identity.index')}}" method="GET" class="d-flex mr-md-3 mb-2 mb-md-0">
             <input type="submit" class="d-none">
         </form>
         <div class="d-flex flex-column flex-md-row">
