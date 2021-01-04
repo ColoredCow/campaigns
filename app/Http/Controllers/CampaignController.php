@@ -47,16 +47,20 @@ class CampaignController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param  \App\Http\Requests\CampaignRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('campaign.create')->with([
-            'allSubscribersCount' => Subscriber::count(),
-            'allListId' => optional(SubscriptionList::where('name', 'like', 'all')->first())->id,
-            'lists' => SubscriptionList::withCount('subscribers')->get(),
-            'senderIdentities' => SenderIdentity::all(),
-        ]);
+        $data = $this->service->create($request);
+        return $this->returnFormattedResponse(
+            function () {
+                //
+            },
+            function () use ($data) {
+                return view('campaign.create', $data);
+            }
+        );
     }
 
     public function show(Campaign $campaign)

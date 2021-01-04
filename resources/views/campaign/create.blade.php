@@ -7,10 +7,12 @@
     <div class="alert alert-info" role="alert">
         <h4 class="alert-heading font-weight-bold"><i data-feather="alert-circle" class="w-30 h-30 mr-2"></i>Important!</h4>
         <p>Campaigns only go to the valid and subscribed users in the selected list.</p>
-        <p>Please use following snippets to create dynamic email template:</p>
-        <p>1) User Name:  <b>|*USERNAME*|</b></p>
-        <p><i><u>For example</u></i></p>
-        <p>Dear |*USERNAME*| <br></p>
+        <p>Use following snippets to create dynamic email template:</p>
+        <ul>
+            <li>User Name: <b>|*USERNAME*|</b></li>
+        </ul>
+        {{-- <p><i><u>For example</u></i></p> --}}
+        <p>For example: Dear |*USERNAME*| <br></p>
     </div>
     <form action="{{route('campaign.store')}}" method="POST" enctype="multipart/form-data" class="pb-5">
         @csrf
@@ -20,7 +22,17 @@
             <select class="form-control mb-1" id="sender_identity" name="sender_identity_id" required>
                 <option value="">Select</option>
                 @foreach ($senderIdentities as $identity)
-                    <option value="{{$identity->id}}" {{ $identity->is_default ? 'selected' : '' }}>
+                    @php
+                        $selected = '';
+                        if (isset($duplicateCampaign)) {
+                            if ($duplicateCampaign->sender_identity_id == $identity->id) {
+                                $selected = 'selected';
+                            }
+                        } else if ($identity->is_default) {
+                            $selected = 'selected';
+                        }
+                    @endphp
+                    <option value="{{$identity->id}}" {{$selected}}>
                         {{$identity->name}} <span>({{$identity->email}})</span>
                     </option>
                 @endforeach
@@ -30,22 +42,22 @@
         <div class="form-group col-md-4 px-0">
             <label for="list" class="mb-0">Select List</label>
             <select class="form-control mb-1" id="subscription_list_id" name="subscription_list_id" required>
-                @if($allListId)
-                    <option value="{{$allListId}}">All ({{$allSubscribersCount}})</option>
-                @endif
                 @foreach ($lists as $list)
-                    <option value="{{$list->id}}">{{$list->name}} <span>({{$list->subscribers_count}})</span></option>
+                    @php
+                        $selected = isset($duplicateCampaign) && $duplicateCampaign->subscription_list_id == $list->id ? 'selected' : '';
+                    @endphp
+                    <option value="{{$list->id}}" {{ $selected }}>{{$list->name}} <span>({{$list->subscribers_count}})</span></option>
                 @endforeach
             </select>
             <a href="#">See subscribers in the list</a>
         </div>
         <div class="form-group col-12 px-0">
             <label for="email_subject" class="mb-0">Subject</label>
-            <input type="text" class="form-control" id="email_subject" name="email_subject" required>
+            <input type="text" class="form-control" id="email_subject" name="email_subject" value="{{ isset($duplicateCampaign) ? $duplicateCampaign->email_subject : old('email_subject') }}" required>
         </div>
         <div class="form-group col-12 px-0">
             <label for="email_body" class="mb-0">Body</label>
-            <textarea class="form-control" id="email_body" name="email_body" rows="8"></textarea>
+            <textarea class="form-control" id="email_body" name="email_body" rows="8">{{ isset($duplicateCampaign) ? $duplicateCampaign->email_body : old('email_body') }}</textarea>
         </div>
         <div class="col-lg-4 p-0 mb-3 form-group">
             <label for="attachment" class="mb-0">Add attachment <span class="text-grey-dark font-italic">(optional)</span></label>

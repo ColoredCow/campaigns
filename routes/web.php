@@ -20,7 +20,7 @@ Route::get('unsubscribe/{subscriber}', 'SubscriberController@unsubscribe')->name
 
 Route::middleware('auth')->group(function () {
     Route::get('home', function () {
-        return redirect()->route('campaign');
+        return redirect()->route('campaign.index');
     });
     Route::post('/campaign-image-upload', 'CampaignController@inlineImageUpload');
     Route::resource('campaign', 'CampaignController')->only(['index', 'create', 'store', 'show']);

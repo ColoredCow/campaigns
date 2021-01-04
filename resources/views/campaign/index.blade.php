@@ -47,6 +47,7 @@
                     </td>
                     <td style="min-width: 150px;" class="text-grey-dark text-right">
                         <a href="{{ route('campaign.show', $campaign) }}" class="text-grey-dark mr-2" title="View"><i data-feather="eye" class="w-20 h-20"></i></a>
+                        <a href="{{ route('campaign.create') }}?duplicate={{$campaign->id}}" class="text-grey-dark mr-2" title="Duplicate"><i data-feather="copy" class="w-20 h-20"></i></a>
                     </td>
                 </tr>
                 @endforeach
