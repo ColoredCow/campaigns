@@ -13,7 +13,9 @@ yarn-error.log
 .env
 .phpunit.result.cache
 
+# macos
 .DS_Store
+.dccache
 
 public/uploads/
 
