@@ -19,7 +19,7 @@ class ApiController extends Controller
         $lists = explode(',', $stringlists);
 
         $emails = Subscriber::pluck('email'); 
-        dd($emails);
+        
         if ($emails->contains($email)) {
             foreach ($lists as $list) {
                 $this->addSubscriberToList($list, $email);
@@ -59,12 +59,10 @@ class ApiController extends Controller
             }
 
         } else {
+
             Lists::create([
                 'name' => $list,
             ]);
-            // DB::table('list')->insert([
-            //     'name' => $list,
-            // ]);
 
             $subscriber = Subscriber::where('email', $email)->first();
             $list = DB::table('lists')->where('name', $list)->first();
