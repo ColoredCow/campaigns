@@ -44,15 +44,18 @@ class ApiController extends Controller
 
     public function addSubscriberToList($list, $email) {
         $existingList = SubscriptionList::where('name', $list)->first();
+        $subscriber = Subscriber::where('email', $email)->first();
+
         if ($existingList) {
-            $subscriber = Subscriber::where('email', $email)->first();
-            $subscriberId = $subscriber->id;
-            $listSubscriber = DB::table('list_subscriber')->where('subscriber_id', $subscriberId)->first();
+            $listSubscriber = DB::table('list_subscriber')->where('subscriber_id', $subscriber->id)->first();
 
             if ($listSubscriber) {
                 return;
             } else {
-                $this->addingSubscriberToList($existingList->id, $subscriberId);
+                DB::table('list_subscriber')->insert([
+                    'list_id' => $existingList->id,
+                    'subscriber_id' =>$subscriber->id,
+                ]);
             }
 
         } else {
@@ -60,19 +63,12 @@ class ApiController extends Controller
                 'name' => $list,
             ]);
 
-            $subscriber = Subscriber::where('email', $email)->first();
             $list = DB::table('lists')->where('name', $list)->first();
 
-            $this->addingSubscriberToList($list->id, $subscriber->id);
+            DB::table('list_subscriber')->insert([
+                'list_id' => $list->id,
+                'subscriber_id' =>$subscriber->id,
+            ]);
         }
     }
-
-
-    public function addingSubscriberToList($listid, $subscriberId) {
-        DB::table('list_subscriber')->insert([
-            'list_id' => $listid,
-            'subscriber_id' =>$subscriberId,
-        ]);
-    }
-
 }
