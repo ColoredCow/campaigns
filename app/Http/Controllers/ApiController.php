@@ -16,7 +16,7 @@ class ApiController extends Controller
         $stringlists = $request->query("list");
         $lists = explode(',', $stringlists);
 
-        $emails = Subscriber::pluck('email'); 
+        $emails = Subscriber::pluck("email"); 
         
         if ($emails->contains($email)) {
             foreach ($lists as $list) {
@@ -24,9 +24,9 @@ class ApiController extends Controller
             }
         } else {
             Subscriber::create([
-                'name' => $name,
-                'email' => $email,
-                'phone' => $phone,
+                "name" => $name,
+                "email" => $email,
+                "phone" => $phone,
             ]);
 
             foreach ($lists as $list) {
@@ -43,31 +43,31 @@ class ApiController extends Controller
     }
 
     public function addSubscriberToList($list, $email) {
-        $existingList = SubscriptionList::where('name', $list)->first();
-        $subscriber = Subscriber::where('email', $email)->first();
+        $existingList = SubscriptionList::where("name", $list)->first();
+        $subscriber = Subscriber::where("email", $email)->first();
 
         if ($existingList) {
-            $listSubscriber = DB::table('list_subscriber')->where('subscriber_id', $subscriber->id)->first();
+            $listSubscriber = DB::table("list_subscriber")->where("subscriber_id", $subscriber->id)->first();
 
             if ($listSubscriber) {
                 return;
             } else {
-                DB::table('list_subscriber')->insert([
-                    'list_id' => $existingList->id,
-                    'subscriber_id' =>$subscriber->id,
+                DB::table("list_subscriber")->insert([
+                    "list_id" => $existingList->id,
+                    "subscriber_id" =>$subscriber->id,
                 ]);
             }
 
         } else {
             SubscriptionList::create([
-                'name' => $list,
+                "name" => $list,
             ]);
 
-            $list = DB::table('lists')->where('name', $list)->first();
+            $list = DB::table("lists")->where("name", $list)->first();
 
-            DB::table('list_subscriber')->insert([
-                'list_id' => $list->id,
-                'subscriber_id' =>$subscriber->id,
+            DB::table("list_subscriber")->insert([
+                "list_id" => $list->id,
+                "subscriber_id" =>$subscriber->id,
             ]);
         }
     }
