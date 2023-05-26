@@ -23,7 +23,7 @@ class ApiController extends Controller
                 $this->addSubscriberToList($list, $email);
             }
         } else {
-            $newSubscriber = Subscriber::create([
+            Subscriber::create([
                 'name' => $name,
                 'email' => $email,
                 'phone' => $phone,
@@ -43,7 +43,6 @@ class ApiController extends Controller
     }
 
     public function addSubscriberToList($list, $email) {
-
         $existingList = SubscriptionList::where('name', $list)->first();
         if ($existingList) {
             $subscriber = Subscriber::where('email', $email)->first();
@@ -66,15 +65,14 @@ class ApiController extends Controller
 
             $this->addingSubscriberToList($list->id, $subscriber->id);
         }
-        return;
     }
+
 
     public function addingSubscriberToList($listid, $subscriberId) {
         DB::table('list_subscriber')->insert([
             'list_id' => $listid,
             'subscriber_id' =>$subscriberId,
         ]);
-
-        return;
     }
+
 }
