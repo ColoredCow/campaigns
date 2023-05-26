@@ -63,7 +63,7 @@ class ApiController extends Controller
                 "name" => $list,
             ]);
 
-            $list = DB::table("lists")->where("name", $list)->first();
+            $list = SubscriptionList::where("name", $list)->first();
 
             DB::table("list_subscriber")->insert([
                 "list_id" => $list->id,
