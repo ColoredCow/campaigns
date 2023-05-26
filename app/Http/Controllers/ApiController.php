@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Subscriber;
 use App\Models\Lists;
+use App\Models\SubscriptionList;
 use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
@@ -14,7 +13,6 @@ class ApiController extends Controller
         $name = $request->query("name");
         $email = $request->query("Email");
         $phone = $request->query("phone");
-
         $stringlists = $request->query("list");
         $lists = explode(',', $stringlists);
 
@@ -46,26 +44,26 @@ class ApiController extends Controller
 
     public function addSubscriberToList($list, $email) {
 
-        $existingList = DB::table('lists')->where('name', $list)->first();
+        $existingList = SubscriptionList::where('name', $list)->first();
         if ($existingList) {
             $subscriber = Subscriber::where('email', $email)->first();
             $subscriberId = $subscriber->id;
             $listSubscriber = DB::table('list_subscriber')->where('subscriber_id', $subscriberId)->first();
 
-            if ( $listSubscriber ) {
+            if ($listSubscriber) {
                 return;
             } else {
-                $this->addingSubscriberToList($list->id, $subscriberId);  
+                $this->addingSubscriberToList($existingList->id, $subscriberId);
             }
 
         } else {
-
-            Lists::create([
+            SubscriptionList::create([
                 'name' => $list,
             ]);
 
             $subscriber = Subscriber::where('email', $email)->first();
             $list = DB::table('lists')->where('name', $list)->first();
+
             $this->addingSubscriberToList($list->id, $subscriber->id);
         }
         return;
@@ -80,5 +78,3 @@ class ApiController extends Controller
         return;
     }
 }
-
-
