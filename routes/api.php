@@ -18,6 +18,7 @@ use Aws\Api\ApiProvider;
 
 Route::prefix('v1')->middleware('client')->group(function () {
 	Route::post('/subscriber', 'SubscriberController@store');
+	Route::post('recieveSubscriber', [ApiController::class, 'subscriber']);
 });
 
-Route::get('recieveSubscriber', [ApiController::class, 'subscriber']);
+// Route::get('recieveSubscriber', [ApiController::class, 'subscriber']);
