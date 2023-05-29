@@ -187,7 +187,9 @@ class SubscriberController extends Controller
                 "name" => $name,
                 "email" => $email,
                 "phone" => $phone,
-            ]);
+                "has_verified_email" => 1,
+                "email_verification_at" => now(),
+                ]);
         }
 
         foreach ($lists as $list) {
