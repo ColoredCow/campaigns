@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\DB;
 use App\Models\ListSubscriber;
 
 class SubscriberController extends Controller
@@ -163,23 +162,14 @@ class SubscriberController extends Controller
         }
     }
 
-
     // api handler
 
-    public function subscriber(Request $request)
+    public function subscriber(SubscriberRequest $request)
     {
-        $this->validate($request, [
-            "Email" => "required|email",
-            "list" => "required|string",
-            "phone" => "digits:10",
-        ]);
-
         $name = $request->query("name");
-        $email = $request->query("Email");
+        $email = $request->query("email");
         $phone = $request->query("phone");
-        $stringlists = $request->query("list");
-        $lists = explode(',', $stringlists);
-
+        $lists = $request->query("subscription_lists");
         $existingSubscriber = Subscriber::where("email", $email)->exists();
 
         if (!$existingSubscriber) {
@@ -189,7 +179,7 @@ class SubscriberController extends Controller
                 "phone" => $phone,
                 "has_verified_email" => 1,
                 "email_verification_at" => now(),
-                ]);
+            ]);
         }
 
         foreach ($lists as $list) {
@@ -201,7 +191,7 @@ class SubscriberController extends Controller
             "mails" => $email,
             "name" => $name,
             "phone" => $phone,
-            "lists" => $stringlists,
+            "lists" => $lists,
         ], 200);
     }
 
@@ -212,9 +202,7 @@ class SubscriberController extends Controller
         if ($existingList) {
             $listSubscriber = ListSubscriber::where("subscriber_id", $subscriber->id)->first();
 
-            if ($listSubscriber) {
-                return;
-            } else {
+            if (!$listSubscriber) {
                 $this->addingSubscriberToList($existingList->id, $subscriber->id);
             }
 
@@ -226,6 +214,7 @@ class SubscriberController extends Controller
             $list = SubscriptionList::where("name", $list)->first();
             $this->addingSubscriberToList($list->id, $subscriber->id);
         }
+        return;
     }
 
     public function addingSubscriberToList($listid, $subscriberId) {
