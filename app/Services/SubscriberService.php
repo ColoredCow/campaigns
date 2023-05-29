@@ -4,11 +4,13 @@ namespace App\Services;
 
 use App\Models\Subscriber;
 use App\Models\SubscriptionList;
+use App\Models\ListSubscriber;
 
 class SubscriberService
 {
 	public function store($request, $detachLists = true)
 	{
+        
 		$subscriber = Subscriber::firstOrCreate([
             'email' => $request['email'],
         ], [
@@ -17,10 +19,10 @@ class SubscriberService
             'has_verified_email' => true, // EmailVerifier::isValidEmail($request->post('email')),
             'email_verification_at' => now(),
         ]);
-
         $request['subscription_lists'] = $request['subscription_lists'] ?? [];
         $allList = SubscriptionList::where('name', 'all')->first();
         array_push($request['subscription_lists'], $allList->id); // add subscriber to "all" list
+        
         if ($detachLists) {
             $subscriber->lists()->sync($request['subscription_lists']);
         } else {
@@ -49,5 +51,52 @@ class SubscriberService
         }
 
         return $subscriber;
+    }
+
+    public function newSubscriber($request)
+    {
+        $existingSubscriber = Subscriber::where("email", $request["email"])->exists();
+        if (!$existingSubscriber) {
+            Subscriber::create([
+                "name" => $request["name"],
+                "email" => $request["email"],
+                "phone" => $request["phone"],
+                "has_verified_email" => 1,
+                "email_verification_at" => now(),
+            ]);
+        }
+
+        foreach ($request["subscription_lists"] as $list) {
+            $this->addSubscriberToList($list, $request["email"]);
+        }
+    }
+
+    public function addSubscriberToList($list, $email) {
+        $existingList = SubscriptionList::where("name", $list)->first();
+        $subscriber = Subscriber::where("email", $email)->first();
+
+        if ($existingList) {
+            $listSubscriber = ListSubscriber::where("subscriber_id", $subscriber->id)->first();
+
+            if (!$listSubscriber) {
+                $this->addingSubscriberToList($existingList->id, $subscriber->id);
+            }
+
+        } else {
+            SubscriptionList::create([
+                "name" => $list,
+            ]);
+
+            $list = SubscriptionList::where("name", $list)->first();
+            $this->addingSubscriberToList($list->id, $subscriber->id);
+        }
+        return;
+    }
+
+    public function addingSubscriberToList($listid, $subscriberId) {
+        ListSubscriber::insert([
+            "list_id" => $listid,
+            "subscriber_id" =>$subscriberId,
+        ]);
     }
 }
