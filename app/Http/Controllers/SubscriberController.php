@@ -161,17 +161,16 @@ class SubscriberController extends Controller
             return "You have been unsubscribed. You will not receive any further updates from this Email Service.";
         }
     }
-
     // api handler
-
     public function subscriber(SubscriberRequest $request)
     {
-        $name = $request->query("name");
-        $email = $request->query("email");
-        $phone = $request->query("phone");
-        $lists = $request->query("subscription_lists");
-        $existingSubscriber = Subscriber::where("email", $email)->exists();
+        $validated = $request->validated();
+        $name = $validated["name"];
+        $email = $validated["email"];
+        $phone = $validated["phone"];
+        $lists = $validated["subscription_lists"];
 
+        $existingSubscriber = Subscriber::where("email", $email)->exists();
         if (!$existingSubscriber) {
             Subscriber::create([
                 "name" => $name,
@@ -186,13 +185,15 @@ class SubscriberController extends Controller
             $this->addSubscriberToList($list, $email);
         }
 
-        return response()->json([
+        $data = [
             "message" => "Data received successfully",
             "mails" => $email,
             "name" => $name,
             "phone" => $phone,
             "lists" => $lists,
-        ], 200);
+        ];
+
+        return $this->returnFormattedResponse($data);
     }
 
     public function addSubscriberToList($list, $email) {
