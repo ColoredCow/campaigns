@@ -168,6 +168,12 @@ class SubscriberController extends Controller
 
     public function subscriber(Request $request)
     {
+        $this->validate($request, [
+            "Email" => "required|email",
+            "list" => "required|string",
+            "phone" => "digits:10",
+        ]);
+
         $name = $request->query("name");
         $email = $request->query("Email");
         $phone = $request->query("phone");
@@ -216,7 +222,6 @@ class SubscriberController extends Controller
             ]);
 
             $list = SubscriptionList::where("name", $list)->first();
-
             $this->addingSubscriberToList($list->id, $subscriber->id);
         }
     }
@@ -227,5 +232,4 @@ class SubscriberController extends Controller
             "subscriber_id" =>$subscriberId,
         ]);
     }
-
 }
