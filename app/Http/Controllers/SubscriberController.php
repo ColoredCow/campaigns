@@ -160,10 +160,10 @@ class SubscriberController extends Controller
         }
     }
     // api handler
-    public function subscriber(SubscriberRequest $request)
+    public function addSubscriber(SubscriberRequest $request)
     {
         $validated = $request->validated();
-        $this->service->newSubscriber($validated);
+        $this->service->addSubscriber($validated);
 
         $data = [
             "message" => "Data received successfully",

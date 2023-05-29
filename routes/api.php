@@ -18,6 +18,6 @@ use App\Http\Controllers\SubscriberController;
 
 Route::prefix('v1')->middleware('client')->group(function () {
 	Route::post('/subscriber', 'SubscriberController@store');
-	Route::post('recieveSubscriber', [SubscriberController::class, 'subscriber']);
+	Route::post('addSubscriber', 'SubscriberController@addSubscriber');
 });
 

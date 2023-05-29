@@ -53,21 +53,21 @@ class SubscriberService
         return $subscriber;
     }
 
-    public function newSubscriber($request)
+    public function addSubscriber($data)
     {
-        $existingSubscriber = Subscriber::where("email", $request["email"])->exists();
+        $existingSubscriber = Subscriber::where("email", $data["email"])->exists();
         if (!$existingSubscriber) {
             Subscriber::create([
-                "name" => $request["name"],
-                "email" => $request["email"],
-                "phone" => $request["phone"],
+                "name" => $data["name"],
+                "email" => $data["email"],
+                "phone" => $data["phone"],
                 "has_verified_email" => 1,
                 "email_verification_at" => now(),
             ]);
         }
 
-        foreach ($request["subscription_lists"] as $list) {
-            $this->addSubscriberToList($list, $request["email"]);
+        foreach ($data["subscription_lists"] as $list) {
+            $this->addSubscriberToList($list, $data["email"]);
         }
     }
 
