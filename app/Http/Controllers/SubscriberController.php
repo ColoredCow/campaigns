@@ -167,28 +167,28 @@ class SubscriberController extends Controller
     // api handler
     public function subscriber(Request $request)
     {
+
+        // $validated = $request->validated();
+        // $subscriber = $this->service->update($subscriber, $validated);
+
         $name = $request->query("name");
         $email = $request->query("Email");
         $phone = $request->query("phone");
         $stringlists = $request->query("list");
         $lists = explode(',', $stringlists);
 
-        $emails = Subscriber::pluck("email"); 
-        
-        if ($emails->contains($email)) {
-            foreach ($lists as $list) {
-                $this->addSubscriberToList($list, $email);
-            }
-        } else {
+        $existingSubscriber = Subscriber::where("email", $email)->get();
+
+        if (!$existingSubscriber) {
             Subscriber::create([
                 "name" => $name,
                 "email" => $email,
                 "phone" => $phone,
             ]);
+        }
 
-            foreach ($lists as $list) {
-                $this->addSubscriberToList($list, $email);
-            }
+        foreach ($lists as $list) {
+            $this->addSubscriberToList($list, $email);
         }
 
         return response()->json([
@@ -196,6 +196,7 @@ class SubscriberController extends Controller
             "mails" => $email,
             "name" => $name,
             "phone" => $phone,
+            "lists" => $stringlists,
         ], 200);
     }
 
