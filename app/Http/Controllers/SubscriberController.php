@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
+
 
 class SubscriberController extends Controller
 {
@@ -160,4 +162,71 @@ class SubscriberController extends Controller
             return "You have been unsubscribed. You will not receive any further updates from this Email Service.";
         }
     }
+
+
+    // api handler
+    public function subscriber(Request $request)
+    {
+        $name = $request->query("name");
+        $email = $request->query("Email");
+        $phone = $request->query("phone");
+        $stringlists = $request->query("list");
+        $lists = explode(',', $stringlists);
+
+        $emails = Subscriber::pluck("email"); 
+        
+        if ($emails->contains($email)) {
+            foreach ($lists as $list) {
+                $this->addSubscriberToList($list, $email);
+            }
+        } else {
+            Subscriber::create([
+                "name" => $name,
+                "email" => $email,
+                "phone" => $phone,
+            ]);
+
+            foreach ($lists as $list) {
+                $this->addSubscriberToList($list, $email);
+            }
+        }
+
+        return response()->json([
+            "message" => "Data received successfully",
+            "mails" => $email,
+            "name" => $name,
+            "phone" => $phone,
+        ], 200);
+    }
+
+    public function addSubscriberToList($list, $email) {
+        $existingList = SubscriptionList::where("name", $list)->first();
+        $subscriber = Subscriber::where("email", $email)->first();
+
+        if ($existingList) {
+            $listSubscriber = DB::table("list_subscriber")->where("subscriber_id", $subscriber->id)->first();
+
+            if ($listSubscriber) {
+                return;
+            } else {
+                DB::table("list_subscriber")->insert([
+                    "list_id" => $existingList->id,
+                    "subscriber_id" =>$subscriber->id,
+                ]);
+            }
+
+        } else {
+            SubscriptionList::create([
+                "name" => $list,
+            ]);
+
+            $list = SubscriptionList::where("name", $list)->first();
+
+            DB::table("list_subscriber")->insert([
+                "list_id" => $list->id,
+                "subscriber_id" =>$subscriber->id,
+            ]);
+        }
+    }
+
 }
