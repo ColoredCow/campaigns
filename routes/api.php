@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ApiController;
 use Aws\Api\ApiProvider;
 use App\Http\Controllers\SubscriberController;
 
