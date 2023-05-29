@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\ListSubscriber;
 
 class SubscriberController extends Controller
 {
@@ -165,19 +165,16 @@ class SubscriberController extends Controller
 
 
     // api handler
+
     public function subscriber(Request $request)
     {
-
-        // $validated = $request->validated();
-        // $subscriber = $this->service->update($subscriber, $validated);
-
         $name = $request->query("name");
         $email = $request->query("Email");
         $phone = $request->query("phone");
         $stringlists = $request->query("list");
         $lists = explode(',', $stringlists);
 
-        $existingSubscriber = Subscriber::where("email", $email)->get();
+        $existingSubscriber = Subscriber::where("email", $email)->exists();
 
         if (!$existingSubscriber) {
             Subscriber::create([
@@ -205,15 +202,12 @@ class SubscriberController extends Controller
         $subscriber = Subscriber::where("email", $email)->first();
 
         if ($existingList) {
-            $listSubscriber = DB::table("list_subscriber")->where("subscriber_id", $subscriber->id)->first();
+            $listSubscriber = ListSubscriber::where("subscriber_id", $subscriber->id)->first();
 
             if ($listSubscriber) {
                 return;
             } else {
-                DB::table("list_subscriber")->insert([
-                    "list_id" => $existingList->id,
-                    "subscriber_id" =>$subscriber->id,
-                ]);
+                $this->addingSubscriberToList($existingList->id, $subscriber->id);
             }
 
         } else {
@@ -223,11 +217,15 @@ class SubscriberController extends Controller
 
             $list = SubscriptionList::where("name", $list)->first();
 
-            DB::table("list_subscriber")->insert([
-                "list_id" => $list->id,
-                "subscriber_id" =>$subscriber->id,
-            ]);
+            $this->addingSubscriberToList($list->id, $subscriber->id);
         }
+    }
+
+    public function addingSubscriberToList($listid, $subscriberId) {
+        ListSubscriber::insert([
+            "list_id" => $listid,
+            "subscriber_id" =>$subscriberId,
+        ]);
     }
 
 }
