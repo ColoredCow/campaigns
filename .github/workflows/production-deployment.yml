@@ -27,7 +27,7 @@ jobs:
 
           echo "Pulling latest code"
           git checkout -f
-          git pull origin main
+          git pull origin feature/77/production_dependabot_yml
           php artisan migrate --force
 
           echo "Running composer"
