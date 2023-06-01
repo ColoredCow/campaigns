@@ -8,8 +8,6 @@ jobs:
     name: build
     runs-on: ubuntu-latest
 
-    # uses GitHub environment
-
     steps:
     - uses: actions/checkout@v2
     - name: Deploy to production
