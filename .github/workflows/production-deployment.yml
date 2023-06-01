@@ -1,7 +1,7 @@
 name: Production Deployment
 on:
   push:
-    branches: [main]
+    branches: [main, feature/77/production_dependabot_yml]
 
 jobs:
   build:
@@ -9,19 +9,17 @@ jobs:
     runs-on: ubuntu-latest
 
     # uses GitHub environment
-    environment:
-      name: Production
 
     steps:
     - uses: actions/checkout@v2
     - name: Deploy to production
       uses: appleboy/ssh-action@master
       env:
-        SSH_BUILD_DIRECTORY: ${{ secrets.SSH_BUILD_DIRECTORY }}
+        SSH_BUILD_DIRECTORY: ${{ secrets.PROD_SSH_BUILD_DIRECTORY }}
       with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        host: ${{ secrets.PROD_SSH_HOST }}
+        username: ${{ secrets.PROD_SSH_USERNAME }}
+        key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
         envs: SSH_BUILD_DIRECTORY
         script: |
           cd $SSH_BUILD_DIRECTORY
