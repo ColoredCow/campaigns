@@ -1,0 +1,48 @@
+name: Production Deployment
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Deploy to production
+      uses: appleboy/ssh-action@master
+      env:
+        SSH_BUILD_DIRECTORY: ${{ secrets.PROD_SSH_BUILD_DIRECTORY }}
+      with:
+        host: ${{ secrets.PROD_SSH_HOST }}
+        username: ${{ secrets.PROD_SSH_USERNAME }}
+        key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+        envs: SSH_BUILD_DIRECTORY
+        script: |
+          cd $SSH_BUILD_DIRECTORY
+
+          echo "Enabling maintenance mode"
+          php artisan down
+
+          echo "Pulling latest code"
+          git checkout -f
+          git pull origin main
+          php artisan migrate --force
+
+          echo "Running composer"
+          composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader --no-dev
+          composer dump-autoload
+
+          echo "Running npm"
+          npm install
+          npm run production
+
+          echo "Optimizing Laravel app"
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+
+          echo "Disabling maintenance mode"
+          php artisan up
+
