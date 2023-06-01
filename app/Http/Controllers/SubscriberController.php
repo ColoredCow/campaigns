@@ -89,7 +89,6 @@ class SubscriberController extends Controller
     {
         $validated = $request->validated();
         $subscriber = $this->service->store($validated);
-
         return $this->returnFormattedResponse(
             function () use ($subscriber) {
                 return $subscriber;
@@ -160,4 +159,21 @@ class SubscriberController extends Controller
             return "You have been unsubscribed. You will not receive any further updates from this Email Service.";
         }
     }
+    // api handler
+    public function addSubscriber(SubscriberRequest $request)
+    {
+        $validated = $request->validated();
+        $this->service->addSubscriber($validated);
+
+        $data = [
+            "message" => "Data received successfully",
+            "mails" => $validated["email"],
+            "name" => $validated["name"],
+            "phone" => $validated["phone"],
+            "lists" => $validated["subscription_lists"],
+        ];
+
+        return $this->returnFormattedResponse($data);
+    }
+
 }

@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Aws\Api\ApiProvider;
+use App\Http\Controllers\SubscriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +18,6 @@ use Illuminate\Http\Request;
 
 Route::prefix('v1')->middleware('client')->group(function () {
 	Route::post('/subscriber', 'SubscriberController@store');
+	Route::post('addSubscriber', 'SubscriberController@addSubscriber');
 });
 
