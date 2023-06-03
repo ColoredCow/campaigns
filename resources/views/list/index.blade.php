@@ -32,15 +32,19 @@
             </thead>
             <tbody>
                 @foreach ($lists as $list)
-                <tr>
-                    <td>{{$list->name}}</td>
-                    <td>{{$list->subscribers_count}}</td>
-                    <td>{{$list->refuted_subscribers_count}}</td>
-                    <td style="min-width: 150px;" class="text-grey-dark text-right">
-                        <a href="{{route('list.edit', $list)}}" class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="w-20 h-20"></i></a>
-                        {{-- <a href="#" class="text-grey-dark" title="Delete"><i data-feather="trash-2" class="w-20 h-20"></i></a> --}}
-                    </td>
-                </tr>
+                    @if ($list->name !== 'all')
+                        <tr>
+                            <td>{{ $list->name }}</td>
+                            <td>{{ $list->subscribers_count }}</td>
+                            <td>{{ $list->refuted_subscribers_count }}</td>
+                            <td style="min-width: 150px;" class="text-grey-dark text-right">
+                                <a href="{{ route('list.edit', $list) }}" class="text-grey-dark mr-2" title="Edit">
+                                    <i data-feather="edit" class="w-20 h-20"></i>
+                                </a>
+                                {{-- <a href="#" class="text-grey-dark" title="Delete"><i data-feather="trash-2" class="w-20 h-20"></i></a> --}}
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
