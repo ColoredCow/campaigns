@@ -104,7 +104,9 @@
                         @php
                             $subscriberList = '';
                             foreach ($subscriber->lists as $list) {
-                                $subscriberList .= $list->name . ', ';
+                                if ($list->name !== 'all') {
+                                    $subscriberList .= $list->name . ', ';
+                                }
                             }
                         @endphp
                         {{ substr($subscriberList, 0, -2) }}

@@ -98,5 +98,14 @@ class SubscriberService
             "list_id" => $listid,
             "subscriber_id" =>$subscriberId,
         ]);
+
+        $allId = SubscriptionList::where('name', 'all')->value('id');
+
+        if ($allId) {
+            ListSubscriber::insert([
+                "list_id" => $allId,
+                "subscriber_id" =>$subscriberId,
+            ]);
+        }
     }
 }
