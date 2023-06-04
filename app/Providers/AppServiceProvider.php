@@ -2,32 +2,23 @@
 
 namespace App\Providers;
 
-use App\Models\SenderIdentity;
-use App\Observers\SenderIdentityObserver;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
-     *
-     * @return void
+     * Register any application services.
      */
-    public function boot()
+    public function register(): void
     {
-        SenderIdentity::observe(SenderIdentityObserver::class);
-        Paginator::useBootstrap();
+        //
     }
 
     /**
-     * Register any application services.
-     *
-     * @return void
+     * Bootstrap any application services.
      */
-    public function register()
+    public function boot(): void
     {
-        Passport::routes();
+        //
     }
 }
