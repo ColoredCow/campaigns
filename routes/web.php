@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('home', function () {
         return redirect()->route('campaign.index');
     });
+
     Route::post('/campaign-image-upload', 'CampaignController@inlineImageUpload');
     Route::resource('campaign', 'CampaignController')->only(['index', 'create', 'store', 'show']);
     Route::resource('list', 'SubscriptionListController')->except(['show', 'delete']);
@@ -29,4 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('subscriber/upload', 'SubscriberController@uploadView')->name('subscriber.upload-view');
     Route::post('subscriber/upload', 'SubscriberController@upload')->name('subscriber.upload');
     Route::resource('subscriber', 'SubscriberController')->except(['show']);
+
+    Route::get('registers', 'Auth\RegisterController@index')->name('registers');
+    Route::post('registers', 'Auth\RegisterController@creatingUsers')->name('saveRegister');
+
 });
