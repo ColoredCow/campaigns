@@ -77,24 +77,22 @@ class RegisterController extends Controller
 
     public function creatingUsers(Request $request) {
 
-        $data = $request->all();
-
-        $validator = Validator::make($data , [
+        $validator = Validator::make($request->all() , [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
         User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->back()->with('success', 'User successfully created!');
+        return redirect()->back()->with('success', 'New User successfully added!');
     }
 }
