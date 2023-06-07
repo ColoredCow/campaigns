@@ -42,7 +42,7 @@
                     @else
                         <li class="nav-item">
                             @if (Route::has('register'))
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Create new User') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Create User') }}</a>
                             @endif
                         </li>
                         <li class="nav-item dropdown">
