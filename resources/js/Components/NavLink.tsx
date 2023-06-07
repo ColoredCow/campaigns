@@ -1,18 +1,25 @@
-import { Link, InertiaLinkProps } from '@inertiajs/react';
-
-export default function NavLink({ active = false, className = '', children, ...props }: InertiaLinkProps & { active: boolean }) {
+const NavBar = () => {
     return (
-        <Link
-            {...props}
-            className={
-                'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none ' +
-                (active
-                    ? 'border-indigo-400 text-gray-900 focus:border-indigo-700 '
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300 ') +
-                className
-            }
-        >
-            {children}
-        </Link>
+        <nav className="bg-gray-800 shadow-sm fixed top-0 left-0 w-full z-10">
+            <div className="px-4 py-4 ">
+                <ul className="flex items-center">
+                    <li className="mr-auto">
+                        <a
+                            className="text-white inline-block pt-1 pb-1 mr-4 text-lg whitespace-nowrap"
+                            href="/login"
+                        >
+                            ColoredCow Campaign
+                        </a>
+                    </li>
+                    <li className="ml-auto">
+                        <a className="text-white py-4" href="/login">
+                            Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     );
-}
+};
+
+export default NavBar;
