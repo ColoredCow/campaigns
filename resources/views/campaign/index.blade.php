@@ -3,6 +3,11 @@
 @section('content')
 
 <div class="container">
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
     <div class="mb-3 d-flex align-items-center w-100">
         <h2 class="mb-0 d-flex align-items-end"><i data-feather="mail" class="mr-2 page-icon"></i>Campaigns</h2>
         <h3 class="text-secondary mb-0 ml-1">({{$campaigns->total()}})</h3>
