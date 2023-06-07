@@ -19,7 +19,6 @@ Auth::routes();
 Route::get('unsubscribe/{subscriber}', 'SubscriberController@unsubscribe')->name('unsubscribe');
 
 Route::middleware('auth')->group(function () {
-
     Route::get('home', function () {
         return redirect()->route('campaign.index');
     });

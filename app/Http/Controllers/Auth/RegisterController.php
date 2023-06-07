@@ -76,7 +76,6 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         auth()->login($user);
-
         return redirect()->route('campaign.index')->with('success', 'New User successful created!');
     }
 }
