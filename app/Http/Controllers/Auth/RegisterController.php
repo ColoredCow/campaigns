@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
-class RegisterController extends Controller 
+class RegisterController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -70,14 +70,13 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $user = auth()->user();
-        return $user;
+        return auth()->user();
     }
 
     protected function registered(Request $request, $user)
     {
         auth()->login($user);
 
-        return redirect()->route('campaign.index')->with('success', 'User successful created!');
+        return redirect()->route('campaign.index')->with('success', 'New User successful created!');
     }
 }
