@@ -34,8 +34,7 @@ export default function Login({
 
     return (
         <>
-            {" "}
-            <NavBar />
+            <NavBar showLoginText={true} />
             <GuestLayout>
                 <Head title="Log in" />
                 {status && (
