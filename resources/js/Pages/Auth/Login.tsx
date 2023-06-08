@@ -82,38 +82,38 @@ export default function Login({
                         />
                     </div>
 
-                    <div className="block mt-4">
-                        <label className="flex items-center">
+                    <div className="flex items-center justify-between py-6">
+                        <div className="flex items-center">
                             <Checkbox
-                                name="remember"
+                                className="h-4 w-4 text-blue-400"
                                 checked={data.remember}
                                 onChange={(e) =>
                                     setData("remember", e.target.checked)
                                 }
                             />
-                            <span className="ml-2 text-sm text-gray-600">
+                            <label className="ml-2 block text-sm text-gray-900">
                                 Remember me
-                            </span>
-                        </label>
+                            </label>
+                        </div>
+
+                        <div className="text-sm">
+                            {canResetPassword && (
+                                <Link
+                                    href={route("password.request")}
+                                    className="font-medium text-blue-400"
+                                >
+                                    Forgot your password?
+                                </Link>
+                            )}
+                        </div>
                     </div>
 
-                    <div className="flex items-center justify-end mt-4">
-                        {canResetPassword && (
-                            <Link
-                                href={route("password.request")}
-                                className="underline text-sm text-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Forgot your password?
-                            </Link>
-                        )}
-
-                        <PrimaryButton
-                            className="ml-4 bg-blue-500"
-                            disabled={processing}
-                        >
-                            Log in
-                        </PrimaryButton>
-                    </div>
+                    <PrimaryButton
+                        className="w-full font-bold py-2 px-4  "
+                        disabled={processing}
+                    >
+                        Log in
+                    </PrimaryButton>
                 </form>
             </GuestLayout>
         </>
