@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container px-0">
     <div class="col-md-12">
         <div class="mb-4 d-flex align-items-center w-100">
-            <h2 class="mb-0 d-flex align-items-end"><i data-feather="user" class="mr-2 page-icon"></i>Create  user</h2>
+            <h2 class="mb-0 pb-0 d-flex align-items-end"><i data-feather="user" class="mr-2 page-icon"></i>Create  user</h2>
             {{-- <h2 class="mb-0"><i data-feather="user" class="mr-2 page-icon"></i>Create user</h2> --}}
         </div>
         <form method="POST" action="{{ route('register') }}">
