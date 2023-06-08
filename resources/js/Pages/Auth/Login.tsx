@@ -6,7 +6,7 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
-import NavBar from "../../Components/NavLink";
+import NavLink from "../../Components/NavLink";
 
 export default function Login({
     status,
@@ -34,7 +34,7 @@ export default function Login({
 
     return (
         <>
-            <NavBar showLoginText={true} />
+            <NavLink showLoginText={true} />
             <GuestLayout>
                 <Head title="Log in" />
                 {status && (

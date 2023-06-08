@@ -3,7 +3,7 @@ interface NavBarProps {
     children?: React.ReactNode;
   }
   
-  const NavBar = ({ showLoginText, children }: NavBarProps) => {
+  const NavLink = ({ showLoginText, children }: NavBarProps) => {
     return (
       <nav className="bg-gray-800 shadow-sm fixed top-0 left-0 w-full">
         <div className="px-4 py-4 ">
@@ -34,5 +34,5 @@ interface NavBarProps {
     );
   };
   
-  export default NavBar;
+  export default NavLink;
   
