@@ -22,7 +22,7 @@ export default function Login({
         remember: false,
     });
     const [showPassword, setShowPassword] = React.useState(false);
-    
+
     useEffect(() => {
         return () => {
             reset("password");
@@ -38,6 +38,10 @@ export default function Login({
         <>
             <NavLink showLoginText={true} />
             <GuestLayout>
+                <div className="pb-12 justify font-bold text-xl">
+                    Sign In to Campaign
+                </div>
+
                 <Head title="Log in" />
                 {status && (
                     <div className="mb-4 font-medium text-sm text-green-600">
