@@ -1,4 +1,5 @@
 import { useEffect, FormEventHandler } from "react";
+import React from "react";
 import Checkbox from "@/Components/Checkbox";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
@@ -20,7 +21,8 @@ export default function Login({
         password: "",
         remember: false,
     });
-
+    const [showPassword, setShowPassword] = React.useState(false);
+    
     useEffect(() => {
         return () => {
             reset("password");
@@ -66,7 +68,7 @@ export default function Login({
 
                         <TextInput
                             id="password"
-                            type="password"
+                            type={showPassword ? "text" : "password"} // Set type to "text" when showPassword is true
                             name="password"
                             value={data.password}
                             className="mt-1 block w-full"
@@ -87,10 +89,12 @@ export default function Login({
                             <Checkbox
                                 className="h-4 w-4 text-blue-400"
                                 checked={data.remember}
-                                onChange={(e) =>
-                                    setData("remember", e.target.checked)
-                                }
+                                onChange={(e) => {
+                                    setData("remember", e.target.checked);
+                                    setShowPassword(e.target.checked); // Toggle the showPassword state
+                                }}
                             />
+
                             <label className="ml-2 block text-sm text-gray-900">
                                 Remember me
                             </label>
