@@ -6,11 +6,6 @@
     <div class="mb-3 d-flex align-items-center w-100">
         <h2 class="mb-0 d-flex align-items-end"><i data-feather="user" class="mr-2 page-icon"></i>Users</h2>
     </div>
-    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between mb-3">
-        <div class="d-flex mr-md-3 mb-2 mb-md-0">
-            <input type="submit" class="d-none">
-        </div>
-    </div>
 
     <div class="table-responsive">
         <table class="table table-striped border">
