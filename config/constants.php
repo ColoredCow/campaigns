@@ -10,4 +10,7 @@ return [
 	'email_template_variables' => [
         'USERNAME',
     ],
+	'paginate_value'=> [
+		'paginate_value_for_user' => 25,
+	],
 ];
