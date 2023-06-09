@@ -27,6 +27,9 @@
             </tbody>
         </table>
     </div>
+    <div class="d-flex justify-content-left mt-4">
+        {{ $users->links() }}
+    </div>
 </div>
 
 @endsection
