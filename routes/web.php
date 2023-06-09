@@ -30,5 +30,5 @@ Route::middleware('auth')->group(function () {
     Route::post('subscriber/upload', 'SubscriberController@upload')->name('subscriber.upload');
     Route::resource('subscriber', 'SubscriberController')->except(['show']);
 
-    Route::get('user','UsersController@index')->name('index');
+    Route::resource('user','UsersController')->except('delete');
 });
