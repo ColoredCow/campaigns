@@ -11,8 +11,8 @@
         <table class="table table-striped border">
             <thead class="bg-primary text-white">
                 <tr>
-                    <th scope="col-1" style="width:32%">Registerd Users Name</th>
-                    <th scope="col">Their Email</th>
+                    <th scope="col-1" style="width:32%">Name</th>
+                    <th scope="col">Email</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
