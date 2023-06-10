@@ -24,7 +24,6 @@ class UsersController extends Controller
 
     public function registeruser(Request $request)
     {
-        // dd('stop',$request->all());
         $validatedData = $this->validator($request->all())->validate();
         if (!$validatedData) {
             return redirect()->route('user.index')->with('error', 'Registration unsuccessful');
@@ -53,40 +52,6 @@ class UsersController extends Controller
         ]);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function edit(Request $request, $userid)
     {
        
@@ -96,8 +61,13 @@ class UsersController extends Controller
         ]);
     }
 
-    public function update(Request $request,$userid)
+    public function update(Request $request, $userid)
     {
+        if ($request->password !== $request->password_confirmation) {
+            return redirect()->route('user.edit', ['user' => $userid])->with('error', 'Passwords do not match');
+        }
+
+        if ($request->password)
         $user = User::findOrFail($userid);
         if (! $user) {
             return redirect()->route('user.index')->with('error', 'User not found');
