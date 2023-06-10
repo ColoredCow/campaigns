@@ -24,11 +24,9 @@
             <input type="submit" class="d-none">
         </div>
         <div class="d-flex flex-column flex-md-row">
-            @if (Route::has('register'))
-            <a class="btn btn-grey-light text-dark d-inline-block" href="{{ route('register') }}"><i data-feather="plus" class="w-20 h-18 mr-1"></i>
+            <a class="btn btn-grey-light text-dark d-inline-block" href="{{ route('user.createUser') }}"><i data-feather="plus" class="w-20 h-18 mr-1"></i>
                 Register new users
             </a>
-            @endif
         </div>
     </div>
 
