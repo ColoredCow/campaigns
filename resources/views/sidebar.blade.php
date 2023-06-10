@@ -21,6 +21,11 @@
                     <i data-feather="at-sign" class="mr-2"></i>Sender Identities
                 </a>
             </li>
+            <li class="nav-item mb-3">
+                <a class="nav-link text-dark font-weight-bold" href="{{route('user.index')}}">
+                    <i data-feather="users" class="mr-2 page-icon"></i>Users
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
