@@ -29,6 +29,5 @@ Route::middleware('auth')->group(function () {
     Route::get('subscriber/upload', 'SubscriberController@uploadView')->name('subscriber.upload-view');
     Route::post('subscriber/upload', 'SubscriberController@upload')->name('subscriber.upload');
     Route::resource('subscriber', 'SubscriberController')->except(['show']);
-
     Route::resource('user','UsersController');
 });
