@@ -17,6 +17,18 @@ class UsersController extends Controller
         ]);
     }
 
+    public function removeuser(Request $request)
+    {        
+        $user = User::find($request->id);
+
+        if ($user) {
+            $user->delete();
+            return redirect()->route('user.index')->with('success', 'User successfully removed.');
+        }
+
+        return redirect()->route('user.index')->with('error', 'User not found.');
+    }
+
     public function createUser()
     {
         return view('users.createUser');
@@ -54,7 +66,6 @@ class UsersController extends Controller
 
     public function edit(Request $request, $userid)
     {
-       
         $user = User::where('id',$userid)->first();
         return view('users.edit')->with([
             'user' => $user,
