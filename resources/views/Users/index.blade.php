@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="mb-3 d-flex align-items-center w-100">
-        <h2 class="mb-0 d-flex align-items-end"><i data-feather="user" class="mr-2 page-icon"></i>Users</h2>
+        <h2 class="mb-0 d-flex align-items-end"><i data-feather="users" class="mr-2 page-icon"></i>Users</h2>
     </div>
 
     <div class="table-responsive">

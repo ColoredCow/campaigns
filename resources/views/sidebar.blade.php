@@ -23,7 +23,7 @@
             </li>
             <li class="nav-item mb-3">
                 <a class="nav-link text-dark font-weight-bold" href="{{route('user.index')}}">
-                    <i data-feather="user" class="mr-2 page-icon"></i>Users
+                    <i data-feather="users" class="mr-2 page-icon"></i>Users
                 </a>
             </li>
         </ul>
