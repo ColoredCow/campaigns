@@ -8,7 +8,7 @@
 
     <div class="table-responsive">
         <table class="table table-striped border">
-            <thead class="bg-primary text-white">
+            <thead class="bg-primary text-white"> 
                 <tr>
                     <th scope="col-4">Name</th>
                     <th scope="col">Email</th>
