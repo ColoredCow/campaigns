@@ -29,9 +29,9 @@ class UsersController extends Controller
         return redirect()->route('user.index')->with('error', 'User not found.');
     }
 
-    public function createUser()
+    public function createuser()
     {
-        return view('users.createUser');
+        return view('users.createuser');
     }
 
     public function registeruser(Request $request)
@@ -57,7 +57,7 @@ class UsersController extends Controller
 
     public function create(array $data)
     {
-        return User::create([
+        User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -66,7 +66,7 @@ class UsersController extends Controller
 
     public function edit(Request $request, $userid)
     {
-        $user = User::where('id',$userid)->first();
+        $user = User::where('id', $userid)->first();
         return view('users.edit')->with([
             'user' => $user,
         ]);
@@ -90,6 +90,6 @@ class UsersController extends Controller
 
         $user->save();
 
-    return redirect()->route('user.index')->with('success', 'User updated successfully');
+        return redirect()->route('user.index')->with('success', 'User updated successfully');
     }
 }

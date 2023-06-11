@@ -6,9 +6,7 @@
         <div class="mb-4 d-flex align-items-center w-100">
             <h2 class="mb-0 pb-0 d-flex align-items-end"><i data-feather="user" class="mr-2 page-icon"></i>Create user</h2>
         </div>
-        <form method="POST" 
-        action="{{ route('registeruser') }}"
-        >
+        <form method="POST" action="{{ route('registeruser') }}">
             @csrf
             <div class="form-row mx-0">
                 <div class="form-group col-md-6 pl-0">
