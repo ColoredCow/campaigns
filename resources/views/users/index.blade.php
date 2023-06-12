@@ -3,8 +3,31 @@
 @section('content')
 
 <div class="container">
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
+
     <div class="mb-3 d-flex align-items-center w-100">
         <h2 class="mb-0 d-flex align-items-end"><i data-feather="users" class="mr-2 page-icon"></i>Users</h2>
+    </div>
+
+    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between mb-3">
+        <div class="d-flex mr-md-3 mb-2 mb-md-0">
+            <input type="submit" class="d-none">
+        </div>
+        <div class="d-flex flex-column flex-md-row">
+            <a class="btn btn-grey-light text-dark d-inline-block" href="{{ route('user.createUser') }}"><i data-feather="plus" class="w-20 h-18 mr-1"></i>
+                Register new users
+            </a>
+        </div>
     </div>
 
     <div class="table-responsive">
@@ -21,7 +44,18 @@
                 <tr>
                     <td class="mr=0">{{$user->name}}</td>
                     <td class="">{{$user->email}}</td>
-                    <td class="text-grey-dark text-right"></td>
+                    <td class="text-grey-dark text-right d-flex justify-content-end">
+                        <a
+                            href="{{route('user.edit', $user)}}" 
+                            class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="w-20 h-20"></i>
+                        </a>
+                        <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-link text-danger p-0" title="Delete">
+                                <i data-feather="trash-2" class="w-20 h-20"></i>
+                            </button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

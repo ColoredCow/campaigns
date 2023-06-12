@@ -29,5 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::get('subscriber/upload', 'SubscriberController@uploadView')->name('subscriber.upload-view');
     Route::post('subscriber/upload', 'SubscriberController@upload')->name('subscriber.upload');
     Route::resource('subscriber', 'SubscriberController')->except(['show']);
-    Route::resource('user','UsersController');
+
+    Route::resource('user','UserController')->only(['index', 'edit', 'update']);
+    Route::get('user/registers', 'UserController@create')->name('user.createUser');
+    Route::post('registeruser', 'UserController@store')->name('registeruser');
+    Route::post('user', 'UserController@destroy')->name('user.delete');
 });
