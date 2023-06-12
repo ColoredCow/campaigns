@@ -62,12 +62,7 @@ class UserController extends Controller
     public function registerUser(ValidateUser $request)
     {
         $request->validated();
-        $validatedData = $this->userService->validator($request->all())->validate();
-        if (!$validatedData) {
-            return redirect()->route('user.index')->with('error', 'Registration unsuccessful');
-        }
-
-        $this->userService->create($validatedData);
+        $this->userService->create($request->all());
         return redirect()->route('user.index')->with('success', 'Successfully registered new user!');
     }
 
