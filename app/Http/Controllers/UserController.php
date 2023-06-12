@@ -66,7 +66,7 @@ class UserController extends Controller
         {
             return redirect()->route('user.edit', ['user' => $userid])->with('error', 'Passwords do not match');
         }
-        if ($request->password) 
+        if ($request->password)
         {
             $name = $request->input('name');
             $email = $request->input('email');
