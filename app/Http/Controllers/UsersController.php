@@ -6,10 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Services\UsersService;
 
 
 class UsersController extends Controller
 {
+    protected $usersService;
+
+    public function __construct(UsersService $usersService)
+    {
+        $this->usersService = $usersService;
+    }
+
     public function index()
     {
         return view('users.index')->with([
@@ -17,51 +25,32 @@ class UsersController extends Controller
         ]);
     }
 
-    public function removeuser(Request $request)
+    public function removeUser(Request $request)
     {        
         $user = User::find($request->id);
 
         if ($user) {
             $user->delete();
-            return redirect()->route('user.index')->with('success', 'User successfully removed.');
+            return redirect()->route('user.index')->with('success', 'User removed successfully.');
         }
 
         return redirect()->route('user.index')->with('error', 'User not found.');
     }
 
-    public function createuser()
+    public function createUser()
     {
         return view('users.createuser');
     }
 
-    public function registeruser(Request $request)
+    public function registerUser(Request $request)
     {
-        $validatedData = $this->validator($request->all())->validate();
+        $validatedData = $this->usersService->validator($request->all())->validate();
         if (!$validatedData) {
             return redirect()->route('user.index')->with('error', 'Registration unsuccessful');
         }
-    
-        $this->create($validatedData);
+
+        $this->usersService->create($validatedData);
         return redirect()->route('user.index')->with('success', 'Successfully registered new user!');
-    }
-
-
-    public function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
-
-    public function create(array $data)
-    {
-        User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
     }
 
     public function edit(Request $request, $userid)
