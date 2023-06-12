@@ -42,6 +42,7 @@ class UsersController extends Controller
         return view('users.createuser');
     }
 
+
     public function registerUser(Request $request)
     {
         $validatedData = $this->usersService->validator($request->all())->validate();
@@ -66,18 +67,12 @@ class UsersController extends Controller
         if ($request->password !== $request->password_confirmation) {
             return redirect()->route('user.edit', ['user' => $userid])->with('error', 'Passwords do not match');
         }
-
         if ($request->password)
-        $user = User::findOrFail($userid);
-        if (! $user) {
-            return redirect()->route('user.index')->with('error', 'User not found');
-        }
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
-
-        $user->save();
+        $this->usersService->update($userid,$name,$email,$password);
 
         return redirect()->route('user.index')->with('success', 'User updated successfully');
     }

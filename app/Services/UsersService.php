@@ -25,4 +25,17 @@ class UsersService
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    public function update($userid,$name,$email,$password)
+    {
+        $user = User::findOrFail($userid);
+        if (! $user) {
+            return redirect()->route('user.index')->with('error', 'User not found');
+        }
+        $user->name = $name;
+        $user->email = $email;
+        $user->password = Hash::make($password);
+        
+        $user->save();
+    }
 }
