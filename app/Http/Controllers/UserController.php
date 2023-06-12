@@ -28,7 +28,7 @@ class UserController extends Controller
         return view('users.createuser');
     }
 
-    public function edit(Request $request, $userid)
+    public function edit($userid)
     {
         $user = User::where('id', $userid)->first();
         return view('users.edit')->with([
