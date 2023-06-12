@@ -7,10 +7,17 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Validator;
-
+use App\Http\Requests\ValidateUser;
 
 class UserController extends Controller
 {
+        /**
+     * Store a new blog post.
+     *
+     * @param  \App\Http\Requests\ValidateUser  $request
+     * @return Illuminate\Http\Response
+     */
+
     protected $userService;
 
     public function __construct(UserService $userService)
@@ -25,32 +32,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function destroy(Request $request)
-    {        
-        $user = User::find($request->id);
-
-        if ($user) {
-            $user->delete();
-            return redirect()->route('user.index')->with('success', 'User removed successfully.');
-        }
-
-        return redirect()->route('user.index')->with('error', 'User not found.');
-    }
-
     public function create()
     {
         return view('users.createuser');
-    }
-
-    public function registerUser(Request $request)
-    {
-        $validatedData = $this->userService->validator($request->all())->validate();
-        if (!$validatedData) {
-            return redirect()->route('user.index')->with('error', 'Registration unsuccessful');
-        }
-
-        $this->userService->create($validatedData);
-        return redirect()->route('user.index')->with('success', 'Successfully registered new user!');
     }
 
     public function edit(Request $request, $userid)
@@ -61,8 +45,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, $userid)
+    public function update(ValidateUser $request, $userid)
     {
+        $request->validated();
         if ($request->password)
         {
             $name = $request->input('name');
@@ -72,5 +57,30 @@ class UserController extends Controller
 
             return redirect()->route('user.index')->with('success', 'User updated successfully');
         }
+    }
+
+    public function registerUser(ValidateUser $request)
+    {
+        $request->validated();
+        $validatedData = $this->userService->validator($request->all())->validate();
+        if (!$validatedData) {
+            return redirect()->route('user.index')->with('error', 'Registration unsuccessful');
+        }
+
+        $this->userService->create($validatedData);
+        return redirect()->route('user.index')->with('success', 'Successfully registered new user!');
+    }
+
+
+    public function destroy(Request $request)
+    {        
+        $user = User::find($request->id);
+
+        if ($user) {
+            $user->delete();
+            return redirect()->route('user.index')->with('success', 'User removed successfully.');
+        }
+
+        return redirect()->route('user.index')->with('error', 'User not found.');
     }
 }
