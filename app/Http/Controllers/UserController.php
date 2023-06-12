@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Validator;
 
 
 class UserController extends Controller
@@ -62,10 +63,6 @@ class UserController extends Controller
 
     public function update(Request $request, $userid)
     {
-        if ($request->password !== $request->password_confirmation) 
-        {
-            return redirect()->route('user.edit', ['user' => $userid])->with('error', 'Passwords do not match');
-        }
         if ($request->password)
         {
             $name = $request->input('name');
