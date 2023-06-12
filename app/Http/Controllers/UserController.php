@@ -9,13 +9,6 @@ use App\Http\Requests\ValidateUser;
 
 class UserController extends Controller
 {
-        /**
-     * Store a new blog post.
-     *
-     * @param  \App\Http\Requests\ValidateUser  $request
-     * @return Illuminate\Http\Response
-     */
-
     protected $userService;
 
     public function __construct(UserService $userService)
