@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     @include('status')
-    <h2 class="mb-4"><i data-feather="users" class="mr-2 page-icon"></i>Update user</h2>
+    <h2 class="mb-4"><i data-feather="edit" class="mr-2 page-icon"></i>Update user</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
