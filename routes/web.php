@@ -32,6 +32,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('user','UserController')->only(['index', 'edit', 'update']);
     Route::get('user/registers', 'UserController@create')->name('user.createUser');
-    Route::post('registeruser', 'UserController@registerUser')->name('registeruser');
+    Route::post('registeruser', 'UserController@store')->name('registeruser');
     Route::post('user', 'UserController@destroy')->name('user.delete');
 });

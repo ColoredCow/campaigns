@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Services\UserService;
-use App\Http\Requests\ValidateUser;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -36,11 +36,10 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(ValidateUser $request, $userid)
+    public function update(UserRequest $request, $userid)
     {
         $request->validated();
-        if ($request->password)
-        {
+        if ($request->password) {
             $name = $request->input('name');
             $email = $request->input('email');
             $password = $request->input('password');
@@ -50,7 +49,7 @@ class UserController extends Controller
         }
     }
 
-    public function registerUser(ValidateUser $request)
+    public function store(UserRequest $request)
     {
         $request->validated();
         $this->userService->create($request->all());
