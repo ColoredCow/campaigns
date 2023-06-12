@@ -49,7 +49,7 @@
                             href="{{route('user.edit', $user)}}" 
                             class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="w-20 h-20"></i>
                         </a>
-                        <form action="{{ route('user.remove', ['id' => $user->id]) }}" method="POST">
+                        <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-link text-danger p-0" title="Delete">
                                 <i data-feather="trash-2" class="w-20 h-15"></i>

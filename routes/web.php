@@ -30,8 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::post('subscriber/upload', 'SubscriberController@upload')->name('subscriber.upload');
     Route::resource('subscriber', 'SubscriberController')->except(['show']);
 
-    Route::resource('user','UsersController')->only(['index', 'edit', 'update']);
-    Route::get('user/registers', 'UsersController@createUser')->name('user.createUser');
-    Route::post('registeruser', 'UsersController@registerUser')->name('registeruser');
-    Route::post('user', 'UsersController@removeUser')->name('user.remove');
+    Route::resource('user','UserController')->only(['index', 'edit', 'update']);
+    Route::get('user/registers', 'UserController@create')->name('user.createUser');
+    Route::post('registeruser', 'UserController@registerUser')->name('registeruser');
+    Route::post('user', 'UserController@destroy')->name('user.delete');
 });

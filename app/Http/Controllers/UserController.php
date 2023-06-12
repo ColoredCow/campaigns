@@ -5,17 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use App\Services\UsersService;
+use App\Services\UserService;
 
 
-class UsersController extends Controller
+class UserController extends Controller
 {
-    protected $usersService;
+    protected $userService;
 
-    public function __construct(UsersService $usersService)
+    public function __construct(UserService $userService)
     {
-        $this->usersService = $usersService;
+        $this->userService = $userService;
     }
 
     public function index()
@@ -25,7 +24,7 @@ class UsersController extends Controller
         ]);
     }
 
-    public function removeUser(Request $request)
+    public function destroy(Request $request)
     {        
         $user = User::find($request->id);
 
@@ -37,20 +36,19 @@ class UsersController extends Controller
         return redirect()->route('user.index')->with('error', 'User not found.');
     }
 
-    public function createUser()
+    public function create()
     {
         return view('users.createuser');
     }
 
-
     public function registerUser(Request $request)
     {
-        $validatedData = $this->usersService->validator($request->all())->validate();
+        $validatedData = $this->userService->validator($request->all())->validate();
         if (!$validatedData) {
             return redirect()->route('user.index')->with('error', 'Registration unsuccessful');
         }
 
-        $this->usersService->create($validatedData);
+        $this->userService->create($validatedData);
         return redirect()->route('user.index')->with('success', 'Successfully registered new user!');
     }
 
@@ -64,16 +62,18 @@ class UsersController extends Controller
 
     public function update(Request $request, $userid)
     {
-        if ($request->password !== $request->password_confirmation) {
+        if ($request->password !== $request->password_confirmation) 
+        {
             return redirect()->route('user.edit', ['user' => $userid])->with('error', 'Passwords do not match');
         }
-        if ($request->password)
-        $name = $request->input('name');
-        $email = $request->input('email');
-        $password = $request->input('password');
+        if ($request->password) 
+        {
+            $name = $request->input('name');
+            $email = $request->input('email');
+            $password = $request->input('password');
+            $this->userService->update($userid, $name, $email, $password);
 
-        $this->usersService->update($userid,$name,$email,$password);
-
-        return redirect()->route('user.index')->with('success', 'User updated successfully');
+            return redirect()->route('user.index')->with('success', 'User updated successfully');
+        }
     }
 }
