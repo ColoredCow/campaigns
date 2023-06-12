@@ -25,7 +25,7 @@ class UserService
         $user->name = $name;
         $user->email = $email;
         $user->password = Hash::make($password);
-        
+
         $user->save();
     }
 }
