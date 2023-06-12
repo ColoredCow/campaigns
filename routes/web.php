@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('subscriber', 'SubscriberController')->except(['show']);
 
     Route::resource('user','UserController')->only(['index', 'edit', 'update']);
-    Route::get('user/registers', 'UserController@create')->name('user.createUser');
+    Route::get('user/create', 'UserController@create')->name('user.createUser');
     Route::post('registeruser', 'UserController@store')->name('registeruser');
     Route::post('user', 'UserController@destroy')->name('user.delete');
 });
