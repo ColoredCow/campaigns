@@ -11,6 +11,6 @@ return [
         'USERNAME',
     ],
 	'paginate_value'=> [
-		'paginate_value_for_user' => 10,
+		'paginate_value_for_user' => 20,
 	],
 ];
