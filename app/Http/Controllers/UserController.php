@@ -36,24 +36,54 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(UserRequest $request, $userid)
-    {
-        $request->validated();
-        if ($request->password) {
-            $name = $request->input('name');
-            $email = $request->input('email');
-            $password = $request->input('password');
-            $this->userService->update($userid, $name, $email, $password);
-
-            return redirect()->route('user.index')->with('success', 'User updated successfully');
-        }
-    }
-
     public function store(UserRequest $request)
     {
         $request->validated();
         $this->userService->create($request->all());
         return redirect()->route('user.index')->with('success', 'Successfully registered new user!');
+    }
+
+    // public function update(UserRequest $request, $userid)
+    // {
+    //     $request->validated();
+    //     $user = User::where('id', $userid)->first();
+
+    //     dd($user->email);
+
+    //     if ($request->password) {
+    //         $name = $request->input('name');
+    //         $email = $request->input('email');
+    //         $password = $request->input('password');
+    //         $this->userService->update($userid, $name, $email, $password);
+
+    //         return redirect()->route('user.index')->with('success', 'User updated successfully');
+    //     }
+    // }
+
+    public function update(UserRequest $request, $userid)
+    {
+        $request->validated();
+        $user = User::where('id', $userid)->first();
+
+        if ($request->password) {
+            $name = $request->input('name');
+            $email = $request->input('email');
+            $password = $request->input('password');
+
+            // Check if the updated email already exists in the database
+            $existingEmails = User::where('email', '!=', $user->email)->pluck('email')->toArray();
+            if (in_array($email, $existingEmails)) {
+                return redirect()->route('user.edit', ['user' => $userid])->with([
+                    'error' => 'Email already exists enter unique email',
+                    'userid' => $userid,
+                    ]
+                );
+            }
+
+            $this->userService->update($userid, $name, $email, $password);
+
+            return redirect()->route('user.index')->with('success', 'User updated successfully');
+        }
     }
 
     public function destroy(Request $request)
