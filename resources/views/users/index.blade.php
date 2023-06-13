@@ -25,7 +25,7 @@
         </div>
         <div class="d-flex flex-column flex-md-row">
             <a class="btn btn-grey-light text-dark d-inline-block" href="{{ route('user.createUser') }}"><i data-feather="plus" class="w-20 h-18 mr-1"></i>
-                Register new user
+                Register new users
             </a>
         </div>
     </div>
