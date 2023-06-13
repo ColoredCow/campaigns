@@ -20,8 +20,8 @@ class UserController extends Controller
     {
         $search = null;
         $paginationSize = config('constants.paginate_value.paginate_value_for_user');
+
         if (request()->has('s') && !is_null(request()->get('s'))) {
-            $paginationSize = 100;
             $search = request()->get('s');
             $users = User::where('name', 'like', "%$search%")->latest()->paginate($paginationSize);
         } else {
@@ -29,7 +29,7 @@ class UserController extends Controller
         }
 
         return view('users.index')->with([
-            'users' => $users,
+            'users' => $users->appends(request()->except('page')),
             'filters' => [
                 's' => $search,
             ],
