@@ -88,7 +88,7 @@ class SubscriptionListController extends Controller
     {
         $id = $request->input('listId');
         $listSubscriber = ListSubscriber::where('list_id', $id);
-        $listSubscriber->delete();
+        $listSubscriber->delete(); // first delete list from list_subscriber then delete it from list table
         $list = SubscriptionList::find($id);
         $list->delete();
 
