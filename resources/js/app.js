@@ -77,3 +77,15 @@ $('.resource-delete').on('click', function(){
     form.submit();
 });
 
+$(document).ready(function() {
+    $('.deleteUserBtn').click(function (e) {
+        e.preventDefault();
+
+        var userId = $(this).attr('userid');
+        var userName = $(this).attr('username');
+        $('#user_id').val(userId);
+        $('#display_user_name').text(userName);
+
+        $('#deletemodal').modal('show');
+    })
+});
