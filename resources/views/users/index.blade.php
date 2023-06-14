@@ -17,6 +17,7 @@
 
     <div class="mb-3 d-flex align-items-center w-100">
         <h2 class="mb-0 d-flex align-items-end"><i data-feather="users" class="mr-2 page-icon"></i>Users</h2>
+        <h3 class="text-secondary mb-0 ml-1">({{$users->total()}})</h3>
     </div>
 
     <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between mb-3">
