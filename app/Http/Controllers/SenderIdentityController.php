@@ -77,7 +77,7 @@ class SenderIdentityController extends Controller
 
     public function destroy(Request $request)
     {
-        $id = $request->input('identity_id');
+        $id = $request->input('senderIdentityId');
         $senderIdentity = SenderIdentity::findOrFail($id);
         $senderIdentity->delete();
 

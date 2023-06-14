@@ -48,7 +48,7 @@
                             <span class="badge badge-primary mr-2">Default</span>
                         @endif
                         <a href="{{route('sender-identity.edit', $identity)}}" class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="w-20 h-20"></i></a>
-                        <form action="{{ route('sender-identity.delete',  ['identity_id' => $identity->id]) }}" method="POST">
+                        <form action="{{ route('sender-identity.delete',  ['senderIdentityId' => $identity->id]) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-link text-danger p-0" title="Delete">
                                 <i data-feather="trash-2" class="w-20 h-20"></i>
