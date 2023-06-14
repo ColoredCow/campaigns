@@ -21,9 +21,9 @@
             </a>
         </div>
     </div>
-    @if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
     </div>
     @endif
     <div class="table-responsive">
