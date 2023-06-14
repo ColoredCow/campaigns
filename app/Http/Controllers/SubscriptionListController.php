@@ -87,8 +87,7 @@ class SubscriptionListController extends Controller
     public function destroy(Request $request)
     {
         $id = $request->input('listId');
-        $listSubscriber = ListSubscriber::where('list_id', $id);
-        $listSubscriber->delete(); // first delete list from list_subscriber then delete it from list table
+        ListSubscriber::where('list_id','=', $id)->delete();
         $list = SubscriptionList::find($id);
         $list->delete();
 
