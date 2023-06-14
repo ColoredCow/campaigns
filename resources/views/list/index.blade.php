@@ -42,7 +42,7 @@
                             <td>{{ $list->name }}</td>
                             <td>{{ $list->subscribers_count }}</td>
                             <td>{{ $list->refuted_subscribers_count }}</td>
-                            <td class="text-grey-dark text-right d-flex justify-content-end">
+                            <td style="min-width: 150px;" class="text-grey-dark text-right d-flex justify-content-end">
                                 <a href="{{ route('list.edit', $list) }}" class="text-grey-dark mr-2" title="Edit">
                                     <i data-feather="edit" class="w-20 h-20"></i>
                                 </a>
