@@ -52,7 +52,6 @@
                                         <i data-feather="trash-2" class="w-20 h-20"></i>
                                     </button>
                                 </form>
-                                {{-- <a href="#" class="text-grey-dark" title="Delete"><i data-feather="trash-2" class="w-20 h-20"></i></a> --}}
                             </td>
                         </tr>
                     @endif
