@@ -91,6 +91,6 @@ class SubscriptionListController extends Controller
         $list = SubscriptionList::find($id);
         $list->delete();
 
-        return back()->with('success', 'List deleted.');
+        return back()->with('success', 'List deleted successfully!');
     }
 }
