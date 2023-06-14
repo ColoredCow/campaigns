@@ -21,6 +21,11 @@
             </a>
         </div>
     </div>
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
     <div class="table-responsive">
         <table class="table table-striped border">
             <thead class="bg-primary text-white">
@@ -37,10 +42,16 @@
                             <td>{{ $list->name }}</td>
                             <td>{{ $list->subscribers_count }}</td>
                             <td>{{ $list->refuted_subscribers_count }}</td>
-                            <td style="min-width: 150px;" class="text-grey-dark text-right">
+                            <td style="min-width: 150px;" class="text-grey-dark text-right d-flex justify-content-end">
                                 <a href="{{ route('list.edit', $list) }}" class="text-grey-dark mr-2" title="Edit">
                                     <i data-feather="edit" class="w-20 h-20"></i>
                                 </a>
+                                <form action="{{ route('list.delete',  ['listId' => $list->id]) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Delete">
+                                        <i data-feather="trash-2" class="w-20 h-20"></i>
+                                    </button>
+                                </form>
                                 {{-- <a href="#" class="text-grey-dark" title="Delete"><i data-feather="trash-2" class="w-20 h-20"></i></a> --}}
                             </td>
                         </tr>
