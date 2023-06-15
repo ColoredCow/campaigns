@@ -6,6 +6,7 @@ use App\Http\Requests\SubscriptionListRequest;
 use App\Models\SubscriptionList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use App\Models\ListSubscriber;
 
 class SubscriptionListController extends Controller
 {
@@ -83,8 +84,13 @@ class SubscriptionListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->input('listId');
+        ListSubscriber::where('list_id','=', $id)->delete();
+        $list = SubscriptionList::find($id);
+        $list->delete();
+
+        return back()->with('success', 'List deleted successfully!');
     }
 }

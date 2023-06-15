@@ -18,8 +18,21 @@ class UserController extends Controller
 
     public function index()
     {
+        $search = null;
+        $paginationSize = config('constants.paginate_value.paginate_value_for_user');
+
+        if (request()->has('name') && !is_null(request()->get('name'))) {
+            $search = request()->get('name');
+            $users = User::where('name', 'like', "%$search%")->latest()->paginate($paginationSize);
+        } else {
+            $users = User::orderBy('name')->paginate($paginationSize);
+        }
+
         return view('users.index')->with([
-            'users' => User::orderBy('name')->paginate(config('constants.paginate_value.paginate_value_for_user')),
+            'users' => $users->appends(request()->except('page')),
+            'filters' => [
+                'name' => $search,
+            ],
         ]);
     }
 

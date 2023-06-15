@@ -24,6 +24,12 @@
         </div>
     @endif
 
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
+
     <div class="table-responsive">
         <table class="table table-striped border">
             <thead class="bg-primary text-white">
@@ -37,12 +43,17 @@
                 <tr>
                     <td>{{$identity->name}}</td>
                     <td>{{$identity->email}}</td>
-                    <td style="min-width: 150px;" class="text-grey-dark text-right">
+                    <td class="text-grey-dark text-right d-flex justify-content-end">
                         @if($identity->is_default)
                             <span class="badge badge-primary mr-2">Default</span>
                         @endif
                         <a href="{{route('sender-identity.edit', $identity)}}" class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="w-20 h-20"></i></a>
-                        <a href="#" class="text-danger" title="Delete"><i data-feather="trash-2" class="w-20 h-20"></i></a>
+                        <form action="{{ route('sender-identity.delete',  ['senderIdentityId' => $identity->id]) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-link text-danger p-0" title="Delete">
+                                <i data-feather="trash-2" class="w-20 h-20"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

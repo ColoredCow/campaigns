@@ -40,7 +40,8 @@ class SubscriberController extends Controller
         $paginationSize = 100;
         if (request()->has('s') && !is_null(request()->get('s'))) {
             $search = request()->get('s');
-            $subscribers = Subscriber::where('email', 'like', "%$search%");
+            $subscribers = Subscriber::where('email', 'like', "%$search%")
+            ->orWhere('name', 'like', "%$search%");
         } else if (request()->has('list') && !is_null(request()->get('list'))) {
             $list = request()->get('list');
             $subscribers = Subscriber::whereHas('lists', function ($query) use ($list) {
