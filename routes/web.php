@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('list', 'SubscriptionListController')->except(['show', 'delete']);
     Route::post('list','SubscriptionListController@destroy')->name('list.delete');
     Route::resource('sender-identity', 'SenderIdentityController')->except(['show', 'delete']);
+    Route::post('sender-identity/delete','SenderIdentityController@destroy')->name('sender-identity.delete');
     Route::get('subscriber/upload', 'SubscriberController@uploadView')->name('subscriber.upload-view');
     Route::post('subscriber/upload', 'SubscriberController@upload')->name('subscriber.upload');
     Route::resource('subscriber', 'SubscriberController')->except(['show']);
