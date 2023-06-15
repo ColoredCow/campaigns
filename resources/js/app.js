@@ -83,9 +83,19 @@ $(document).ready(function() {
 
         var userId = $(this).attr('userid');
         var userName = $(this).attr('username');
-        $('#user_id').val(userId);
-        $('#display_user_name').text(userName);
+        $('#userId').val(userId);
+        $('#displayUserName').text(userName);
+        $('#deleteUserModal').modal('show');
+    })
 
-        $('#deletemodal').modal('show');
+    $('.deleteIdentityBtn').click(function (e) {
+        e.preventDefault();
+
+        var identityId = $(this).attr('identityid');
+        var identityName = $(this).attr('identityname');
+        $('#identityId').val(identityId);
+        $('#displayIdentityName').text(identityName);
+        $('#deleteIdentityModal').modal('show');
+
     })
 });

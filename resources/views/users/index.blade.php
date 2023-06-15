@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="modal fade" id="deletemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,8 +11,8 @@
                 <form action="{{ route('user.delete') }}" method="POST">
                     @csrf
                     <div class="modal-body">
-                        <input type="hidden" name="id" id='user_id'>
-                        <h4>Are you sure you want to delete '<span id="display_user_name"></span>'?</h4>
+                        <input type="hidden" name="id" id='userId'>
+                        <h4>Are you sure you want to delete '<span id="displayUserName"></span>'?</h4>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -76,7 +76,11 @@
                             href="{{route('user.edit', $user)}}" 
                             class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="w-20 h-20"></i>
                         </a>
-                        <button type="submit" class="deleteUserBtn btn btn-link text-danger p-0" userid="{{($user->id)}}" username="{{$user->name}}" title="Delete">
+                        <button type="submit" 
+                        class="deleteUserBtn btn btn-link text-danger p-0" 
+                        userid="{{($user->id)}}"
+                        username="{{$user->name}}"
+                        title="Delete">
                             <i data-feather="trash-2" class="w-20 h-20"></i>
                         </button>
                     </td>
