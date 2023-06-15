@@ -43,7 +43,7 @@
                 <tr>
                     <td>{{$identity->name}}</td>
                     <td>{{$identity->email}}</td>
-                    <td style="min-width: 150px;" class="text-grey-dark text-right d-flex justify-content-end">
+                    <td class="text-grey-dark text-right d-flex justify-content-end">
                         @if($identity->is_default)
                             <span class="badge badge-primary mr-2">Default</span>
                         @endif

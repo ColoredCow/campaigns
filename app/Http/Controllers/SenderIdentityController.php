@@ -79,8 +79,11 @@ class SenderIdentityController extends Controller
     {
         $id = $request->input('senderIdentityId');
         $senderIdentity = SenderIdentity::findOrFail($id);
-        $senderIdentity->delete();
+        if ($senderIdentity) {
+            $senderIdentity->delete();
+            return back()->with('status', 'Sender-Identity deleted successfully!');
+        }
 
-        return redirect()->route('sender-identity.index')->with('error', 'Identity deleted.');
+        return back()->with('error', 'Sender-Identity not found ');
     }
 }
