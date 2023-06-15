@@ -67,7 +67,6 @@ class UserController extends Controller
                     ]
                 );
             }
-
             $this->userService->update($userid, $name, $email, $password);
 
             return redirect()->route('user.index')->with('success', 'User updated successfully');

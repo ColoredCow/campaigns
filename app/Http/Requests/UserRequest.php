@@ -28,7 +28,6 @@ class UserRequest extends FormRequest
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6|confirmed',
         ];
-
         if ($this->getMethod() === 'POST') {
             $rules['email'] .= '|unique:users';
         }
