@@ -71,11 +71,7 @@
                             <span class="badge badge-primary mr-2">Default</span>
                         @endif
                         <a href="{{route('sender-identity.edit', $identity)}}" class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="w-20 h-20"></i></a>
-                        <button type="submit" 
-                        class="deleteIdentityBtn btn btn-link text-danger p-0" 
-                        identityid="{{($identity->id)}}" 
-                        identityname="{{$identity->name}}"
-                        title="Delete">
+                        <button type="submit" class="deleteIdentityBtn btn btn-link text-danger p-0" identityid="{{($identity->id)}}" identityname="{{$identity->name}}" title="Delete">
                             <i data-feather="trash-2" class="w-20 h-20"></i>
                         </button>
                     </td>
