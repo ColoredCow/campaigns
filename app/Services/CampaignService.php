@@ -14,9 +14,13 @@ class CampaignService
 		$response = [
 			'allSubscribersCount' => Subscriber::count(),
 	        'allListId' => optional(SubscriptionList::where('name', 'like', 'all')->first())->id,
-	        'lists' => SubscriptionList::withCount('subscribers')->get(),
+	        'lists' => SubscriptionList::withCount('subscribers')->orderBy('name')->get(),
 	        'senderIdentities' => SenderIdentity::all(),
 		];
+
+		$response['lists'] = $response['lists']->sortBy(function ($list) {
+			return $list->name !== 'all';
+		});
 
 		if ($request->input('duplicate')) {
 			// TODO: validation
