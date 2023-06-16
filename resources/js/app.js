@@ -96,6 +96,15 @@ $(document).ready(function() {
         $('#identityId').val(identityId);
         $('#displayIdentityName').text(identityName);
         $('#deleteIdentityModal').modal('show');
+    })
 
+    $('.deleteListBtn').click(function (e) {
+        e.preventDefault();
+
+        var listId = $(this).attr('listid');
+        var listName = $(this).attr('listname');
+        $('#listId').val(listId);
+        $('#displaylistName').text(listName);
+        $('#deletelistModal').modal('show');
     })
 });

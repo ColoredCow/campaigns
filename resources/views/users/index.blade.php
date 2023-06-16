@@ -76,11 +76,7 @@
                             href="{{route('user.edit', $user)}}" 
                             class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="w-20 h-20"></i>
                         </a>
-                        <button type="submit" 
-                        class="deleteUserBtn btn btn-link text-danger p-0" 
-                        userid="{{($user->id)}}"
-                        username="{{$user->name}}"
-                        title="Delete">
+                        <button type="submit" class="deleteUserBtn btn btn-link text-danger p-0" userid="{{($user->id)}}" username="{{$user->name}}" title="Delete">
                             <i data-feather="trash-2" class="w-20 h-20"></i>
                         </button>
                     </td>
