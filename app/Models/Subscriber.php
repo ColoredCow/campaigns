@@ -9,8 +9,8 @@ class Subscriber extends Model
 {
     protected $guarded = [];
 
-    protected $dates = [
-        'email_verification_at',
+    protected $casts = [
+        'email_verification_at' => 'datetime',
     ];
 
     public function lists()
