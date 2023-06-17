@@ -13,7 +13,7 @@ class SubscriberController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
         return response(Subscriber::paginate(100));
     }
@@ -49,7 +49,7 @@ class SubscriberController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Subscriber $subscriber)
+    public function destroy(Subscriber $subscriber): Response
     {
         $subscriber->delete();
         return response()->noContent();
