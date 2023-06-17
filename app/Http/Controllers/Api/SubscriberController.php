@@ -15,7 +15,7 @@ class SubscriberController extends Controller
      */
     public function index()
     {
-        //
+        return response(Subscriber::paginate(100));
     }
 
     /**
@@ -31,17 +31,19 @@ class SubscriberController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Subscriber $subscriber)
+    public function show(Subscriber $subscriber): Response
     {
-        //
+        return response($subscriber);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subscriber $subscriber)
+    public function update(SubscriberRequest $request, Subscriber $subscriber): Response
     {
-        //
+        $validated = $request->validated();
+        $subscriber->update($validated);
+        return response($subscriber);
     }
 
     /**
@@ -49,6 +51,7 @@ class SubscriberController extends Controller
      */
     public function destroy(Subscriber $subscriber)
     {
-        //
+        $subscriber->delete();
+        return response()->noContent();
     }
 }
