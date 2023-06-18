@@ -7,7 +7,6 @@ use App\Models\SubscriptionList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Models\ListSubscriber;
-use Illuminate\Support\Facades\Auth;
 
 class SubscriptionListController extends Controller
 {
@@ -59,7 +58,7 @@ class SubscriptionListController extends Controller
         $validated = $request->validated();
         $list = SubscriptionList::create([
             'name' => $validated['name'],
-            'created_by' => Auth::user()->id,
+            'created_by' => auth()->id(),
         ]);
         return redirect()->route('list.edit', $list)->with('success', 'List created successfully!');
     }
