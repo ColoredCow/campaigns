@@ -14,7 +14,6 @@ class AddCreatedByToLists extends Migration
     public function up()
     {
         Schema::table('lists', function (Blueprint $table) {
-            //
             $table->string('created_by')->nullable();
         });
     }
@@ -27,7 +26,6 @@ class AddCreatedByToLists extends Migration
     public function down()
     {
         Schema::table('lists', function (Blueprint $table) {
-            //
             $table->dropColumn('created_by');
         });
     }

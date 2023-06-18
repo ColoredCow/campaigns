@@ -86,9 +86,8 @@ class SubscriptionListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $id = $request->input('listId');
         ListSubscriber::where('list_id','=', $id)->delete();
         $list = SubscriptionList::find($id);
         $list->delete();

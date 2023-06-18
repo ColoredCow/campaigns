@@ -11,7 +11,6 @@ use App\Models\SenderIdentity;
 use App\Models\SubscriptionList;
 use App\Services\CampaignService;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\CampaignRequest;
 use ColoredCow\LaravelMobileAPI\Traits\CanHaveAPIEndPoints;
@@ -91,7 +90,7 @@ class CampaignController extends Controller
             'email_subject' => $validated['email_subject'],
             'email_body' => $validated['email_body'],
             'sender_identity_id' => $validated['sender_identity_id'],
-            'created_by' => Auth::user()->id,
+            'created_by' => auth()->id(),
         ];
         $campaign = Campaign::create($args);
 
