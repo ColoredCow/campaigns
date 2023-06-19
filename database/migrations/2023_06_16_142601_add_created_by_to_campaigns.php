@@ -14,7 +14,6 @@ class AddCreatedByToCampaigns extends Migration
     public function up()
     {
         Schema::table('campaigns', function (Blueprint $table) {
-            //
             $table->string('created_by')->nullable();
         });
     }
@@ -27,7 +26,6 @@ class AddCreatedByToCampaigns extends Migration
     public function down()
     {
         Schema::table('campaigns', function (Blueprint $table) {
-            //
             $table->dropColumn('created_by');
         });
     }
