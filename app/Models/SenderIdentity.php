@@ -3,14 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class SenderIdentity extends Model
 {
     protected $fillable = ['name', 'email', 'is_default'];
 
-    protected function setIsDefaultAttribute($value)
+    protected function isDefault(): Attribute
     {
-        $this->attributes['is_default'] = boolval($value);
+        return Attribute::make(
+            get: fn (string $value) => boolval($value),
+        );
     }
 
     public function scopeDefault($query)

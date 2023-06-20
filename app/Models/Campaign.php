@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Attachment;
 use App\Models\SenderIdentity;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Campaign extends Model
 {
@@ -25,13 +26,17 @@ class Campaign extends Model
         return $this->hasOne(SenderIdentity::class, 'id', 'sender_identity_id');
     }
 
-    public function getSenderIdentityNameAttribute()
+    public function senderIdentityName(): Attribute
     {
-        return $this->senderIdentity ? $this->senderIdentity->name : config('constants.campaigns.from.name');
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $attributes['senderIdentity'] ? $attributes['senderIdentity']->name : config('constants.campaigns.from.name'),
+        );
     }
 
-    public function getSenderIdentityEmailAttribute()
+    public function senderIdentityEmail(): Attribute
     {
-        return $this->senderIdentity ? $this->senderIdentity->email : config('constants.campaigns.from.email');
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $attributes['senderIdentity'] ? $attributes['senderIdentity']->email : config('constants.campaigns.from.email'),
+        );
     }
 }
