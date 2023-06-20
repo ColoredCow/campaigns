@@ -49,25 +49,16 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(UserRequest $request, $userid)
+    public function update(UserRequest $request, User $user)
     {
-        $request->validated();
-        $user = User::where('id', $userid)->first();
+        $validate = $request->validated();
 
-        if ($request->password) {
-            $name = $request->input('name');
-            $email = $request->input('email');
-            $password = $request->input('password');
-            // Check if the updated email already exists in the database
-            $existingEmails = User::where('email', '!=', $user->email)->pluck('email')->toArray();
-            if (in_array($email, $existingEmails)) {
-                return redirect()->route('user.edit', ['user' => $userid])->with([
-                    'error' => 'Email already exists',
-                    'userid' => $userid,
-                    ]
-                );
-            }
-            $this->userService->update($userid, $name, $email, $password);
+        if ($validate['password']) {
+            $name = $validate['name'];
+            $email = $validate['email'];
+            $password =  $validate['password'];
+
+            $this->userService->update( $user->id, $name, $email, $password );
 
             return redirect()->route('user.index')->with('success', 'User updated successfully');
         }
