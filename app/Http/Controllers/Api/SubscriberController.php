@@ -19,7 +19,7 @@ class SubscriberController extends Controller
         $validated = $request->validated();
         $subscriber = Subscriber::create($validated);
 
-        if (!empty($validated['tags'])) {
+        if (! empty($validated['tags'])) {
             $subscriber->tags()->sync($validated['tags']);
         }
 
