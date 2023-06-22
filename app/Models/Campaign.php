@@ -9,11 +9,16 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Campaign extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+        'subscription_list_id',
+        'sender_identity_id',
+        'email_subject',
+        'email_body',
+    ];
 
-    public function subscriptionList()
+    public function tag()
     {
-        return $this->belongsTo(SubscriptionList::class, 'subscription_list_id');
+        return $this->belongsTo(Tag::class, 'subscription_list_id');
     }
 
     public function attachments()

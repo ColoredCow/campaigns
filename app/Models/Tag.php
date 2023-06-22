@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Subscriber;
 use Illuminate\Database\Eloquent\Model;
 
-class SubscriptionList extends Model {
+class Tag extends Model {
 	protected $guarded = [];
 
 	protected $table = 'lists';

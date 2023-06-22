@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubscriberRequest extends FormRequest
+class SenderIdentityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,17 +25,12 @@ class SubscriberRequest extends FormRequest
         $subscriber = $this->route('subscriber');
         return [
             'email' => [
-                $subscriber ? 'nullable' : 'required',
+                'required',
                 'email',
-                Rule::unique('subscribers')->ignore($subscriber->id ?? null)
+                Rule::unique('sender_identities')->ignore($subscriber->id ?? null)
             ],
-            'name' => [
-                $subscriber ? 'nullable' : 'required',
-                'string',
-            ],
-            'phone' => 'nullable|string',
-            'subscription_lists' => 'nullable|array',
-            'is_subscribed' => 'nullable|boolean',
+            'name' => 'required|string',
+            'is_default' => 'nullable|boolean',
         ];
     }
 }

@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "coloredcow/campaigns",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Campaigns API",
+    "keywords": ["coloredcow", "campaigns", "laravel"],
     "license": "MIT",
     "require": {
         "php": "^8.1",
