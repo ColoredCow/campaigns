@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\CampaignController;
+use App\Http\Controllers\Api\SenderIdentityController;
+use App\Http\Controllers\Api\SubscriberController;
+use App\Http\Controllers\Api\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Aws\Api\ApiProvider;
-use App\Http\Controllers\SubscriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +18,15 @@ use App\Http\Controllers\SubscriberController;
 |
 */
 
-Route::prefix('v1')->middleware('client')->group(function () {
-	Route::post('/subscriber', 'SubscriberController@store');
-	Route::post('addSubscriber', 'SubscriberController@addSubscriber');
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+    return $request->user();
 });
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::resource('subscriber', SubscriberController::class)->except(['create', 'edit']);
+    Route::resource('tag', TagController::class)->except(['create', 'edit']);
+    Route::resource('sender-identity', SenderIdentityController::class)->except(['create', 'edit']);
+    Route::resource('campaign', CampaignController::class)->except(['create', 'edit']);
+});
+
+require __DIR__.'/api/auth.php';

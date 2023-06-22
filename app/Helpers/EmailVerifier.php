@@ -8,13 +8,13 @@ class EmailVerifier
     {
         $result = false;
         //check valid email address by regular expression
-        if (!preg_match('/^[_A-z0-9-]+((\.|\+)[_A-z0-9-]+)*@[A-z0-9-]+(\.[A-z0-9-]+)*(\.[A-z]{2,4})$/', $email)) {
+        if (! preg_match('/^[_A-z0-9-]+((\.|\+)[_A-z0-9-]+)*@[A-z0-9-]+(\.[A-z0-9-]+)*(\.[A-z]{2,4})$/', $email)) {
             return $result;
         }
 
         //check valid MX record
-        list($name, $domain) = explode('@', $email);
-        if (!checkdnsrr($domain, 'MX')) {
+        [$name, $domain] = explode('@', $email);
+        if (! checkdnsrr($domain, 'MX')) {
             return $result;
         }
 
@@ -24,8 +24,8 @@ class EmailVerifier
         $port = 25;
         $max_read_time = 5;
         $users = $name;
-        $hosts = array();
-        $mxweights = array();
+        $hosts = [];
+        $mxweights = [];
         getmxrr($domain, $hosts, $mxweights);
         $mxs = array_combine($hosts, $mxweights);
         asort($mxs, SORT_NUMERIC);
@@ -34,13 +34,13 @@ class EmailVerifier
 
         //try to check each host
         foreach (array_keys($mxs) as $host) {
-            #connect to SMTP server
+            //connect to SMTP server
             try {
                 if ($sock = @fsockopen($host, $port, $errno, $errstr, (float) $timeout)) {
                     stream_set_timeout($sock, $max_read_time);
                     break;
                 }
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 return false;
             }
         }
@@ -54,18 +54,18 @@ class EmailVerifier
                 return $result;
             }
             //initial SMTP connection
-            $msg = "HELO " . $domain;
-            fwrite($sock, $msg . "\r\n");
+            $msg = 'HELO '.$domain;
+            fwrite($sock, $msg."\r\n");
             $reply = fread($sock, 2082);
 
             //sender call
-            $msg = "MAIL FROM: <" . $name . '@' . $domain . ">";
-            fwrite($sock, $msg . "\r\n");
+            $msg = 'MAIL FROM: <'.$name.'@'.$domain.'>';
+            fwrite($sock, $msg."\r\n");
             $reply = fread($sock, 2082);
 
             //ask to receiver
-            $msg = "RCPT TO: <" . $name . '@' . $domain . ">";
-            fwrite($sock, $msg . "\r\n");
+            $msg = 'RCPT TO: <'.$name.'@'.$domain.'>';
+            fwrite($sock, $msg."\r\n");
             $reply = fread($sock, 2082);
 
             //get response
@@ -83,11 +83,12 @@ class EmailVerifier
             }
 
             //quit SMTP connection
-            $msg = "quit";
-            fwrite($sock, $msg . "\r\n");
+            $msg = 'quit';
+            fwrite($sock, $msg."\r\n");
             //close socket
             fclose($sock);
         }
+
         return $result;
     }
 }

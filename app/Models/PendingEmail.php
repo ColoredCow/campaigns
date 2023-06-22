@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Campaign;
 use Illuminate\Database\Eloquent\Model;
 
 class PendingEmail extends Model
