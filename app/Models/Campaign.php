@@ -9,7 +9,12 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Campaign extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+        'subscription_list_id',
+        'sender_identity_id',
+        'email_subject',
+        'email_body',
+    ];
 
     public function subscriptionList()
     {
