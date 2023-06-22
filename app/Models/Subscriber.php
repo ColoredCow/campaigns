@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Subscriber extends Model
 {
@@ -19,7 +20,14 @@ class Subscriber extends Model
         'is_subscribed' => 'boolean',
     ];
 
-    public function tags()
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['tags'];
+
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'list_subscriber', 'subscriber_id', 'list_id');
     }
