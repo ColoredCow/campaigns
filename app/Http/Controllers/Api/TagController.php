@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Tag;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\TagRequest;
+use App\Models\Tag;
+use Illuminate\Http\Response;
 
 class TagController extends Controller
 {
@@ -19,6 +18,7 @@ class TagController extends Controller
     {
         $validated = $request->validated();
         $tag = Tag::create($validated);
+
         return response(Tag::find($tag->id));
     }
 
@@ -31,12 +31,14 @@ class TagController extends Controller
     {
         $validated = $request->validated();
         $tag->update($validated);
+
         return response($tag);
     }
 
     public function destroy(Tag $tag): Response
     {
         $tag->delete();
+
         return response()->noContent();
     }
 }

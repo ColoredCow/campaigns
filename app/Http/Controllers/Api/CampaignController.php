@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Campaign;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CampaignRequest;
+use App\Models\Campaign;
+use Illuminate\Http\Response;
 
 class CampaignController extends Controller
 {
@@ -19,6 +18,7 @@ class CampaignController extends Controller
     {
         $validated = $request->validated();
         $campaign = Campaign::create($validated);
+
         return response(Campaign::find($campaign->id));
     }
 
@@ -31,12 +31,14 @@ class CampaignController extends Controller
     {
         $validated = $request->validated();
         $campaign->update($validated);
+
         return response($campaign);
     }
 
     public function destroy(Campaign $campaign): Response
     {
         $campaign->delete();
+
         return response()->noContent();
     }
 }

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Subscriber;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\SubscriberRequest;
+use App\Models\Subscriber;
+use Illuminate\Http\Response;
 
 class SubscriberController extends Controller
 {
@@ -19,6 +18,7 @@ class SubscriberController extends Controller
     {
         $validated = $request->validated();
         $subscriber = Subscriber::create($validated);
+
         return response(Subscriber::find($subscriber->id));
     }
 
@@ -31,12 +31,14 @@ class SubscriberController extends Controller
     {
         $validated = $request->validated();
         $subscriber->update($validated);
+
         return response($subscriber);
     }
 
     public function destroy(Subscriber $subscriber): Response
     {
         $subscriber->delete();
+
         return response()->noContent();
     }
 }

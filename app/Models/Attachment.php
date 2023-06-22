@@ -8,7 +8,8 @@ class Attachment extends Model
 {
     protected $guarded = [];
 
-    public function resource() {
+    public function resource()
+    {
         return $this->morphTo();
     }
 }
