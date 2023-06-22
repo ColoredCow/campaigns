@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ListSubscriber extends Model
 {
     use HasFactory;
+
     protected $table = 'list_subscriber';
 }

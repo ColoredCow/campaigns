@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Api;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SenderIdentityRequest extends FormRequest
 {
@@ -23,11 +23,12 @@ class SenderIdentityRequest extends FormRequest
     public function rules(): array
     {
         $subscriber = $this->route('subscriber');
+
         return [
             'email' => [
                 'required',
                 'email',
-                Rule::unique('sender_identities')->ignore($subscriber->id ?? null)
+                Rule::unique('sender_identities')->ignore($subscriber->id ?? null),
             ],
             'name' => 'required|string',
             'is_default' => 'nullable|boolean',

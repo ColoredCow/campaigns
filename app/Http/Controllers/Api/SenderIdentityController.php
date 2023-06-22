@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\SenderIdentity;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\SenderIdentityRequest;
+use App\Models\SenderIdentity;
+use Illuminate\Http\Response;
 
 class SenderIdentityController extends Controller
 {
@@ -19,6 +18,7 @@ class SenderIdentityController extends Controller
     {
         $validated = $request->validated();
         $senderIdentity = SenderIdentity::create($validated);
+
         return response(SenderIdentity::find($senderIdentity->id));
     }
 
@@ -31,12 +31,14 @@ class SenderIdentityController extends Controller
     {
         $validated = $request->validated();
         $senderIdentity->update($validated);
+
         return response($senderIdentity);
     }
 
     public function destroy(SenderIdentity $senderIdentity): Response
     {
         $senderIdentity->delete();
+
         return response()->noContent();
     }
 }

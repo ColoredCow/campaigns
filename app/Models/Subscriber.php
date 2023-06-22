@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Tag;
 use Illuminate\Database\Eloquent\Model;
 
 class Subscriber extends Model
