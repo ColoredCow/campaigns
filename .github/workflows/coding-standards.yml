@@ -6,14 +6,26 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  pint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
         run: composer install
-      - name: Install NPM Dependencies
-        run: npm install
+      - name: Setup env file
+        run: cp .env.example .env
+      - name: Configure application encryption key
+        run: php artisan key:generate
+      - name: Larastan check
+        run: ./vendor/bin/pint --test
+
+  larastan:
+    name: Larastan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: composer install
       - name: Setup env file
         run: cp .env.example .env
       - name: Configure application encryption key
