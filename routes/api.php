@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ListController;
+use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\CampaignController;
 use App\Http\Controllers\Api\SubscriberController;
 use App\Http\Controllers\Api\SenderIdentityController;
@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::resource('subscriber', SubscriberController::class)->except(['create', 'edit']);
-    Route::resource('list', ListController::class)->except(['create', 'edit']);
+    Route::resource('tag', TagController::class)->except(['create', 'edit']);
     Route::resource('sender-identity', SenderIdentityController::class)->except(['create', 'edit']);
     Route::resource('campaign', CampaignController::class)->except(['create', 'edit']);
 });

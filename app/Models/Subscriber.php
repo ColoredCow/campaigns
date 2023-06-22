@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\SubscriptionList;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Model;
 
 class Subscriber extends Model
@@ -20,9 +20,9 @@ class Subscriber extends Model
         'is_subscribed' => 'boolean',
     ];
 
-    public function lists()
+    public function tags()
     {
-        return $this->belongsToMany(SubscriptionList::class, 'list_subscriber', 'subscriber_id', 'list_id');
+        return $this->belongsToMany(Tag::class, 'list_subscriber', 'subscriber_id', 'list_id');
     }
 
     public function scopeHasVerifiedEmail($query)

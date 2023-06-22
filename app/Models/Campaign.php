@@ -16,9 +16,9 @@ class Campaign extends Model
         'email_body',
     ];
 
-    public function subscriptionList()
+    public function tag()
     {
-        return $this->belongsTo(SubscriptionList::class, 'subscription_list_id');
+        return $this->belongsTo(Tag::class, 'subscription_list_id');
     }
 
     public function attachments()
