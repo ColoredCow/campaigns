@@ -40,7 +40,7 @@ class EmailVerifier
                     stream_set_timeout($sock, $max_read_time);
                     break;
                 }
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 return false;
             }
         }
