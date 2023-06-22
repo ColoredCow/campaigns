@@ -35,7 +35,7 @@ class SubscriberRequest extends FormRequest
                 'string',
             ],
             'phone' => 'nullable|string',
-            'subscription_lists' => 'nullable|array',
+            'tags' => 'nullable|array',
             'is_subscribed' => 'nullable|boolean',
         ];
     }
