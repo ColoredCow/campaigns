@@ -25,13 +25,17 @@ class SubscriberRequest extends FormRequest
         $subscriber = $this->route('subscriber');
         return [
             'email' => [
-                'required',
+                $subscriber ? 'nullable' : 'required',
                 'email',
                 Rule::unique('subscribers')->ignore($subscriber->id ?? null)
             ],
-            'name' => 'required|string',
+            'name' => [
+                $subscriber ? 'nullable' : 'required',
+                'string',
+            ],
             'phone' => 'nullable|string',
             'subscription_lists' => 'nullable|array',
+            'is_subscribed' => 'nullable|boolean',
         ];
     }
 }
