@@ -27,18 +27,18 @@ class UserRequest extends FormRequest
         $rules = [
             'name' => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed',
-        ];
-
-        if ($this->getMethod() === 'POST') {
-            $rules['email'] = 'required|string|email|max:255|unique:users';
-        } else {
-            $rules['email'] = [
+            'email' => [
                 'required',
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($this->user),
-            ];
+            ],
+        ];
+        
+        if ($this->getMethod() === 'POST') {
+            $rules['email'][] = 'unique:users';
+        } else {
+            $rules['email'][] = Rule::unique('users')->ignore($this->user);
         }
 
         return $rules;
