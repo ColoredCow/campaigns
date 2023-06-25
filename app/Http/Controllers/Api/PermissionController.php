@@ -11,7 +11,8 @@ use App\Models\User;
 class PermissionController extends Controller
 {
     // Update Role Permission
-    public function updateRolePermissions(UpdateRolePermissionsRequest $request) {
+    public function updateRolePermissions(UpdateRolePermissionsRequest $request) 
+    {
         $validatedData = $request->validated();
         if (! isset($validatedData['permissions'])) {
             return response()->json(['status' => 'Permissions is required']);

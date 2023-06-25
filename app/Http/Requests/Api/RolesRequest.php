@@ -20,7 +20,8 @@ class RolesRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
-    {        return [
+    {        
+        return [
             'name' => 'required|string|unique:roles,name',
             'guard_name' => 'required|string'
         ];
