@@ -4,23 +4,26 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
-use Illuminate\Http\Request;
+use App\Http\Requests\Api\RolesRequest;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
     public function index()
     {
         $roles = Role::all();
+        $permissions = Permission::all();
 
-        return $roles;
+        return response()->json([
+            'roles' => $roles,
+            'permissions' => $permissions
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(RolesRequest $request)
     {
-        $role = Role::create([
-            'name' => $request->name,
-            'guard_name' => 'web'
-        ]);
+        $validated = $request->validated();
+        $role = Role::create($validated);
 
         return response()->json(['status' => 'Role created successfully']);
     }
@@ -30,13 +33,10 @@ class RoleController extends Controller
         return $role;
     }
 
-    public function update(Request $request, Role $role)
+    public function update(RoleRequest $request, Role $role)
     {
-
-        $role->update([
-            'name' => $request->name,
-            'guard_name' => 'web'
-        ]);
+        $validated = $request->validated();
+        $role->update($validated);
 
         return response()->json(['status' => 'Role updated successfully']);
     }
