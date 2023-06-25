@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
 use App\Http\Requests\Api\RolesRequest;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
@@ -16,7 +16,7 @@ class RoleController extends Controller
 
         return response()->json([
             'roles' => $roles,
-            'permissions' => $permissions
+            'permissions' => $permissions,
         ]);
     }
 

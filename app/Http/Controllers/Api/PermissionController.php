@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
 use App\Http\Requests\Api\UpdateRolePermissionsRequest;
 use App\Http\Requests\Api\UpdateUserRolesRequest;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
 {
     // Update Role Permission
-    public function updateRolePermissions(UpdateRolePermissionsRequest $request) 
+    public function updateRolePermissions(UpdateRolePermissionsRequest $request)
     {
         $validatedData = $request->validated();
         if (! isset($validatedData['permissions'])) {

@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\CampaignController;
+use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SenderIdentityController;
 use App\Http\Controllers\Api\SubscriberController;
 use App\Http\Controllers\Api\TagController;
-use App\Http\Controllers\Api\RoleController;
-use App\Http\Controllers\Api\PermissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
