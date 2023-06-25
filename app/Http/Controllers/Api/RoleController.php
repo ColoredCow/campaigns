@@ -33,7 +33,7 @@ class RoleController extends Controller
         return $role;
     }
 
-    public function update(RoleRequest $request, Role $role)
+    public function update(RolesRequest $request, Role $role)
     {
         $validated = $request->validated();
         $role->update($validated);

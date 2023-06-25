@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
 use App\Http\Requests\Api\UpdateRolePermissionsRequest;
 use App\Http\Requests\Api\UpdateUserRolesRequest;
 use App\Models\User;
@@ -17,7 +17,7 @@ class PermissionController extends Controller
             return response()->json(['status' => 'Permissions is required']);
         }
         $role = Role::find($validatedData['roleID']);
-        $permissions = collect($validatedData['permissions'], 'id');
+        $permissions = array_pluck($validatedData['permissions'], 'id');
         $isUpdated = $role->syncPermissions($permissions);
 
         return response()->json(['status' => 'Role Permission updated successfully']);
@@ -31,7 +31,7 @@ class PermissionController extends Controller
             return response()->json(['status' => 'Roles is required']);
         }
         $user = User::find($validatedData['userID']);
-        $roles = collect($validatedData['roles'], 'id');
+        $roles = array_pluck($validatedData['roles'], 'id');
         $isUpdated = $user->syncRoles($roles);
 
         return response()->json(['status' => 'User Roles updated successfully']);
