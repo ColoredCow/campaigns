@@ -24,9 +24,8 @@ Route::middleware('auth')->group(function () {
     });
     Route::post('/campaign-image-upload', 'CampaignController@inlineImageUpload');
     Route::resource('campaign', 'CampaignController')->only(['index', 'create', 'store', 'show']);
-    Route::resource('list', 'SubscriptionListController')->except(['show', 'delete']);
-    Route::post('list', 'SubscriptionListController@store')->name('list.store');
-    Route::post('list','SubscriptionListController@destroy')->name('list.delete');
+    Route::resource('list', 'SubscriptionListController')->except(['show']);
+    Route::delete('list','SubscriptionListController@destroy')->name('list.delete');
     Route::resource('sender-identity', 'SenderIdentityController')->except(['show', 'destroy']);
     Route::delete('sender-identity/{sender}', 'SenderIdentityController@destroy')->name('sender-identity.destroy');
 
