@@ -18,10 +18,6 @@ class CampaignService
 	        'senderIdentities' => SenderIdentity::all(),
 		];
 
-		$response['lists'] = $response['lists']->sortBy(function ($list) {
-			return $list->name !== 'all';
-		});
-
 		if ($request->input('duplicate')) {
 			// TODO: validation
 			$response['duplicateCampaign'] = Campaign::with('subscriptionList')->find($request->input('duplicate'));
