@@ -82,7 +82,7 @@ class SubscriberController extends Controller
     public function create()
     {
         return view('subscriber.create')->with([
-            'lists' => SubscriptionList::where('name', '!=', 'all')->get(),
+            'lists' => SubscriptionList::where('name', '!=', 'all')->orderBy('name')->get(),
         ]);
     }
 
@@ -104,7 +104,7 @@ class SubscriberController extends Controller
     {
         return view('subscriber.edit')->with([
             'subscriber' => $subscriber,
-            'lists' => SubscriptionList::where('name', '!=', 'all')->get(),
+            'lists' => SubscriptionList::where('name', '!=', 'all')->orderBy('name')->get(),
         ]);
     }
 

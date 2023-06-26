@@ -58,6 +58,7 @@ class SubscriptionListController extends Controller
         $validated = $request->validated();
         $list = SubscriptionList::create([
             'name' => $validated['name'],
+            'created_by' => auth()->id(),
         ]);
         return redirect()->route('list.edit', $list)->with('success', 'List created successfully!');
     }
@@ -84,9 +85,8 @@ class SubscriptionListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $id = $request->id;
         ListSubscriber::where('list_id','=', $id)->delete();
         $list = SubscriptionList::find($id);
         $list->delete();

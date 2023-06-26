@@ -14,7 +14,7 @@ class CampaignService
 		$response = [
 			'allSubscribersCount' => Subscriber::count(),
 	        'allListId' => optional(SubscriptionList::where('name', 'like', 'all')->first())->id,
-	        'lists' => SubscriptionList::withCount('subscribers')->get(),
+	        'lists' => SubscriptionList::withCount('subscribers')->orderBy('name')->get(),
 	        'senderIdentities' => SenderIdentity::all(),
 		];
 
