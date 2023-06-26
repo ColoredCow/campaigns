@@ -22,7 +22,7 @@ class Campaign extends Model
 
     public function senderIdentity()
     {
-        return $this->hasOne(SenderIdentity::class, 'id', 'sender_identity_id');
+        return $this->hasOne(SenderIdentity::class, 'id', 'sender_identity_id')->withTrashed();
     }
 
     public function getSenderIdentityNameAttribute()

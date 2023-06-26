@@ -24,14 +24,17 @@ Route::middleware('auth')->group(function () {
     });
     Route::post('/campaign-image-upload', 'CampaignController@inlineImageUpload');
     Route::resource('campaign', 'CampaignController')->only(['index', 'create', 'store', 'show']);
-    Route::resource('list', 'SubscriptionListController')->except(['show']);
-    Route::resource('sender-identity', 'SenderIdentityController')->except(['show', 'delete']);
-    Route::post('sender-identity/delete','SenderIdentityController@destroy')->name('sender-identity.delete');
+    Route::resource('list', 'SubscriptionListController')->except(['show', 'delete']);
+    Route::post('list','SubscriptionListController@destroy')->name('list.delete');
+    Route::resource('sender-identity', 'SenderIdentityController')->except(['show', 'destroy']);
+    Route::delete('sender-identity/{sender}', 'SenderIdentityController@destroy')->name('sender-identity.destroy');
+
     Route::get('subscriber/upload', 'SubscriberController@uploadView')->name('subscriber.upload-view');
     Route::post('subscriber/upload', 'SubscriberController@upload')->name('subscriber.upload');
     Route::resource('subscriber', 'SubscriberController')->except(['show']);
 
-    Route::resource('user','UserController')->only(['index', 'edit', 'update']);
+    Route::resource('user','UserController')->only(['index', 'edit']);
+    Route::patch('user/{user}', 'UserController@update')->name('user.update');
     Route::get('user/create', 'UserController@create')->name('user.create');
     Route::post('registeruser', 'UserController@store')->name('registeruser');
     Route::post('user', 'UserController@destroy')->name('user.delete');
