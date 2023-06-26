@@ -19,7 +19,6 @@ class CreateSenderIdentitiesTable extends Migration
             $table->string('email')->unique();
             $table->boolean('is_default')->default(false);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
