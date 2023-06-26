@@ -90,6 +90,7 @@ class CampaignController extends Controller
             'email_subject' => $validated['email_subject'],
             'email_body' => $validated['email_body'],
             'sender_identity_id' => $validated['sender_identity_id'],
+            'created_by' => auth()->id(),
         ];
         $campaign = Campaign::create($args);
 

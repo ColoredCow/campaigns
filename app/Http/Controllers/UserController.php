@@ -49,17 +49,13 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(UserRequest $request, $userid)
+    public function update(UserRequest $request, User $user)
     {
-        $request->validated();
-        if ($request->password) {
-            $name = $request->input('name');
-            $email = $request->input('email');
-            $password = $request->input('password');
-            $this->userService->update($userid, $name, $email, $password);
+        $validate = $request->validated();
+        $this->userService->update($user->id, $validate['name'], $validate['email'], $validate['password']);
 
-            return redirect()->route('user.index')->with('success', 'User updated successfully');
-        }
+        return redirect()->route('user.index')->with('success', 'User updated successfully');
+        
     }
 
     public function store(UserRequest $request)
