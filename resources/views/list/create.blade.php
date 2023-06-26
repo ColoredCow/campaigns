@@ -2,9 +2,7 @@
 
 @section('content')
 <div class="container">
-    <form 
-    action="{{route('list.store')}}" 
-    method="POST">
+    <form action="{{route('list.store')}}" method="POST">
         @csrf
         <h2 class="mb-4"><i data-feather="list" class="mr-2 page-icon"></i>New List</h2>
         <div class="form-row">
