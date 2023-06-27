@@ -3,6 +3,27 @@
 @section('content')
 
 <div class="container">
+
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title fs-5" id="exampleModalLabel">Delete User</h3>
+                </div>
+                    <form action="{{ route('user.delete') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id='userId'>
+                            <h4>Are you sure you want to delete '<span id="displayUserName"></span>'?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+
     @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -55,12 +76,9 @@
                             href="{{route('user.edit', $user)}}" 
                             class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="w-20 h-20"></i>
                         </a>
-                        <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-link text-danger p-0" title="Delete">
-                                <i data-feather="trash-2" class="w-20 h-20"></i>
-                            </button>
-                        </form>
+                        <button type="submit" class="deleteUserBtn btn btn-link text-danger p-0" userid="{{($user->id)}}" username="{{$user->name}}" title="Delete">
+                            <i data-feather="trash-2" class="w-20 h-20"></i>
+                        </button>
                     </td>
                 </tr>
                 @endforeach
