@@ -65,9 +65,8 @@ class UserController extends Controller
         return redirect()->route('user.index')->with('success', 'Successfully registered new user!');
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request,User $user)
     {
-        $user = User::find($id);
         if ($user) {
             $user->delete();
             return redirect()->route('user.index')->with('success', 'User removed successfully.');
