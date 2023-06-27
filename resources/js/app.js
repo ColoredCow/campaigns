@@ -76,15 +76,3 @@ $('.resource-delete').on('click', function(){
     let form = $(this).parent().find('form');
     form.submit();
 });
-
-$(document).ready(function() {
-    $('.deleteUserBtn').click(function (e) {
-        e.preventDefault();
-
-        var userId = $(this).attr('userid');
-        var userName = $(this).attr('username');
-        $('#userId').val(userId);
-        $('#displayUserName').text(userName);
-        $('#deleteUserModal').modal('show');
-    })
-});
