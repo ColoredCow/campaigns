@@ -87,24 +87,4 @@ $(document).ready(function() {
         $('#displayUserName').text(userName);
         $('#deleteUserModal').modal('show');
     })
-
-    $('.deleteIdentityBtn').click(function (e) {
-        e.preventDefault();
-
-        var identityId = $(this).attr('identityid');
-        var identityName = $(this).attr('identityname');
-        $('#identityId').val(identityId);
-        $('#displayIdentityName').text(identityName);
-        $('#deleteIdentityModal').modal('show');
-    })
-
-    $('.deleteListBtn').click(function (e) {
-        e.preventDefault();
-
-        var listId = $(this).attr('listid');
-        var listName = $(this).attr('listname');
-        $('#listId').val(listId);
-        $('#displaylistName').text(listName);
-        $('#deletelistModal').modal('show');
-    })
 });
