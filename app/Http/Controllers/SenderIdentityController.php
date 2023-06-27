@@ -75,8 +75,9 @@ class SenderIdentityController extends Controller
         return redirect()->route('sender-identity.index')->with('status', sprintf('Identity for %s updated.', $senderIdentity->name));
     }
 
-    public function destroy(Request $request,SenderIdentity $sender)
+    public function destroy(Request $request)
     {
+        $sender = SenderIdentity::findOrFail($request->id);
         if ($sender) {
             $sender->delete();
             return back()->with('status', 'Sender-Identity deleted successfully!');
