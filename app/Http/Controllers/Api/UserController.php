@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\UserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,7 +15,7 @@ class UserController extends Controller
         return response(User::orderBy('name')->paginate(100));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user): Response
     {
         $updatedPassword = Hash::make($request->password);
         $user->update([
@@ -24,6 +24,6 @@ class UserController extends Controller
             'password' => $updatedPassword,
         ]);
 
-        return response()->json(['status' => 'User updated successfully']);
+        return response($user);
     }
 }
