@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function index(): Response
     {
-        return response(User::paginate(100));
+        return response(User::orderBy('name')->paginate(100));
     }
 
     public function update(Request $request, User $user)
