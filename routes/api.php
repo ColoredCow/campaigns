@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SenderIdentityController;
 use App\Http\Controllers\Api\SubscriberController;
 use App\Http\Controllers\Api\TagController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('sender-identity', SenderIdentityController::class)->except(['create', 'edit']);
     Route::resource('campaign', CampaignController::class)->except(['create', 'edit']);
     Route::resource('roles', RoleController::class)->except(['create', 'edit']);
+    Route::resource('user', UserController::class)->except(['create', 'edit']);
     Route::put('user/update-user-roles', [PermissionController::class, 'updateUserRoles'])->name('user.updateUserRoles');
     Route::post('user/update-role-permissions', [PermissionController::class, 'updateRolePermissions'])->name('user.updateRolePermissions');
 });
