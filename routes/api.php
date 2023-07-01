@@ -31,7 +31,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('sender-identity', SenderIdentityController::class)->except(['create', 'edit']);
     Route::resource('campaign', CampaignController::class)->except(['create', 'edit']);
     Route::resource('roles', RoleController::class)->except(['create', 'edit']);
-    Route::resource('users', UserController::class);
+    Route::resource('user', UserController::class)->except(['create', 'edit']);
     Route::put('user/update-user-roles', [PermissionController::class, 'updateUserRoles'])->name('user.updateUserRoles');
     Route::post('user/update-role-permissions', [PermissionController::class, 'updateRolePermissions'])->name('user.updateRolePermissions');
 });
