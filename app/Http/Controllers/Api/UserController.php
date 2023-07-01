@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UserRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
@@ -25,5 +26,18 @@ class UserController extends Controller
         ]);
 
         return response($user);
+    }
+
+    // Update the User roles
+    public function updateUserRoles(Request $request)
+    {
+        if (! isset($request->roles)) {
+            return response()->json(['status' => 'Roles is required']);
+        }
+        $user = User::find($request->userID);
+        $roles = array_pluck($request->roles, 'id');
+        $isUpdated = $user->syncRoles($roles);
+
+        return response()->json(['status' => 'User Roles updated successfully']);
     }
 }

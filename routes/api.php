@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\CampaignController;
-use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SenderIdentityController;
 use App\Http\Controllers\Api\SubscriberController;
@@ -30,10 +29,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('tag', TagController::class)->except(['create', 'edit']);
     Route::resource('sender-identity', SenderIdentityController::class)->except(['create', 'edit']);
     Route::resource('campaign', CampaignController::class)->except(['create', 'edit']);
-    Route::resource('roles', RoleController::class)->except(['create', 'edit']);
+    Route::resource('role', RoleController::class)->except(['create', 'edit']);
     Route::resource('user', UserController::class)->except(['create', 'edit']);
-    Route::put('user/update-user-roles', [PermissionController::class, 'updateUserRoles'])->name('user.updateUserRoles');
-    Route::post('user/update-role-permissions', [PermissionController::class, 'updateRolePermissions'])->name('user.updateRolePermissions');
+    Route::post('user/update-user-role', [UserController::class, 'updateUserRoles'])->name('user.updateUserRoles');
+    Route::post('role/update-role-permission', [RoleController::class, 'updateRolePermissions'])->name('role.updateRolePermissions');
 });
 
 require __DIR__.'/api/auth.php';
