@@ -76,4 +76,3 @@ $('.resource-delete').on('click', function(){
     let form = $(this).parent().find('form');
     form.submit();
 });
-

@@ -48,12 +48,10 @@
                             <span class="badge badge-primary mr-2">Default</span>
                         @endif
                         <a href="{{route('sender-identity.edit', $identity)}}" class="text-grey-dark mr-2" title="Edit"><i data-feather="edit" class="w-20 h-20"></i></a>
+                        <a href="#" class="text-danger resource-delete" title="Delete"><i data-feather="trash-2" class="w-20 h-20"></i></a>
                         <form action="{{ route('sender-identity.destroy', $identity->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-link text-danger p-0" title="Delete">
-                                <i data-feather="trash-2" class="w-20 h-20"></i>
-                            </button>
                         </form>
                     </td>
                 </tr>
