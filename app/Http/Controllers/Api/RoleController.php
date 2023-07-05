@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\RolePermissionRequest;
 use App\Http\Requests\Api\RoleRequest;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -13,11 +12,9 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all();
-        $permissions = Permission::all();
 
         return response()->json([
             'roles' => $roles,
-            'permissions' => $permissions,
         ]);
     }
 
@@ -49,16 +46,12 @@ class RoleController extends Controller
         return response()->noContent();
     }
 
-    // Update Role Permission
-    public function updateRolePermissions(Request $request)
+    public function updateRolePermissions(RolePermissionRequest $request, Role $role)
     {
-        if (! isset($request->permissions)) {
-            return response()->json(['status' => 'Permissions is required']);
-        }
-        $role = Role::find($request->roleID);
-        $permissions = array_pluck($request->permissions, 'id');
+        $validated = $request->validated();
+        $permissions = array_pluck($validated['permissions'], 'id');
         $isUpdated = $role->syncPermissions($permissions);
 
-        return response()->json(['status' => 'Role Permission updated successfully']);
+        return response($isUpdated);
     }
 }
