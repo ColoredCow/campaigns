@@ -11,8 +11,6 @@ class PermissionController extends Controller
     {
         $permissions = Permission::all();
 
-        return response()->json([
-            'permissions' => $permissions,
-        ]);
+        return response($permissions);
     }
 }
