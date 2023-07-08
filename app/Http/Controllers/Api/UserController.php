@@ -18,22 +18,23 @@ class UserController extends Controller
 
     public function update(UserRequest $request, User $user): Response
     {
-        $updatedPassword = Hash::make($request->password);
+        $validated = $request->validated();
+        $updatedPassword = Hash::make($validated['password']);
         $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
             'password' => $updatedPassword,
         ]);
 
         return response($user);
     }
 
-    public function updateUserRoles(UserRoleRequest $request, User $user)
+    public function updateUserRoles(UserRoleRequest $request, User $user): Response
     {
         $validated = $request->validated();
-        $roles = array_pluck($validated['roles'], 'id');
-        $isUpdated = $user->syncRoles($roles);
+        $roles = $validated['roles'];
+        $userWithUpdatedRoles = $user->syncRoles($roles);
 
-        return response($isUpdated);
+        return response($userWithUpdatedRoles);
     }
 }
