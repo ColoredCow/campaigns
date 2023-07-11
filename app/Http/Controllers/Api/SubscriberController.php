@@ -39,6 +39,10 @@ class SubscriberController extends Controller
         $validated = $request->validated();
         $subscriber->update($validated);
 
+        if (! empty($validated['tags'])) {
+            $subscriber->tags()->sync($validated['tags']);
+        }
+
         return response($subscriber);
     }
 
