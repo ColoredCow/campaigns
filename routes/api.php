@@ -21,18 +21,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/profile', function (Request $request) {
+        return $request->user();
+    });
     Route::resource('subscriber', SubscriberController::class)->except(['create', 'edit']);
     Route::resource('tag', TagController::class)->except(['create', 'edit']);
     Route::resource('sender-identity', SenderIdentityController::class)->except(['create', 'edit']);
     Route::resource('campaign', CampaignController::class)->except(['create', 'edit']);
     Route::resource('role', RoleController::class)->except(['create', 'edit']);
     Route::resource('permission', PermissionController::class)->except(['create', 'edit']);
-    Route::resource('user/user', UserController::class)->except(['create', 'edit']);
+    Route::resource('user', UserController::class)->except(['create', 'edit']);
     Route::post('user/{user}/role', [UserController::class, 'updateUserRoles'])->name('user.update-roles');
     Route::post('role/{role}/permission', [RoleController::class, 'updateRolePermissions'])->name('role.update-permissions');
 });
