@@ -12,7 +12,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('sanctum:prune-expired --hours=24')->daily();
+        $schedule->command('campaigns:verifyemails --limit=6')
+            ->everyMinute()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/email-verification.log'));
+        
+        $schedule->command('campaigns:sendpendingemails --limit=30')
+            ->everyMinute()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/sent-emails.log'));
     }
 
     /**
