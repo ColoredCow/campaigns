@@ -18,7 +18,6 @@ class SendCampaign extends Mailable
 
     protected $campaign;
     protected $subscriber;
-    protected $mailBody;
 
     /**
      * Create a new message instance.
