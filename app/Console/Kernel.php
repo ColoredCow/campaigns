@@ -21,6 +21,11 @@ class Kernel extends ConsoleKernel
             ->everyMinute()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/sent-emails.log'));
+
+        $schedule->command('campaigns:verifypendingemails')
+            ->daily()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/verify-pending-emails.log'));
     }
 
     /**
