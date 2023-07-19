@@ -29,17 +29,13 @@ class Campaign extends Model
         return $this->hasOne(SenderIdentity::class, 'id', 'sender_identity_id');
     }
 
-    public function senderIdentityName(): Attribute
+    public function getSenderIdentityNameAttribute()
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $attributes['senderIdentity'] ? $attributes['senderIdentity']->name : config('constants.campaigns.from.name'),
-        );
+        return $this->senderIdentity ? $this->senderIdentity->name : config('constants.campaigns.from.name');
     }
 
-    public function senderIdentityEmail(): Attribute
+    public function getSenderIdentityEmailAttribute()
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $attributes['senderIdentity'] ? $attributes['senderIdentity']->email : config('constants.campaigns.from.email'),
-        );
+        return $this->senderIdentity ? $this->senderIdentity->email : config('constants.campaigns.from.email');
     }
 }
