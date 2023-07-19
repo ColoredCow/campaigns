@@ -18,6 +18,14 @@ class CampaignController extends Controller
     {
         $validated = $request->validated();
         $campaign = Campaign::create($validated);
+        foreach ($campaign->subscriptionList->subscribers as $subscriber) {
+            if ($subscriber->has_verified_email && $subscriber->is_subscribed) {
+                PendingEmail::create([
+                    'subscriber_id' => $subscriber->id,
+                    'campaign_id' => $campaign->id,
+                ]);
+            }
+        }
 
         return response(Campaign::find($campaign->id));
     }
