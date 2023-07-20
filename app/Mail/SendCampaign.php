@@ -46,6 +46,7 @@ class SendCampaign extends Mailable
                 $email->attach(storage_path('app/' . $attachment->attachment));
             }
         }
+
         return $this;
     }
 
