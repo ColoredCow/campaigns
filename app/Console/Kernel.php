@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
             ->everyMinute()
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/email-verification.log'));
-        
+
         $schedule->command('campaigns:sendpendingemails --limit=30')
             ->everyMinute()
             ->withoutOverlapping()
@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

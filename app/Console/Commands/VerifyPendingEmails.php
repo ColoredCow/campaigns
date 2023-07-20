@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\PendingEmail;
 use App\Helpers\EmailVerifier;
+use App\Models\PendingEmail;
+use Illuminate\Console\Command;
 
 class VerifyPendingEmails extends Command
 {
@@ -30,7 +30,7 @@ class VerifyPendingEmails extends Command
         $pendingEmails = PendingEmail::with('subscriber')->get();
         foreach ($pendingEmails as $pendingEmail) {
             $subscriber = $pendingEmail->subscriber;
-            if($subscriber->has_verified_email){
+            if ($subscriber->has_verified_email) {
                 $verified = EmailVerifier::isValidEmail($subscriber->email);
                 $subscriber->has_verified_email = $verified;
                 $subscriber->email_verification_at = now();

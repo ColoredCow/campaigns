@@ -2,15 +2,12 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
-use App\Models\Subscriber;
-use App\Models\Campaign;
 use App\Helpers\ParseEmailTemplate;
+use App\Models\Campaign;
+use App\Models\Subscriber;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Crypt;
 
 class SendCampaign extends Mailable

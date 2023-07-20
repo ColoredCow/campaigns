@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\PendingEmail;
 use App\Mail\SendCampaign;
-use Illuminate\Support\Facades\Mail;
 use App\Models\CampaignEmailsSent;
+use App\Models\PendingEmail;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class SendPendingEmails extends Command
 {
@@ -20,7 +20,7 @@ class SendPendingEmails extends Command
     /**
      * The console command description.
      *
-    * @var string
+     * @var string
      */
     protected $description = 'Sends emails in pending_emails table. Deletes the entry after sending.';
 
@@ -31,7 +31,6 @@ class SendPendingEmails extends Command
     {
         $limit = $this->option('limit');
 
-        
         $pendingEmails = PendingEmail::with(['subscriber', 'campaign'])->limit($limit)->get();
         foreach ($pendingEmails as $pendingEmail) {
             $subscriber = $pendingEmail->subscriber;

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\Subscriber;
 use App\Helpers\EmailVerifier;
+use App\Models\Subscriber;
+use Illuminate\Console\Command;
 
 class VerifyEmails extends Command
 {
