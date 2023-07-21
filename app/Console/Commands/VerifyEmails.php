@@ -27,7 +27,7 @@ class VerifyEmails extends Command
      */
     public function handle()
     {
-        $limit = $this->option('limit');
+        $limit = (int)$this->option('limit');
         $subscribers = Subscriber::whereNull('email_verification_at')->limit($limit)->get();
         foreach ($subscribers as $subscriber) {
             $verified = EmailVerifier::isValidEmail($subscriber->email);

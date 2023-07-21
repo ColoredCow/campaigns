@@ -29,7 +29,7 @@ class SendPendingEmails extends Command
      */
     public function handle()
     {
-        $limit = $this->option('limit');
+        $limit = (int)$this->option('limit');
 
         $pendingEmails = PendingEmail::with(['subscriber', 'campaign'])->limit($limit)->get();
         foreach ($pendingEmails as $pendingEmail) {
