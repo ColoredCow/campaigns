@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\SubscriberRequest;
+use App\Models\CampaignEmailsSent;
+use App\Models\ListSubscriber;
+use App\Models\PendingEmail;
 use App\Models\Subscriber;
 use Illuminate\Http\Response;
 
@@ -36,11 +39,20 @@ class SubscriberController extends Controller
         $validated = $request->validated();
         $subscriber->update($validated);
 
+        if (! empty($validated['tags'])) {
+            $subscriber->tags()->sync($validated['tags']);
+        } else {
+            $subscriber->tags()->sync([]);
+        }
+
         return response($subscriber);
     }
 
     public function destroy(Subscriber $subscriber): Response
     {
+        CampaignEmailsSent::where('subscriber_id', $subscriber->id)->delete();
+        PendingEmail::where('subscriber_id', $subscriber->id)->delete();
+        ListSubscriber::where('subscriber_id', $subscriber->id)->delete();
         $subscriber->delete();
 
         return response()->noContent();
