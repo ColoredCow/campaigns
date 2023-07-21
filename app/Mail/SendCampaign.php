@@ -15,7 +15,9 @@ class SendCampaign extends Mailable
     use Queueable, SerializesModels;
 
     protected $campaign;
+
     protected $subscriber;
+
     protected $mailBody;
 
     /**
@@ -43,7 +45,7 @@ class SendCampaign extends Mailable
             ]);
         if ($this->campaign->attachments->count() > 0) {
             foreach ($this->campaign->attachments as $attachment) {
-                $email->attach(storage_path('app/' . $attachment->attachment));
+                $email->attach(storage_path('app/'.$attachment->attachment));
             }
         }
 
@@ -52,7 +54,7 @@ class SendCampaign extends Mailable
 
     private function getFrom()
     {
-        if (!$this->campaign->senderIdentity) {
+        if (! $this->campaign->senderIdentity) {
             return [
                 'name' => config('constants.campaigns.from.name'),
                 'email' => config('constants.campaigns.from.email'),
