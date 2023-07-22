@@ -15,6 +15,8 @@ class Campaign extends Model
 
     public $senderIdentity;
 
+    public $subscriptionList;
+
     public function tag()
     {
         return $this->belongsTo(Tag::class, 'subscription_list_id');
