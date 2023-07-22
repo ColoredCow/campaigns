@@ -16,6 +16,8 @@ class Campaign extends Model
 
     public $subscriptionList;
 
+    public $senderIdentity;
+
     public function tag()
     {
         return $this->belongsTo(Tag::class, 'subscription_list_id');
@@ -33,15 +35,11 @@ class Campaign extends Model
 
     public function senderIdentityName(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $attributes['senderIdentity'] ? $attributes['senderIdentity']->name : config('constants.campaigns.from.name'),
-        );
+        return $this->senderIdentity ? $this->senderIdentity->name : config('constants.campaigns.from.name');
     }
 
     public function senderIdentityEmail(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $attributes['senderIdentity'] ? $attributes['senderIdentity']->email : config('constants.campaigns.from.email'),
-        );
+        return $this->senderIdentity ? $this->senderIdentity->email : config('constants.campaigns.from.email');
     }
 }
