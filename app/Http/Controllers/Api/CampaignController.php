@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CampaignRequest;
 use App\Models\Campaign;
+use App\Models\PendingEmail;
 use Illuminate\Http\Response;
 
 class CampaignController extends Controller
