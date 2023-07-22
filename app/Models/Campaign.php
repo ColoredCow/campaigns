@@ -13,6 +13,8 @@ class Campaign extends Model
         'email_body',
     ];
 
+    public $senderIdentity;
+
     public function tag()
     {
         return $this->belongsTo(Tag::class, 'subscription_list_id');

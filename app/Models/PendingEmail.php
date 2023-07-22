@@ -8,6 +8,10 @@ class PendingEmail extends Model
 {
     protected $guarded = [];
 
+    public $subscriber;
+
+    public $campaign;
+
     public function campaign()
     {
         return $this->belongsTo(Campaign::class);
