@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PendingEmail extends Model
 {
@@ -11,11 +10,11 @@ class PendingEmail extends Model
 
     public function campaign()
     {
-        return $this->belongsTo(Campaign::class);
+        return $this->belongsTo(Campaign::class, 'campaign_id');
     }
 
     public function subscriber()
     {
-        return $this->belongsTo(Subscriber::class);
+        return $this->belongsTo(Subscriber::class, 'subscriber_id');
     }
 }
