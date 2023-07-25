@@ -1,15 +1,14 @@
-@servers(['localhost' => '127.0.0.1'])
+@servers(['localhost' => '127.0.0.1', 'staging' => '', 'production' => ''])
 
-@story('deploy', ['on' => 'localhost'])
-    composer 
-    migrate
-@endstory
-
-
-@task('composer')
+@task('installation', ['on' => 'localhost'])
     composer install
+    cp .env.example .env
+    php artisan key:generate
+    php artisan migrate
+    php artisan db:seed
 @endtask
 
-@task('migrate')
-    php artisan migrate
-@endtask
+{{-- Running Command --}}
+
+{{-- php vendor/bin/envoy run installation --}}
+
