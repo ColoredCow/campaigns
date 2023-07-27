@@ -35,11 +35,11 @@ class Campaign extends Model
 
     public function senderIdentityName(): Attribute
     {
-        return $this->senderIdentity ? $this->senderIdentity->name : config('constants.campaigns.from.name');
+        return $this->senderIdentity ? $this->senderIdentity->name : config('campaigns.campaigns.from.name');
     }
 
     public function senderIdentityEmail(): Attribute
     {
-        return $this->senderIdentity ? $this->senderIdentity->email : config('constants.campaigns.from.email');
+        return $this->senderIdentity ? $this->senderIdentity->email : config('campaigns.campaigns.from.email');
     }
 }

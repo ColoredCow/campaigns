@@ -56,8 +56,8 @@ class SendCampaign extends Mailable
     {
         if (! $this->campaign->senderIdentity) {
             return [
-                'name' => config('constants.campaigns.from.name'),
-                'email' => config('constants.campaigns.from.email'),
+                'name' => config('campaigns.campaigns.from.name'),
+                'email' => config('campaigns.campaigns.from.email'),
             ];
         }
 
