@@ -1,14 +1,13 @@
-@servers(['localhost' => '127.0.0.1', 'staging' => '', 'production' => ''])
+@servers(['staging' => '', 'production' => ''])
 
-@task('installation', ['on' => 'localhost'])
-    composer install
-    cp .env.example .env
-    php artisan key:generate
+@task('staging-deployment')
+    php artisan down
+    git pull origin main
+    composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
+    composer dump-autoload
     php artisan migrate
-    php artisan db:seed
+    php artisan optimize:clear
+    php artisan up
 @endtask
 
-{{-- Running Command --}}
-
-{{-- php vendor/bin/envoy run installation --}}
 
