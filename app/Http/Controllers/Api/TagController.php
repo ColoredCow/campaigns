@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\TagRequest;
 use App\Models\Tag;
 use Illuminate\Http\Response;
+use App\Models\ListSubscriber;
 
 class TagController extends Controller
 {
@@ -37,6 +38,7 @@ class TagController extends Controller
 
     public function destroy(Tag $tag): Response
     {
+        ListSubscriber::where('list_id', $tag->id)->delete();
         $tag->delete();
 
         return response()->noContent();
