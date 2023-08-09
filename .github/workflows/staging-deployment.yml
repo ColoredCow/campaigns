@@ -8,10 +8,6 @@ jobs:
     name: build
     runs-on: ubuntu-latest
 
-    environment:
-      name: staging
-      url: "https://uat.api.campaigns.coloredcow.com/"
-
     steps:
     - uses: actions/checkout@v2
     - name: Deploy to staging
