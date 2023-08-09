@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\TagRequest;
+use App\Models\ListSubscriber;
 use App\Models\Tag;
 use Illuminate\Http\Response;
-use App\Models\ListSubscriber;
 
 class TagController extends Controller
 {
