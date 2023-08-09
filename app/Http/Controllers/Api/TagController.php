@@ -38,7 +38,6 @@ class TagController extends Controller
     public function destroy(Tag $tag): Response
     {
         $tag->delete();
-        
 
         return response()->noContent();
     }
