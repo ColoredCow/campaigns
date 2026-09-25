@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\TagRequest;
+use App\Models\ListSubscriber;
 use App\Models\Tag;
 use Illuminate\Http\Response;
 
@@ -37,6 +38,7 @@ class TagController extends Controller
 
     public function destroy(Tag $tag): Response
     {
+        ListSubscriber::where('list_id', $tag->id)->delete();
         $tag->delete();
 
         return response()->noContent();
