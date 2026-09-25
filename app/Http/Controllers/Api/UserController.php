@@ -29,6 +29,18 @@ class UserController extends Controller
         return response($user);
     }
 
+    public function show(User $user): Response
+    {
+        return response($user);
+    }
+
+    public function destroy(User $user): Response
+    {
+        $user->delete();
+
+        return response()->noContent();
+    }
+
     public function updateUserRoles(UserRoleRequest $request, User $user): Response
     {
         $validated = $request->validated();
