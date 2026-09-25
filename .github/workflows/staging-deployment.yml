@@ -1,0 +1,47 @@
+name: Staging Deployment
+on:
+  push:
+    branches: [feature/new_campaigns]
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Deploy to staging
+      uses: appleboy/ssh-action@master
+      env:
+        SSH_BUILD_DIRECTORY: ${{ secrets.UAT_SSH_BUILD_DIRECTORY }}
+        SSH_POST_BUILD_SCRIPT: post_build_script.sh
+      with:
+        host: ${{ secrets.UAT_SSH_HOST }}
+        username: ${{ secrets.UAT_SSH_USERNAME }}
+        key: ${{ secrets.UAT_SSH_PRIVATE_KEY }}
+        envs: SSH_BUILD_DIRECTORY,SSH_POST_BUILD_SCRIPT
+        script: |
+          cd $SSH_BUILD_DIRECTORY
+
+          echo "Enabling maintenance mode"
+          php artisan down
+
+          echo "Pulling latest code"
+          git checkout -f
+          git pull origin feature/new_campaigns
+          php artisan migrate
+
+          echo "Running composer"
+          composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
+          composer dump-autoload
+
+          echo "Optimizing Laravel app"
+          php artisan optimize:clear
+
+          echo "Disabling maintenance mode"
+          php artisan up
+
+          if test -f "$SSH_POST_BUILD_SCRIPT"; then
+            echo "Running post build script"
+            sh ./$SSH_POST_BUILD_SCRIPT
+          fi
